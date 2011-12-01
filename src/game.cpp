@@ -1,56 +1,96 @@
 #include "GL/glew.h"
 #include "GL/freeglut.h"
+#include "glm.h"
+
 #include <iostream>
 #include <string>
 #include <math.h>
 #include <time.h>
+#include <sstream>
+#include <vector>
+#include <boost/shared_ptr.hpp>
+#include <boost/foreach.hpp>
 
-int SCREEN_WIDTH = 640;
-int SCREEN_HEIGHT = 480;
+#include "Components/GameComponent.hpp"
+
+#define foreach BOOST_FOREACH
+
+typedef boost::shared_ptr<GameComponent> GameComponentPtr;
+typedef std::vector<GameComponentPtr> GameComponentsVector;
+
+int SCREEN_WIDTH = 1000;
+int SCREEN_HEIGHT = 600;
+int camera[3] = {0};
+GameComponentsVector _components(0);
+
+int fps;
+
+void initProjectionMatrix(int width, int height)
+{
+	SCREEN_WIDTH = width;
+	SCREEN_HEIGHT = height;
+
+	if(height == 0)
+		height = 1;
+
+	float ratio = 1.0 * width / height;
+
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, width, height);
+	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
+}
 
 void initOpenGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
 	glShadeModel(GL_SMOOTH); 
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); 
-	
-	glMatrixMode(GL_PROJECTION); 
-	glLoadIdentity(); 
-	gluPerspective(45.0f, (GLfloat)SCREEN_WIDTH/(GLfloat)SCREEN_HEIGHT, 1.0f, 1000.0f); 
 
-	glEnable(GL_DEPTH_TEST); 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
+	initProjectionMatrix(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	
+
+	//enablers
+	glEnable(GL_DEPTH_TEST); 
+
+	// inits
+	camera[3] = 50;
+}
+
+void updateScene()
+{
+	foreach(GameComponentPtr component, _components){
+		component->update();
+	}
 }
 
 void renderScene(void)
 {
+	// update
+	updateScene();
+
+	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, -10.0, 0.0, 1.0, 0.0);
+	gluLookAt(camera[0], camera[1], camera[2], 0.0, 0.0, 0, 0.0, 1.0, 0.0);
+
+	foreach(GameComponentPtr component, _components){
+		component->draw();
+	}
 
 	glutSwapBuffers();
+
+	std::stringstream ss;
+	ss << "Mirage - " << fps << "fps";
+	glutSetWindowTitle(ss.str().c_str());
 }
 
 void changeSize(int w, int h)
 {
-	SCREEN_WIDTH=w;
-	SCREEN_HEIGHT=h;
-
-	if(h == 0)
-		h = 1;
-
-	float ratio = 1.0*w/h;
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glViewport(0, 0, w, h);
-	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
+	initProjectionMatrix(w, h);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0.0f, 0.0f, 50.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f);
 }
 
 void processNormalKeys(unsigned char key, int x, int y)
@@ -73,6 +113,9 @@ void processNormalKeys(unsigned char key, int x, int y)
 			break;
 	}
 }
+void idleFunc(){
+	glutPostRedisplay();
+}
 int main( int argc, char* argv[])
 {
 	//Initialize the GLUT library 
@@ -88,7 +131,7 @@ int main( int argc, char* argv[])
 	//Specifies the function to call when the window needs to be redisplayed 
 	glutDisplayFunc(renderScene); 
 	//Sets the idle callback function 
-	glutIdleFunc(renderScene); 
+	glutIdleFunc(idleFunc); 
 	//Sets the reshape callback function 
 	glutReshapeFunc(changeSize); 
 	//Keyboard callback function 
