@@ -3,27 +3,24 @@
 #include "glm.h"
 
 #include <iostream>
-#include <string>
 #include <math.h>
-#include <time.h>
-#include <sstream>
 #include <vector>
+#include <list>
 #include <boost/shared_ptr.hpp>
 #include <boost/foreach.hpp>
 
 #include "Components/GameComponent.hpp"
+#include "Components/FPSCounter.hpp"
 
 #define foreach BOOST_FOREACH
 
 typedef boost::shared_ptr<GameComponent> GameComponentPtr;
-typedef std::vector<GameComponentPtr> GameComponentsVector;
+typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
 int camera[3] = {0};
 GameComponentsVector _components(0);
-
-int fps;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -42,6 +39,7 @@ void initProjectionMatrix(int width, int height)
 	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
 }
 
+
 void initOpenGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
 	glShadeModel(GL_SMOOTH); 
@@ -57,6 +55,10 @@ void initOpenGL() {
 
 	// inits
 	camera[3] = 50;
+}
+
+void initGame(){
+	_components.push_back(GameComponentPtr(new FPSCounter));
 }
 
 void updateScene()
@@ -81,10 +83,6 @@ void renderScene(void)
 	}
 
 	glutSwapBuffers();
-
-	std::stringstream ss;
-	ss << "Mirage - " << fps << "fps";
-	glutSetWindowTitle(ss.str().c_str());
 }
 
 void changeSize(int w, int h)
@@ -113,6 +111,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 			break;
 	}
 }
+
 void idleFunc(){
 	glutPostRedisplay();
 }
@@ -138,6 +137,9 @@ int main( int argc, char* argv[])
 	glutKeyboardFunc(processNormalKeys); 
 	//Initialize some OpenGL parameters 
 	initOpenGL(); 
+
+	initGame();
+
 	//Starts the GLUT infinite loop 
 	glutMainLoop();
 	return 0;

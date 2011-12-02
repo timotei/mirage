@@ -166,6 +166,14 @@
 			>
 		</Filter>
 		<File
+			RelativePath=".\src\Components\FPSCounter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Components\FPSCounter.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\game.cpp"
 			>
 		</File>
