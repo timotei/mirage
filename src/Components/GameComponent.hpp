@@ -5,6 +5,9 @@ class GameComponent{
 public:
 	virtual void draw() = 0;
 	virtual void update() = 0;
+
+	virtual void onKeyPressed(char, int, int, bool)  {};
+
 	virtual ~GameComponent() {}
 };
 

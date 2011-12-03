@@ -166,6 +166,14 @@
 			>
 		</Filter>
 		<File
+			RelativePath=".\src\Components\Camera.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Components\Camera.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\Components\FPSCounter.cpp"
 			>
 		</File>

@@ -12,6 +12,7 @@
 #include "Vector3.hpp"
 #include "Components/GameComponent.hpp"
 #include "Components/FPSCounter.hpp"
+#include "Components/Camera.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -20,9 +21,7 @@ typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
-Vector3 _cameraPosition;
-Vector3 _cameraTarget;
-int _cameraMovement = 1;
+Camera _camera;
 GameComponentsVector _components(0);
 
 GLMmodel *box;
@@ -75,7 +74,7 @@ void initOpenGL() {
 	glEnable(GL_DEPTH_TEST); 
 
 	// inits
-	_cameraPosition.z = 10;
+	_camera.position.z = 10;
 }
 
 void initGame(){
@@ -86,6 +85,8 @@ void initGame(){
 
 void updateScene()
 {
+	_camera.update();
+
 	foreach(GameComponentPtr component, _components){
 		component->update();
 	}
@@ -99,9 +100,7 @@ void renderScene(void)
 	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(_cameraPosition.x, _cameraPosition.y, _cameraPosition.z, 
-		_cameraTarget.x, _cameraTarget.y, _cameraTarget.z,
-		0.0, 1.0, 0.0);
+	_camera.draw();
 
 	glmDraw(box, GLM_SMOOTH);
 
@@ -124,25 +123,16 @@ void processNormalKeys(unsigned char key, int x, int y)
 	if ( key == 27 ){
 		glutLeaveMainLoop();
 	}
+	
+	_camera.onKeyPressed(key, x, y);
+}
 
-	switch( key ) {
-		case 'w':
-			_cameraPosition.z -= _cameraMovement;
-			break;
-		case 'a':
-			_cameraPosition.x -= _cameraMovement;
-			_cameraTarget.x -= _cameraMovement;
-			break;
-		case 's':
-			_cameraPosition.z += _cameraMovement;
-			break;
-		case 'd':
-			_cameraPosition.x += _cameraMovement;
-			_cameraTarget.x += _cameraMovement;
-			break;
-		default:
-			break;
-	}
+void mouseMotion(int x, int y){
+	_camera.onMouseMoved(x, y);
+}
+
+void mousePressed(int button, int state, int x, int y){
+	_camera.onMousePressed(button, state, x, y);
 }
 
 void idleFunc(){
@@ -168,6 +158,9 @@ int main( int argc, char* argv[])
 	glutReshapeFunc(changeSize); 
 	//Keyboard callback function 
 	glutKeyboardFunc(processNormalKeys); 
+
+	glutMouseFunc(mousePressed);
+	glutMotionFunc(mouseMotion);
 	//Initialize some OpenGL parameters 
 	initOpenGL(); 
 
