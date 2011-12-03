@@ -13,6 +13,7 @@
 #include "Components/GameComponent.hpp"
 #include "Components/FPSCounter.hpp"
 #include "Components/Camera.hpp"
+#include "Components/Model.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -24,23 +25,7 @@ int SCREEN_HEIGHT = 600;
 Camera _camera;
 GameComponentsVector _components(0);
 
-GLMmodel *box;
-
-bool loadModel(GLMmodel *&targetModel, char* fileName, bool unitize = true, bool force = false){
-	if (targetModel == NULL || force){
-		targetModel = glmReadOBJ(fileName);
-
-		if (targetModel == NULL) return false;
-
-		if (unitize){
-			glmUnitize(targetModel);
-		}
-
-		glmFacetNormals(targetModel);
-		glmVertexNormals(targetModel, 90.0);
-	}
-	return true;
-}
+Model box;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -50,7 +35,7 @@ void initProjectionMatrix(int width, int height)
 	if(height == 0)
 		height = 1;
 
-	float ratio = 1.0 * width / height;
+	float ratio = float(1.0 * width / height);
 
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); 
 	glMatrixMode(GL_PROJECTION);
@@ -80,7 +65,7 @@ void initOpenGL() {
 void initGame(){
 	_components.push_back(GameComponentPtr(new FPSCounter));
 
-	loadModel(box, "data/models/box.obj");
+	box.loadFromFile("data/models/box.obj");
 }
 
 void updateScene()
@@ -101,7 +86,7 @@ void renderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_camera.draw();
 
-	glmDraw(box, GLM_SMOOTH);
+	box.draw();
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();

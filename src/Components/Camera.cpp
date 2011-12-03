@@ -2,7 +2,7 @@
 #include "../Utils.hpp"
 
 #include <iostream>
-
+#include <math.h>
 
 Camera::Camera()
 : up(0, 1, 0),
