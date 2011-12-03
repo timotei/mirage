@@ -3,8 +3,8 @@
 
 class GameComponent{
 public:
-	virtual void draw() = 0;
-	virtual void update() = 0;
+	virtual void draw() {}
+	virtual void update() {}
 
 	virtual void onKeyPressed(char, int, int, bool)  {};
 

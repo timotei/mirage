@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="glew32.lib glm.lib"
+				AdditionalDependencies="glew32.lib glm.lib tga.lib"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -203,6 +203,14 @@
 		</File>
 		<File
 			RelativePath=".\src\Components\Model.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Components\Skybox.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Components\Skybox.hpp"
 			>
 		</File>
 		<File

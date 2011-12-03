@@ -15,6 +15,7 @@
 #include "Components/Camera.hpp"
 #include "Components/Model.hpp"
 #include "Components/LightSource.hpp"
+#include "Components/Skybox.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -23,6 +24,7 @@ typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
+
 Camera _camera;
 GameComponentsVector _components(0);
 
@@ -78,6 +80,10 @@ void initGame(){
 	_sun->setAmbient(Vector3(1, 1, 1));
 
 	_moon = new LightSource(GL_LIGHT1);
+
+	boost::shared_ptr<Skybox> skybox(new Skybox(50, 10, 50));
+	skybox->loadTextures("data/gfx/skybox/desertplains");
+	_components.push_back(skybox);
 }
 
 void updateScene()
@@ -103,7 +109,7 @@ void renderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_camera.draw();
 	glPushMatrix();
-		glRotatef(_sunRotate, 0, 0, 1);
+		//glRotatef(_sunRotate, 0, 0, 1);
 		_sun->draw();
 	glPopMatrix();
 	_moon->draw();
