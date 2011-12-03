@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="glew32.lib"
+				AdditionalDependencies="glew32.lib glm.lib"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -179,6 +179,10 @@
 		</File>
 		<File
 			RelativePath=".\src\Components\GameComponent.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Vector3.hpp"
 			>
 		</File>
 	</Files>

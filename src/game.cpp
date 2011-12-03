@@ -9,6 +9,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/foreach.hpp>
 
+#include "Vector3.hpp"
 #include "Components/GameComponent.hpp"
 #include "Components/FPSCounter.hpp"
 
@@ -19,8 +20,28 @@ typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
-int camera[3] = {0};
+Vector3 _cameraPosition;
+Vector3 _cameraTarget;
+int _cameraMovement = 1;
 GameComponentsVector _components(0);
+
+GLMmodel *box;
+
+bool loadModel(GLMmodel *&targetModel, char* fileName, bool unitize = true, bool force = false){
+	if (targetModel == NULL || force){
+		targetModel = glmReadOBJ(fileName);
+
+		if (targetModel == NULL) return false;
+
+		if (unitize){
+			glmUnitize(targetModel);
+		}
+
+		glmFacetNormals(targetModel);
+		glmVertexNormals(targetModel, 90.0);
+	}
+	return true;
+}
 
 void initProjectionMatrix(int width, int height)
 {
@@ -54,11 +75,13 @@ void initOpenGL() {
 	glEnable(GL_DEPTH_TEST); 
 
 	// inits
-	camera[3] = 50;
+	_cameraPosition.z = 10;
 }
 
 void initGame(){
 	_components.push_back(GameComponentPtr(new FPSCounter));
+
+	loadModel(box, "data/models/box.obj");
 }
 
 void updateScene()
@@ -76,7 +99,11 @@ void renderScene(void)
 	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(camera[0], camera[1], camera[2], 0.0, 0.0, 0, 0.0, 1.0, 0.0);
+	gluLookAt(_cameraPosition.x, _cameraPosition.y, _cameraPosition.z, 
+		_cameraTarget.x, _cameraTarget.y, _cameraTarget.z,
+		0.0, 1.0, 0.0);
+
+	glmDraw(box, GLM_SMOOTH);
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();
@@ -99,13 +126,19 @@ void processNormalKeys(unsigned char key, int x, int y)
 	}
 
 	switch( key ) {
-		case 'w': 
+		case 'w':
+			_cameraPosition.z -= _cameraMovement;
 			break;
 		case 'a':
+			_cameraPosition.x -= _cameraMovement;
+			_cameraTarget.x -= _cameraMovement;
 			break;
 		case 's':
+			_cameraPosition.z += _cameraMovement;
 			break;
 		case 'd':
+			_cameraPosition.x += _cameraMovement;
+			_cameraTarget.x += _cameraMovement;
 			break;
 		default:
 			break;
