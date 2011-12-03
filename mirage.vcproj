@@ -190,6 +190,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\Components\LightSource.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Components\LightSource.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\Components\Model.cpp"
 			>
 		</File>

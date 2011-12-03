@@ -17,6 +17,13 @@ struct Vector3{
 		z(Z)
 	{
 	}
+
+	Vector3(const Vector3& other) :
+		x(other.x),
+		y(other.y),
+		z(other.z)
+	{
+	}
 };
 
 #endif // MIRAGE_VECTOR3_HPP__

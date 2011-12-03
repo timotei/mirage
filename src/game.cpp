@@ -14,6 +14,7 @@
 #include "Components/FPSCounter.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Model.hpp"
+#include "Components/LightSource.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -24,6 +25,9 @@ int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
 Camera _camera;
 GameComponentsVector _components(0);
+
+LightSource *_moon,  *_sun;
+GLfloat _sunRotate;
 
 Model box;
 
@@ -56,7 +60,8 @@ void initOpenGL() {
 	glLoadIdentity();
 
 	//enablers
-	glEnable(GL_DEPTH_TEST); 
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
 
 	// inits
 	_camera.position.z = 10;
@@ -66,15 +71,27 @@ void initGame(){
 	_components.push_back(GameComponentPtr(new FPSCounter));
 
 	box.loadFromFile("data/models/box.obj");
+
+	_sun = new LightSource(GL_LIGHT0);
+	_sun->setDiffuse(Vector3(1, 1, 1));
+	_sun->setPosition(Vector3(0, 10, 0));
+	_sun->setAmbient(Vector3(1, 1, 1));
+
+	_moon = new LightSource(GL_LIGHT1);
 }
 
 void updateScene()
 {
 	_camera.update();
+	_sun->update();
+	_moon->update();
 
 	foreach(GameComponentPtr component, _components){
 		component->update();
 	}
+
+	_sunRotate += 0.1;
+	if (_sunRotate >= 360) _sunRotate -= 360;
 }
 
 void renderScene(void)
@@ -85,6 +102,11 @@ void renderScene(void)
 	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_camera.draw();
+	glPushMatrix();
+		glRotatef(_sunRotate, 0, 0, 1);
+		_sun->draw();
+	glPopMatrix();
+	_moon->draw();
 
 	box.draw();
 
