@@ -1,6 +1,8 @@
 #include "Camera.hpp"
+#include "../Utils.hpp"
 
 #include <iostream>
+
 
 Camera::Camera()
 : up(0, 1, 0),
@@ -9,13 +11,16 @@ _lastMouseY(-1)
 {
 }
 
-void Camera::onMouseMoved(int x, int y, bool buttonPressed /* = true */){
-	if (buttonPressed){
+void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
+	if (isButtonPressed){
 		int deltaX = x - _lastMouseX;
 		int deltaY = y - _lastMouseY;
 
-		_rotationX += deltaY;
-		_rotationY += deltaX;
+		_rotationX += deltaY / 3;
+		if (_rotationX >= 360) _rotationX -= 360;
+
+		_rotationY += deltaX / 3;
+		if (_rotationY >= 360) _rotationY -= 360;
 	}
 	_lastMouseX = x;
 	_lastMouseY = y;
@@ -23,33 +28,40 @@ void Camera::onMouseMoved(int x, int y, bool buttonPressed /* = true */){
 
 void Camera::onKeyPressed(char key, int mouseX, int mouseY, bool special){
 	if (!special){
+		float sinX = float(sin(toRadians(_rotationX)));
+		float sinY = float(sin(toRadians(_rotationY)));
+		float cosX = float(cos(toRadians(_rotationX)));
+		float cosY = float(cos(toRadians(_rotationY)));
+
 		switch( key ) {
 			case 'w':
-				position.z -= MOVEMENT_UNIT;
+				position.x += sinY;
+				position.y -= sinX;
+				position.z -= cosY;
 				break;
 			case 'a':
-				position.x -= MOVEMENT_UNIT;
-				target.x -= MOVEMENT_UNIT;
+				position.x -= cosY;
+				position.z -= sinY;
 				break;
 			case 's':
-				position.z += MOVEMENT_UNIT;
+				position.x -= sinY;
+				position.y += sinX;
+				position.z += cosY;
 				break;
 			case 'd':
-				position.x += MOVEMENT_UNIT;
-				target.x += MOVEMENT_UNIT;
+				position.x += cosY;
+				position.z += sinY;
 				break;
 		}
 	}
 }
 
 void Camera::draw(){
-	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	glRotatef(_rotationX, 1, 0, 0);
 	glRotatef(_rotationY, 0, 1, 0);
 
-	gluLookAt(position.x, position.y, position.z, 
-		target.x, target.y, target.z,
-		up.x, up.y, up.z);
+	glTranslatef(-position.x, -position.y, -position.z);
 }
 
 void Camera::onMousePressed( int button, int state, int x, int y )

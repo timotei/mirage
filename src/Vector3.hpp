@@ -2,7 +2,7 @@
 #define MIRAGE_VECTOR3_HPP__
 
 struct Vector3{
-	int x,y,z;
+	float x,y,z;
 
 	Vector3() :
 		x(0),
@@ -11,7 +11,7 @@ struct Vector3{
 	{
 	}
 
-	Vector3(int X, int Y, int Z) :
+	Vector3(float X, float Y, float Z) :
 		x(X),
 		y(Y),
 		z(Z)
