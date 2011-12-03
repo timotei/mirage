@@ -81,8 +81,8 @@ void initGame(){
 
 	_moon = new LightSource(GL_LIGHT1);
 
-	boost::shared_ptr<Skybox> skybox(new Skybox(50, 10, 50));
-	skybox->loadTextures("data/gfx/skybox/desertplains");
+	boost::shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
+	skybox->loadTextures("data/gfx/skybox/desert_evening");
 	_components.push_back(skybox);
 }
 

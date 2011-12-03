@@ -3,7 +3,7 @@
 #include <GL/freeglut.h>
 #include <tga/tga.h>
 
-static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, TOP = 4, DOWN = 5;
+static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 
 Skybox::Skybox(int width, int height, int thickness) :
 	_width(width),
@@ -19,7 +19,7 @@ void Skybox::loadTextures(std::string texturePrefix)
 	loadTGA(const_cast<char*>((texturePrefix + "_down.tga").c_str()), _textures[DOWN]);	
 	loadTGA(const_cast<char*>((texturePrefix + "_front.tga").c_str()), _textures[FRONT]);	
 	loadTGA(const_cast<char*>((texturePrefix + "_right.tga").c_str()), _textures[RIGHT]);	
-	loadTGA(const_cast<char*>((texturePrefix + "_top.tga").c_str()), _textures[TOP]);	
+	loadTGA(const_cast<char*>((texturePrefix + "_up.tga").c_str()), _textures[UP]);	
 	loadTGA(const_cast<char*>((texturePrefix + "_back.tga").c_str()), _textures[BACK]);	
 }
 
@@ -63,7 +63,7 @@ void Skybox::draw()
 	glEnd();
 
 	//positive y plane
-	glBindTexture(GL_TEXTURE_2D, _textures[TOP]);
+	glBindTexture(GL_TEXTURE_2D, _textures[UP]);
 	glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);glVertex3f(_width, _height, _thickness);
 		glTexCoord2f(0, 1);glVertex3f(-_width, _height, _thickness);
