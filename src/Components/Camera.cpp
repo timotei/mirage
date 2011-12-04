@@ -28,10 +28,10 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 
 void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
-		float sinX = float(sin(toRadians(_rotationX)));
-		float sinY = float(sin(toRadians(_rotationY)));
-		float cosX = float(cos(toRadians(_rotationX)));
-		float cosY = float(cos(toRadians(_rotationY)));
+		float sinX = float(sin(toRadians(_rotationX))) / 2;
+		float sinY = float(sin(toRadians(_rotationY))) / 2;
+		float cosX = float(cos(toRadians(_rotationX))) / 2;
+		float cosY = float(cos(toRadians(_rotationY))) / 2;
 
 		switch( key ) {
 			case 'w':
