@@ -2,6 +2,12 @@
 #include "GL/freeglut.h"
 #include "glm.h"
 
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 #include <iostream>
 #include <math.h>
 #include <vector>
@@ -25,6 +31,10 @@ typedef std::list<GameComponentPtr> GameComponentsVector;
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
 
+//TODO: SOLID vs POLYGON? - what about SMOOTH
+GLenum _visualization[2] = { GL_FILL, GL_LINE };
+int _visualizeMode = 0;
+
 Camera _camera;
 GameComponentsVector _components(0);
 
@@ -32,7 +42,9 @@ LightSource *_moon,  *_sun;
 GLfloat _sunRotate;
 
 Model box;
-Model snake;
+Model _snake;
+GLfloat _snakeRotation;
+GLfloat _snakeRotationIncrement = 0.05f;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -87,8 +99,8 @@ void initGame(){
 	skybox->loadTextures("data/gfx/skybox/desert_evening");
 	_components.push_back(skybox);
 
-	snake.loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
-	snake.loadTexture("data/gfx/textures/snake1.tga");
+	_snake.loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
+	_snake.loadTexture("data/gfx/textures/snake1.tga");
 }
 
 void updateScene()
@@ -103,6 +115,10 @@ void updateScene()
 
 	_sunRotate += 0.1f;
 	if (_sunRotate >= 360) _sunRotate -= 360;
+
+	_snakeRotation += _snakeRotationIncrement;
+	if (_snakeRotation >= 5 || _snakeRotation <= -5)
+		_snakeRotationIncrement *= -1;
 }
 
 void renderScene(void)
@@ -112,6 +128,8 @@ void renderScene(void)
 
 	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPolygonMode(GL_FRONT_AND_BACK, _visualization[_visualizeMode]);
+
 	_camera.draw();
 
 	glPushMatrix();
@@ -121,7 +139,10 @@ void renderScene(void)
 //	_moon->draw();
 
 	//box.draw();
-	snake.draw();
+	glPushMatrix();
+		glRotatef(_snakeRotation, 0, 1, 0);
+		_snake.draw();
+	glPopMatrix();
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();
@@ -143,6 +164,10 @@ void processNormalKeys(unsigned char key, int x, int y)
 		glutLeaveMainLoop();
 	}
 	
+	if (key == '1'){
+		_visualizeMode = (_visualizeMode + 1) % 2;
+	}
+
 	_camera.onKeyPressed(key, x, y);
 }
 void processSpecialKeys(int key, int x, int y)
@@ -160,6 +185,33 @@ void mousePressed(int button, int state, int x, int y){
 
 void idleFunc(){
 	glutPostRedisplay();
+}
+void report_errors(lua_State *L, int status)
+{
+  if ( status!=0 ) {
+    std::cerr << "-- " << lua_tostring(L, -1) << std::endl;
+    lua_pop(L, 1); // remove error message
+  }
+}
+
+void initLua()
+{
+	char* file = "data/scripts/snake.lua";
+	lua_State *L = lua_open();
+
+	luaL_openlibs(L); // provides io.*
+
+	std::cerr << "-- Loading file: " << file << std::endl;
+
+    int s = luaL_loadfile(L, file);
+
+    if ( s==0 ) {
+      // execute Lua program
+      s = lua_pcall(L, 0, LUA_MULTRET, 0);
+    }
+
+    report_errors(L, s);
+    lua_close(L);
 }
 int main( int argc, char* argv[])
 {
@@ -189,6 +241,8 @@ int main( int argc, char* argv[])
 	initOpenGL(); 
 
 	initGame();
+
+	initLua();
 
 	//Starts the GLUT infinite loop 
 	glutMainLoop();
