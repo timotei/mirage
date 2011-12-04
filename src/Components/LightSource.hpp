@@ -24,6 +24,8 @@ public:
 	Vector4 emission;
 	GLfloat shininess;
 
+	Vector3 modelPosition;
+
 private:
 	GLenum _lightNum;
 
