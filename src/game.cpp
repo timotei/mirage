@@ -66,7 +66,7 @@ void initOpenGL() {
 	glEnable(GL_LIGHTING);
 
 	// inits
-	_camera.position.z = 10;
+	_camera.position.z = 30;
 }
 
 void initGame(){
@@ -75,9 +75,12 @@ void initGame(){
 	box.loadFromFile("data/models/box.obj");
 
 	_sun = new LightSource(GL_LIGHT0);
-	_sun->setDiffuse(Vector3(1, 1, 1));
-	_sun->setPosition(Vector3(0, 10, 0));
-	_sun->setAmbient(Vector3(1, 1, 1));
+	_sun->diffuse = Vector4(1, 1, 1, 1);
+	_sun->position = Vector4(0, 10, 0, 0);
+	_sun->ambient = Vector4(1, 1, 1, 1);
+	_sun->specular = Vector4(1, 1, 1, 1);
+	_sun->emission = Vector4(1, 1, 1, 1);
+	_sun->shininess = 180;
 
 	_moon = new LightSource(GL_LIGHT1);
 
@@ -96,7 +99,7 @@ void updateScene()
 		component->update();
 	}
 
-	_sunRotate += 0.1;
+	_sunRotate += 0.1f;
 	if (_sunRotate >= 360) _sunRotate -= 360;
 }
 
@@ -108,8 +111,9 @@ void renderScene(void)
 	// draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_camera.draw();
+
 	glPushMatrix();
-		//glRotatef(_sunRotate, 0, 0, 1);
+		glRotatef(_sunRotate, 0, 0, 1);
 		_sun->draw();
 	glPopMatrix();
 	_moon->draw();
@@ -137,6 +141,10 @@ void processNormalKeys(unsigned char key, int x, int y)
 	}
 	
 	_camera.onKeyPressed(key, x, y);
+}
+void processSpecialKeys(int key, int x, int y)
+{ 	
+	_camera.onKeyPressed(key, x, y, true);
 }
 
 void mouseMotion(int x, int y){
@@ -170,6 +178,7 @@ int main( int argc, char* argv[])
 	glutReshapeFunc(changeSize); 
 	//Keyboard callback function 
 	glutKeyboardFunc(processNormalKeys); 
+	glutSpecialFunc(processSpecialKeys);
 
 	glutMouseFunc(mousePressed);
 	glutMotionFunc(mouseMotion);

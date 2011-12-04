@@ -5,6 +5,7 @@
 
 #include "GameComponent.hpp"
 #include "../Vector3.hpp"
+#include "../Vector4.hpp"
 #include "../Utils.hpp"
 
 class LightSource :	public GameComponent
@@ -16,21 +17,15 @@ public:
 	void update() {}
 	void draw();
 
-	void setDiffuse(const Vector3& newDiffuse) { _diffuse = Vector3(newDiffuse); }
-	const Vector3& diffuse() const { return _diffuse; }
-
-	void setAmbient(const Vector3& newAmbient) { _ambient = Vector3(newAmbient); }
-	const Vector3& ambient() const { return _ambient; }
-
-	void setPosition(const Vector3& newPosition) { _position = Vector3(newPosition);  }
-	const Vector3& position() const { return _position; }
+	Vector4 position;
+	Vector4 diffuse;
+	Vector4 ambient;
+	Vector4 specular;
+	Vector4 emission;
+	GLfloat shininess;
 
 private:
 	GLenum _lightNum;
-
-	Vector3 _position;
-	Vector3 _diffuse;
-	Vector3 _ambient;
 
 	DISALLOW_COPY_AND_ASSIGN(LightSource);
 };
