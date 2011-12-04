@@ -17,7 +17,7 @@ public:
 	void update() {}
 	void draw();
 
-	void onKeyPressed(char key, int mouseX, int mouseY, bool special = false);
+	void onKeyPressed(int key, int mouseX, int mouseY, bool special = false);
 	void onMouseMoved(int x, int y, bool buttonPressed = true);
 	void onMousePressed( int button, int state, int x, int y );
 private:

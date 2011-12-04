@@ -6,7 +6,7 @@ public:
 	virtual void draw() {}
 	virtual void update() {}
 
-	virtual void onKeyPressed(char, int, int, bool)  {};
+	virtual void onKeyPressed(int, int, int, bool)  {};
 
 	virtual ~GameComponent() {}
 };

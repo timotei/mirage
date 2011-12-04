@@ -26,7 +26,7 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 	_lastMouseY = y;
 }
 
-void Camera::onKeyPressed(char key, int mouseX, int mouseY, bool special){
+void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
 		float sinX = float(sin(toRadians(_rotationX)));
 		float sinY = float(sin(toRadians(_rotationY)));
@@ -52,6 +52,12 @@ void Camera::onKeyPressed(char key, int mouseX, int mouseY, bool special){
 				position.x += cosY;
 				position.z += sinY;
 				break;
+		}
+	}else{
+		if (key == GLUT_KEY_PAGE_UP) {
+			position.y += 1;
+		} else if (key == GLUT_KEY_PAGE_DOWN){
+			position.y -= 1;
 		}
 	}
 }
