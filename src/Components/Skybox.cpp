@@ -5,7 +5,7 @@
 
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 
-Skybox::Skybox(int width, int height, int thickness) :
+Skybox::Skybox(float width, float height, float thickness) :
 	_width(width),
 	_height(height),
 	_thickness(thickness)

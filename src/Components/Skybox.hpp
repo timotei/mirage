@@ -14,7 +14,7 @@ public:
 	void loadTextures(std::string texturePrefix);
 
 private:
-	int _height, _width, _thickness;
+	float _height, _width, _thickness;
 	GLuint _textures[6];
 };
 
