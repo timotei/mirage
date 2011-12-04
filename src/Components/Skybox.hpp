@@ -8,7 +8,7 @@
 
 class Skybox : public GameComponent{
 public:
-	Skybox(int width, int height, int thickness);
+	Skybox(float width, float height, float thickness);
 	void draw();
 
 	void loadTextures(std::string texturePrefix);
