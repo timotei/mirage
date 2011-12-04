@@ -1,7 +1,11 @@
 #ifndef MIRAGE_UTILS_HPP__
 #define MIRAGE_UTILS_HPP__
 
-float toRadians(float degrees);
+#include "glm.h"
+
+inline float toRadians(float degrees){
+	return float(degrees / 180 * M_PI);
+}
 
 // A macro to disallow the copy constructor and operator= functions
 // This should be used in the private: declarations for a class
