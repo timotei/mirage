@@ -1,6 +1,8 @@
 #ifndef MIRAGE_VECTOR3_HPP__
 #define MIRAGE_VECTOR3_HPP__
 
+#include <boost/shared_array.hpp>
+
 struct Vector3{
 	float x,y,z;
 
@@ -23,6 +25,16 @@ struct Vector3{
 		y(other.y),
 		z(other.z)
 	{
+	}
+
+	boost::shared_array<GLfloat> toArray()
+	{
+		boost::shared_array<GLfloat> arr(new GLfloat[3]);
+		arr[0] = x;
+		arr[1] = y;
+		arr[2] = z;
+
+		return arr;
 	}
 };
 
