@@ -12,11 +12,16 @@ public:
 	void draw();
 
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_SMOOTH, bool unitize = true, bool force = false);
+	void loadTexture(char* fileName);
+
 	Model();
 	~Model();
 private:
 	GLMmodel* _model;
 	GLuint _drawMode;
+	GLuint _texture;
+
+	bool _textureLoaded;
 
 	void cleanupCurrentModel();
 	DISALLOW_COPY_AND_ASSIGN(Model);

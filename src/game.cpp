@@ -32,6 +32,7 @@ LightSource *_moon,  *_sun;
 GLfloat _sunRotate;
 
 Model box;
+Model snake;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -85,6 +86,9 @@ void initGame(){
 	boost::shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
 	skybox->loadTextures("data/gfx/skybox/desert_evening");
 	_components.push_back(skybox);
+
+	snake.loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
+	snake.loadTexture("data/gfx/textures/snake1.tga");
 }
 
 void updateScene()
@@ -114,9 +118,10 @@ void renderScene(void)
 		glRotatef(_sunRotate, 0, 0, 1);
 		_sun->draw();
 	glPopMatrix();
-	_moon->draw();
+//	_moon->draw();
 
-	box.draw();
+	//box.draw();
+	snake.draw();
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();
