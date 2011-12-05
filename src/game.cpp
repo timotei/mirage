@@ -89,7 +89,7 @@ void initGame(){
 
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
-	_sun->position = Vector4(0, 10, 0, 0);
+	_sun->position = Vector4(0, -10, 0, 0);
 	_sun->modelPosition = Vector3(0, 10, 0);
 	_sun->ambient = Vector4(1, 1, 1, 1);
 
