@@ -40,6 +40,7 @@ void Model::loadTexture(char *fileName)
 void Model::cleanupCurrentModel()
 {
 	if (_model != NULL) {
+		glmDelete(_model);
 		_model = NULL;
 	}
 }
