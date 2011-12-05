@@ -38,9 +38,8 @@ int _visualizeMode = 0;
 Camera _camera;
 GameComponentsVector _components(0);
 
-LightSource *_moon,  *_sun;
+LightSource *_sun;
 
-Model box;
 Model _snake;
 GLfloat _snakeRotationIncrement = 0.05f;
 
@@ -83,15 +82,11 @@ void initOpenGL() {
 void initGame(){
 	_components.push_back(GameComponentPtr(new FPSCounter));
 
-	box.loadFromFile("data/models/box.obj");
-
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
 	_sun->position = Vector4(0, -10, 0, 0);
 	_sun->modelPosition = Vector3(0, 10, 0);
 	_sun->ambient = Vector4(1, 1, 1, 1);
-
-	_moon = new LightSource(GL_LIGHT1);
 
 	boost::shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
 	skybox->loadTextures("data/gfx/skybox/desert_evening");
@@ -105,7 +100,6 @@ void updateScene()
 {
 	_camera.update();
 	_sun->update();
-	_moon->update();
 
 	foreach(GameComponentPtr component, _components){
 		component->update();
