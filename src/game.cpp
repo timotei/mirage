@@ -39,7 +39,6 @@ Camera _camera;
 GameComponentsVector _components(0);
 
 LightSource *_moon,  *_sun;
-GLfloat _sunRotate;
 
 Model box;
 Model _snake;
@@ -113,8 +112,8 @@ void updateScene()
 		component->update();
 	}
 
-	_sunRotate += 0.1f;
-	if (_sunRotate >= 360) _sunRotate -= 360;
+	_sun->rotation.z += 0.1f;
+	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 
 	_snakeRotation += _snakeRotationIncrement;
 	if (_snakeRotation >= 5 || _snakeRotation <= -5)
@@ -132,10 +131,7 @@ void renderScene(void)
 
 	_camera.draw();
 
-	glPushMatrix();
-		glRotatef(_sunRotate, 0, 0, 1);
-		_sun->draw();
-	glPopMatrix();
+	_sun->draw();
 //	_moon->draw();
 
 	//box.draw();
