@@ -42,7 +42,6 @@ LightSource *_moon,  *_sun;
 
 Model box;
 Model _snake;
-GLfloat _snakeRotation;
 GLfloat _snakeRotationIncrement = 0.05f;
 
 void initProjectionMatrix(int width, int height)
@@ -115,8 +114,8 @@ void updateScene()
 	_sun->rotation.z += 0.1f;
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 
-	_snakeRotation += _snakeRotationIncrement;
-	if (_snakeRotation >= 5 || _snakeRotation <= -5)
+	_snake.rotation.y += _snakeRotationIncrement;
+	if (_snake.rotation.y >= 5 || _snake.rotation.y <= -5)
 		_snakeRotationIncrement *= -1;
 }
 
@@ -132,13 +131,8 @@ void renderScene(void)
 	_camera.draw();
 
 	_sun->draw();
-//	_moon->draw();
 
-	//box.draw();
-	glPushMatrix();
-		glRotatef(_snakeRotation, 0, 1, 0);
-		_snake.draw();
-	glPopMatrix();
+	_snake.draw();
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();
