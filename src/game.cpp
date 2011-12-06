@@ -25,7 +25,10 @@ extern "C" {
 
 #define foreach BOOST_FOREACH
 
-typedef boost::shared_ptr<GameComponent> GameComponentPtr;
+using boost::shared_ptr;
+
+typedef shared_ptr<Model> ModelPtr;
+typedef shared_ptr<GameComponent> GameComponentPtr;
 typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
@@ -40,7 +43,7 @@ GameComponentsVector _components(0);
 
 LightSource *_sun;
 
-Model _snake;
+ModelPtr _snake;
 GLfloat _snakeRotationIncrement = 0.05f;
 
 void initProjectionMatrix(int width, int height)
@@ -59,7 +62,6 @@ void initProjectionMatrix(int width, int height)
 	glViewport(0, 0, width, height);
 	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
 }
-
 
 void initOpenGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
@@ -88,12 +90,15 @@ void initGame(){
 	_sun->modelPosition = Vector3(0, 10, 0);
 	_sun->ambient = Vector4(1, 1, 1, 1);
 
-	boost::shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
+	shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
 	skybox->loadTextures("data/gfx/skybox/desert_evening");
 	_components.push_back(skybox);
 
-	_snake.loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
-	_snake.loadTexture("data/gfx/textures/snake1.tga");
+	_snake = ModelPtr(new Model);
+	_snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
+	_snake->loadTexture("data/gfx/textures/snake1.tga");
+	_snake->translation = Vector3(-3, 0, 0);
+	_components.push_back(_snake);
 }
 
 void updateScene()
@@ -108,8 +113,8 @@ void updateScene()
 	_sun->rotation.z += 0.1f;
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 
-	_snake.rotation.y += _snakeRotationIncrement;
-	if (_snake.rotation.y >= 5 || _snake.rotation.y <= -5)
+	_snake->rotation.y += _snakeRotationIncrement;
+	if (_snake->rotation.y >= 5 || _snake->rotation.y <= -5)
 		_snakeRotationIncrement *= -1;
 }
 
@@ -122,11 +127,8 @@ void renderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPolygonMode(GL_FRONT_AND_BACK, _visualization[_visualizeMode]);
 
-	_camera.draw();
-
 	_sun->draw();
-
-	_snake.draw();
+	_camera.draw();
 
 	foreach(GameComponentPtr component, _components){
 		component->draw();
