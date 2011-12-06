@@ -19,6 +19,12 @@ void LightSource::draw()
 	glRotatef(rotation.z, 0, 0, 1);
 
 	glLightfv(_lightNum, GL_POSITION, position.toArray().get());
+	glDisable(GL_LIGHTING);
+		glTranslatef(modelPosition.x, modelPosition.y, modelPosition.z);
+		glutSolidSphere(1, 10, 10);
+	glEnable(GL_LIGHTING);
+
+	glPopMatrix();
 
 	glLightfv(_lightNum, GL_DIFFUSE, diffuse.toArray().get());
 	glLightfv(_lightNum, GL_AMBIENT, ambient.toArray().get());
@@ -27,11 +33,4 @@ void LightSource::draw()
 
 	GLfloat shine[1] = { shininess };
 	glLightfv(_lightNum, GL_SHININESS, shine);
-	
-	glDisable(GL_LIGHTING);
-	glTranslatef(modelPosition.x, modelPosition.y, modelPosition.z);
-	glutSolidSphere(1, 10, 10);
-	glEnable(GL_LIGHTING);
-
-	glPopMatrix();
 }
