@@ -54,6 +54,8 @@ void Model::draw()
 			glBindTexture(GL_TEXTURE_2D, _texture);
 		}
 
+		glTranslatef(translation.x, translation.y, translation.z);
+
 		glRotatef(rotation.x, 1, 0, 0);
 		glRotatef(rotation.y, 0, 1, 0);
 		glRotatef(rotation.z, 0, 0, 1);
