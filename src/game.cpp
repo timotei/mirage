@@ -16,6 +16,7 @@ extern "C" {
 #include <boost/foreach.hpp>
 
 #include "Vector3.hpp"
+#include "LuaScript.hpp"
 #include "Components/GameComponent.hpp"
 #include "Components/FPSCounter.hpp"
 #include "Components/Camera.hpp"
@@ -99,6 +100,10 @@ void initGame(){
 	_snake->loadTexture("data/gfx/textures/snake1.tga");
 	_snake->translation = Vector3(-3, 0, 0);
 	_components.push_back(_snake);
+
+	// LUA
+	LuaScript script;
+	script.executeScript("data/scripts/snake.lua");
 }
 
 void updateScene()
@@ -113,9 +118,9 @@ void updateScene()
 	_sun->rotation.z += 0.1f;
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 
-	_snake->rotation.y += _snakeRotationIncrement;
+	/*_snake->rotation.y += _snakeRotationIncrement;
 	if (_snake->rotation.y >= 5 || _snake->rotation.y <= -5)
-		_snakeRotationIncrement *= -1;
+		_snakeRotationIncrement *= -1;*/
 }
 
 void renderScene(void)
@@ -172,33 +177,7 @@ void mousePressed(int button, int state, int x, int y){
 void idleFunc(){
 	glutPostRedisplay();
 }
-void report_errors(lua_State *L, int status)
-{
-  if ( status!=0 ) {
-    std::cerr << "-- " << lua_tostring(L, -1) << std::endl;
-    lua_pop(L, 1); // remove error message
-  }
-}
 
-void initLua()
-{
-	char* file = "data/scripts/snake.lua";
-	lua_State *L = lua_open();
-
-	luaL_openlibs(L); // provides io.*
-
-	std::cerr << "-- Loading file: " << file << std::endl;
-
-    int s = luaL_loadfile(L, file);
-
-    if ( s==0 ) {
-      // execute Lua program
-      s = lua_pcall(L, 0, LUA_MULTRET, 0);
-    }
-
-    report_errors(L, s);
-    lua_close(L);
-}
 int main( int argc, char* argv[])
 {
 	//Initialize the GLUT library 
@@ -227,8 +206,6 @@ int main( int argc, char* argv[])
 	initOpenGL(); 
 
 	initGame();
-
-	initLua();
 
 	//Starts the GLUT infinite loop 
 	glutMainLoop();
