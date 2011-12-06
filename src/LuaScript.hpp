@@ -6,20 +6,23 @@ extern "C" {
 	#include "lualib.h"
 	#include "lauxlib.h"
 }
+#include <string>
 
 class LuaScript{
 private:
 	lua_State *_state;
+	std::string _path;
 
 public:
-	LuaScript();
+	LuaScript(std::string path);
 	~LuaScript();
 
 	inline operator lua_State* (){
 		return _state;
 	}
 
-	int executeScript(const char* path);
+	int executeScript();
+	void callVoidFunction(std::string functionName);
 };
 
 #endif // MIRAGE_LUASCRIPT_HPP__

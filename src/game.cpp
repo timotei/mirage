@@ -99,11 +99,10 @@ void initGame(){
 	_snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
 	_snake->loadTexture("data/gfx/textures/snake1.tga");
 	_snake->translation = Vector3(-3, 0, 0);
-	_components.push_back(_snake);
 
-	// LUA
-	LuaScript script;
-	script.executeScript("data/scripts/snake.lua");
+	_snake->script = shared_ptr<LuaScript>(new LuaScript("data/scripts/snake.lua"));
+
+	_components.push_back(_snake);
 }
 
 void updateScene()
@@ -112,6 +111,9 @@ void updateScene()
 	_sun->update();
 
 	foreach(GameComponentPtr component, _components){
+		if (component->script != NULL){
+			component->script->callVoidFunction("update");
+		}
 		component->update();
 	}
 
