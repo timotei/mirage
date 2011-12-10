@@ -2,12 +2,6 @@
 #include "GL/freeglut.h"
 #include "glm.h"
 
-extern "C" {
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-}
-
 #include <iostream>
 #include <math.h>
 #include <vector>
@@ -23,6 +17,9 @@ extern "C" {
 #include "Components/Model.hpp"
 #include "Components/LightSource.hpp"
 #include "Components/Skybox.hpp"
+
+#include "Lua/LuaModel.hpp"
+#include "Luna.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -82,6 +79,18 @@ void initOpenGL() {
 	_camera.position.z = 30;
 }
 
+// Define the Lua ClassName
+const char LuaModel::className[] = "LuaModel";
+
+// Define the methods we will expose to Lua
+// Check luaobject.h for the definitions...
+#define method(class, name) {#name, &class::name}
+Luna<LuaModel>::RegType LuaModel::methods[] = {
+	method(LuaModel, setRotation),
+	method(LuaModel, getRotation),
+	{0,0}
+};
+
 void initGame(){
 	_components.push_back(GameComponentPtr(new FPSCounter));
 
@@ -100,7 +109,12 @@ void initGame(){
 	_snake->loadTexture("data/gfx/textures/snake1.tga");
 	_snake->translation = Vector3(-3, 0, 0);
 
-	_snake->script = shared_ptr<LuaScript>(new LuaScript("data/scripts/snake.lua"));
+	_snake->script = shared_ptr<LuaScript>(new LuaScript);
+	Luna<LuaModel>::Register(*_snake->script);
+	lua_pushlightuserdata(*_snake->script, &(*_snake));
+	lua_setglobal(*_snake->script, "model");
+
+	_snake->script->executeScript("data/scripts/snake.lua");
 
 	_components.push_back(_snake);
 }

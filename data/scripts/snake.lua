@@ -1,8 +1,10 @@
 io.write("Hello world, from ",_VERSION,"!\n")
 
-nr = 0
-
+snakeModel = LuaModel(model);
 function update()
-	nr = nr +1;
-	io.write("Nr:", nr, "\n");
+	local rot = snakeModel:getRotation();
+	io.write("rot: " , rot.y, "\n");
+	rot.y = rot.y + 1;
+	if (rot.y >= 360) then rot.y = rot.y - 360; end;
+	snakeModel:setRotation(rot);
 end

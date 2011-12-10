@@ -2,12 +2,10 @@
 
 #include <iostream>
 
-LuaScript::LuaScript(std::string path) :
-_state(lua_open()),
-_path(path)
+LuaScript::LuaScript() :
+_state(lua_open())
 {
 	luaL_openlibs(_state);
-	executeScript();
 }
 
 LuaScript::~LuaScript()
@@ -16,11 +14,11 @@ LuaScript::~LuaScript()
 	_state = NULL;
 }
 
-int LuaScript::executeScript()
+int LuaScript::executeScript(std::string path)
 {
-	int res = luaL_loadfile(_state, _path.c_str());
+	int res = luaL_loadfile(_state, path.c_str());
 	if (res != 0){
-		std::cerr << "Error loading script: " << _path << "\n";
+		std::cerr << "Error loading script: " << path << "\n";
 		return res;
 	}
 

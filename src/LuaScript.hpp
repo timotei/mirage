@@ -11,17 +11,16 @@ extern "C" {
 class LuaScript{
 private:
 	lua_State *_state;
-	std::string _path;
 
 public:
-	LuaScript(std::string path);
+	LuaScript();
 	~LuaScript();
 
 	inline operator lua_State* (){
 		return _state;
 	}
 
-	int executeScript();
+	int executeScript(std::string path);
 	void callVoidFunction(std::string functionName);
 };
 
