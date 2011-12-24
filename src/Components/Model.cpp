@@ -3,6 +3,22 @@
 #include <iostream>
 #include <fstream>
 #include <tga/tga.h>
+#include <boost/shared_ptr.hpp>
+
+#include "../Lua/Luna.hpp"
+#include "../Lua/LuaModel.hpp"
+
+// Define the Lua ClassName
+const char LuaModel::className[] = "LuaModel";
+
+// Define the methods we will expose to Lua
+// Check luaobject.h for the definitions...
+#define method(class, name) {#name, &class::name}
+Luna<LuaModel>::RegType LuaModel::methods[] = {
+	method(LuaModel, setRotation),
+	method(LuaModel, getRotation),
+	{0,0}
+};
 
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 
 						 bool unitize /* = true */, bool force /* = false */)
@@ -82,4 +98,14 @@ _model(NULL),
 _drawMode(GLM_SMOOTH)
 {
 	glGenTextures(1, &_texture);
+}
+
+void Model::loadScript(std::string path)
+{
+	script = boost::shared_ptr<LuaScript>(new LuaScript);
+	Luna<LuaModel>::Register(*script);
+	lua_pushlightuserdata(*script, &(*this));
+	lua_setglobal(*script, "model");
+
+	script->executeScript("data/scripts/snake.lua");
 }
