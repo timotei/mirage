@@ -2,7 +2,7 @@
 #define MIRAGE_GAMECOMPONENT_HPP__
 
 #include "../Vector3.hpp"
-#include "../LuaScript.hpp"
+#include "../Lua/LuaScript.hpp"
 #include <boost/shared_ptr.hpp>
 
 class GameComponent{
@@ -11,6 +11,8 @@ public:
 	virtual void update() {	}
 
 	virtual void onKeyPressed(int, int, int, bool)  {};
+
+	virtual void loadScript(std::string path) {}
 
 	virtual ~GameComponent() {}
 

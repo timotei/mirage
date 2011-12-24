@@ -10,7 +10,6 @@
 #include <boost/foreach.hpp>
 
 #include "Vector3.hpp"
-#include "LuaScript.hpp"
 #include "Components/GameComponent.hpp"
 #include "Components/FPSCounter.hpp"
 #include "Components/Camera.hpp"
@@ -18,8 +17,9 @@
 #include "Components/LightSource.hpp"
 #include "Components/Skybox.hpp"
 
+#include "Lua/LuaScript.hpp"
 #include "Lua/LuaModel.hpp"
-#include "Luna.hpp"
+#include "Lua/Luna.hpp"
 
 #define foreach BOOST_FOREACH
 
@@ -109,6 +109,7 @@ void initGame(){
 	_snake->loadTexture("data/gfx/textures/snake1.tga");
 	_snake->translation = Vector3(-3, 0, 0);
 
+	_snake->loadScript("data/scripts/snake.lua");
 	_snake->script = shared_ptr<LuaScript>(new LuaScript);
 	Luna<LuaModel>::Register(*_snake->script);
 	lua_pushlightuserdata(*_snake->script, &(*_snake));

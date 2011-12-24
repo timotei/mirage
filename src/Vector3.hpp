@@ -2,6 +2,7 @@
 #define MIRAGE_VECTOR3_HPP__
 
 #include <boost/shared_array.hpp>
+#include <GL/freeglut.h>
 
 struct Vector3{
 	float x,y,z;

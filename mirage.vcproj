@@ -47,6 +47,7 @@
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="$(InputDir)includes.hpp"
 				WarningLevel="3"
+				WarnAsError="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -208,15 +209,23 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\LuaScript.cpp"
+			RelativePath=".\src\Lua\LuaScript.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\LuaScript.hpp"
+			RelativePath=".\src\Lua\LuaScript.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\Luna.hpp"
+			RelativePath=".\src\Lua\LuaUtils.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Lua\LuaUtils.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Lua\Luna.hpp"
 			>
 		</File>
 		<File

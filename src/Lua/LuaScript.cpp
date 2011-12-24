@@ -28,6 +28,7 @@ int LuaScript::executeScript(std::string path)
 		std::cerr << "Lua Error: " << lua_tostring(_state, -1) << "\n";
 		lua_pop(_state, 1);
 	}
+	return res;
 }
 
 void LuaScript::callVoidFunction(std::string functionName)

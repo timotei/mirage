@@ -6,7 +6,7 @@ extern "C" {
 #include "lauxlib.h"
 #include "lualib.h"
 }
-#include "../Luna.hpp"
+#include "../Lua/Luna.hpp"
 
 class Model;
 
