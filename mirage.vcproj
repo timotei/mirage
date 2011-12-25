@@ -24,6 +24,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="call pre_build.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -61,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="lua5.1.lib glew32.lib glm.lib tga.lib"
+				AdditionalDependencies="lua5.1.lib glew32.lib glm.lib tga.lib tolua++d.lib"
 				GenerateDebugInformation="true"
 				SubSystem="0"
 				TargetMachine="1"
@@ -115,6 +116,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -131,6 +133,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="lua5.1.lib glew32.lib glm.lib tga.lib tolua++.lib"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -205,19 +208,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\Lua\LuaCamera.cpp"
+			RelativePath=".\src\Lua\LuaMirage.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\Lua\LuaCamera.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Lua\LuaModel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Lua\LuaModel.hpp"
+			RelativePath=".\src\Lua\LuaMirage.hpp"
 			>
 		</File>
 		<File
@@ -226,18 +221,6 @@
 		</File>
 		<File
 			RelativePath=".\src\Lua\LuaScript.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Lua\LuaUtils.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Lua\LuaUtils.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Lua\Luna.hpp"
 			>
 		</File>
 		<File

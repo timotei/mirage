@@ -5,20 +5,7 @@
 #include <tga/tga.h>
 #include <boost/shared_ptr.hpp>
 
-#include "../Lua/Luna.hpp"
-#include "../Lua/LuaModel.hpp"
-
-// Define the Lua ClassName
-const char LuaModel::className[] = "LuaModel";
-
-// Define the methods we will expose to Lua
-// Check luaobject.h for the definitions...
-#define method(class, name) {#name, &class::name}
-Luna<LuaModel>::RegType LuaModel::methods[] = {
-	method(LuaModel, setRotation),
-	method(LuaModel, getRotation),
-	{0,0}
-};
+#include "tolua++.h"
 
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 
 						 bool unitize /* = true */, bool force /* = false */)
@@ -103,8 +90,8 @@ _drawMode(GLM_SMOOTH)
 void Model::loadScript(std::string path)
 {
 	script = boost::shared_ptr<LuaScript>(new LuaScript);
-	Luna<LuaModel>::Register(*script);
-	lua_pushlightuserdata(*script, &(*this));
+
+	tolua_pushusertype(*script, (void*)this, "Model");
 	lua_setglobal(*script, "CurrentModel");
 
 	script->executeScript(path);

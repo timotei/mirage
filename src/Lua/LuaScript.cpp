@@ -1,11 +1,14 @@
 #include "LuaScript.hpp"
 
 #include <iostream>
+#include <sstream>
+#include "LuaMirage.hpp"
 
 LuaScript::LuaScript() :
 _state(lua_open())
 {
 	luaL_openlibs(_state);
+	tolua_luamirage_open(_state);
 }
 
 LuaScript::~LuaScript()
@@ -21,6 +24,8 @@ int LuaScript::executeScript(std::string path)
 		std::cerr << "Error loading script: " << path << "\n";
 		return res;
 	}
+
+	std::cerr << "Loaded file " << path << "\n";
 
 	res = lua_pcall(_state, 0, LUA_MULTRET, 0);
 

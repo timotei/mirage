@@ -50,5 +50,4 @@ struct Vector4{
 	}
 };
 
-
 #endif // MIRAGE_VECTOR4_HPP__

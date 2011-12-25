@@ -4,22 +4,7 @@
 #include <iostream>
 #include <math.h>
 
-#include "../Lua/Luna.hpp"
-#include "../Lua/LuaCamera.hpp"
-
-// Define the Lua ClassName
-const char LuaCamera::className[] = "LuaCamera";
-
-// Define the methods we will expose to Lua
-// Check luaobject.h for the definitions...
-#define method(class, name) {#name, &class::name}
-Luna<LuaCamera>::RegType LuaCamera::methods[] = {
-	method(LuaCamera, setRotation),
-	method(LuaCamera, getRotation),
-	method(LuaCamera, setPosition),
-	method(LuaCamera, getPosition),
-	{0,0}
-};
+#include "tolua++.h"
 
 Camera::Camera()
 : up(0, 1, 0),
@@ -101,8 +86,8 @@ void Camera::onMousePressed( int button, int state, int x, int y )
 void Camera::loadScript(std::string path) 
 {
 	script = boost::shared_ptr<LuaScript>(new LuaScript);
-	Luna<LuaCamera>::Register(*script);
-	lua_pushlightuserdata(*script, &(*this));
+
+	tolua_pushusertype(*script, (void*)this, "Camera");
 	lua_setglobal(*script, "CurrentCamera");
 
 	script->executeScript(path);

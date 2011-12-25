@@ -1,0 +1,1 @@
+"external/tolua++.exe" -o src/Lua/LuaMirage.cpp src/Lua/luamirage.pkg

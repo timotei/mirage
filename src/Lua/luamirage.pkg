@@ -1,0 +1,69 @@
+$#include "LuaMirage.hpp"
+$#include "../Vector3.hpp"
+$#include "../Vector4.hpp"
+$#include "../Components/Model.hpp"
+$#include "../Components/GameComponent.hpp"
+$#include "../Components/Camera.hpp"
+
+struct Vector3{
+	float x,y,z;
+
+	Vector3();
+	Vector3(float X, float Y, float Z);
+	Vector3(const Vector3& other);
+};
+
+
+struct Vector4{
+	float x, y, z, w;
+
+	Vector4();
+	Vector4(float X, float Y, float Z, float W);
+	explicit Vector4(const Vector3& other);
+	Vector4(const Vector4& other);
+};
+
+
+class GameComponent{
+	virtual void draw() {}
+	virtual void update() {	}
+
+	virtual void onKeyPressed(int, int, int, bool)  {};
+
+	virtual void loadScript(std::string path) {}
+
+	virtual ~GameComponent() {}
+
+	Vector3 translation;
+	Vector3 rotation;
+};
+
+class Camera : public GameComponent{
+	Vector3 position;
+	Vector3 target;
+	Vector3 up;
+
+	bool useAnimation;
+
+	Camera();
+	void update() {}
+	void draw();
+
+	void onKeyPressed(int key, int mouseX, int mouseY, bool special = false);
+	void onMouseMoved(int x, int y, bool buttonPressed = true);
+	void onMousePressed( int button, int state, int x, int y );
+
+	void loadScript(std::string path);
+};
+
+class Model : public GameComponent{
+	void update() {}
+	void draw();
+
+	bool loadFromFile(const char* fileName, GLuint mode, bool unitize = true, bool force = false);
+	void loadTexture(char* fileName);
+	void loadScript(std::string path);
+
+	Model();
+	~Model();
+};

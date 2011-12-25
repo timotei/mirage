@@ -1,4 +1,4 @@
-camera = LuaCamera(CurrentCamera);
+camera = CurrentCamera;
 
 current = 0;
 waypoints = {
@@ -12,9 +12,7 @@ waypointsCnt = #waypoints;
 speed = 1000; speedAngle = 2000;
 
 -- initial camera position
-local v = camera:getPosition();
-v.z = 30;
-camera:setPosition(v);
+camera.position = Vector3:new(0, 0, 30);
 
 incX = 0; incY = 0; incZ = 0; incAngleX = 0; incAngleY = 0; incAngleZ = 0;
 targetX = 0; targetY = 0; targetZ = 0; targetAngleX = 0; targetAngleY = 0; targetAngleZ = 0;
@@ -31,12 +29,12 @@ function updateTarget()
 	targetAngleY = waypoints[current][5];
 	targetAngleZ = waypoints[current][6];
 		
-	local pos = camera:getPosition();
+	local pos = camera.position;
 	incX = (targetX - pos.x) / speed;
 	incY = (targetY - pos.y) / speed;
 	incZ = (targetZ - pos.z) / speed;
 	
-	local rot = camera:getRotation();
+	local rot = camera.rotation;
 	incAngleX = (targetAngleX - rot.x) / speedAngle;
 	incAngleY = (targetAngleY - rot.y) / speedAngle;
 	incAngleZ = (targetAngleZ - rot.z) / speedAngle;
@@ -46,7 +44,7 @@ end
 updateTarget();
 
 function update()
-	local vec = camera:getPosition();
+	local vec = camera.position;
 	local okX = false;
 	local okY = false;
 	local okZ = false;
@@ -69,9 +67,9 @@ function update()
 		vec.z = vec.z + incZ;
 	end;
 	
-	camera:setPosition(vec);
+	camera.position = vec;
 
-	local rot = camera:getRotation();
+	local rot = camera.rotation;
 	local okAX = false;
 	local okAY = false;
 	local okAZ = false;
@@ -94,7 +92,7 @@ function update()
 		rot.z = rot.z + incAngleZ;
 	end;
 	
-	camera:setRotation(rot);
+	camera.rotation = rot;
 	
 	if (okX == true and okY == true and okZ == true and
 		okAX == true and okAY == true and okAZ == true) then
