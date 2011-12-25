@@ -13,6 +13,8 @@ public:
 	Vector3 target;
 	Vector3 up;
 
+	bool useAnimation;
+
 	Camera();
 	void update() {}
 	void draw();
@@ -20,12 +22,12 @@ public:
 	void onKeyPressed(int key, int mouseX, int mouseY, bool special = false);
 	void onMouseMoved(int x, int y, bool buttonPressed = true);
 	void onMousePressed( int button, int state, int x, int y );
+
+	void loadScript(std::string path);
+
 private:
 	int _lastMouseX;
 	int _lastMouseY;
-
-	GLfloat _rotationX;
-	GLfloat _rotationY;
 };
 
 #endif // MIRAGE_CAMERA_HPP__

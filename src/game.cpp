@@ -74,7 +74,7 @@ void initOpenGL() {
 	glEnable(GL_LIGHTING);
 
 	// inits
-	_camera.position.z = 30;
+	_camera.loadScript("data/scripts/camera_anim.lua");
 }
 
 void initGame(){
@@ -103,6 +103,8 @@ void initGame(){
 void updateScene()
 {
 	_camera.update();
+	if (_camera.useAnimation)
+		_camera.script->callVoidFunction("update");
 	_sun->update();
 
 	foreach(GameComponentPtr component, _components){
@@ -114,10 +116,6 @@ void updateScene()
 
 	_sun->rotation.z += 0.1f;
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
-
-	/*_snake->rotation.y += _snakeRotationIncrement;
-	if (_snake->rotation.y >= 5 || _snake->rotation.y <= -5)
-		_snakeRotationIncrement *= -1;*/
 }
 
 void renderScene(void)

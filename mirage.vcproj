@@ -177,6 +177,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\data\scripts\camera_anim.lua"
+			>
+		</File>
+		<File
 			RelativePath=".\src\Components\FPSCounter.cpp"
 			>
 		</File>
@@ -198,6 +202,14 @@
 		</File>
 		<File
 			RelativePath=".\src\Components\LightSource.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Lua\LuaCamera.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\Lua\LuaCamera.hpp"
 			>
 		</File>
 		<File

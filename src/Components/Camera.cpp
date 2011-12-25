@@ -4,6 +4,23 @@
 #include <iostream>
 #include <math.h>
 
+#include "../Lua/Luna.hpp"
+#include "../Lua/LuaCamera.hpp"
+
+// Define the Lua ClassName
+const char LuaCamera::className[] = "LuaCamera";
+
+// Define the methods we will expose to Lua
+// Check luaobject.h for the definitions...
+#define method(class, name) {#name, &class::name}
+Luna<LuaCamera>::RegType LuaCamera::methods[] = {
+	method(LuaCamera, setRotation),
+	method(LuaCamera, getRotation),
+	method(LuaCamera, setPosition),
+	method(LuaCamera, getPosition),
+	{0,0}
+};
+
 Camera::Camera()
 : up(0, 1, 0),
 _lastMouseX(-1),
@@ -16,11 +33,11 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 		int deltaX = x - _lastMouseX;
 		int deltaY = y - _lastMouseY;
 
-		_rotationX += deltaY / 3;
-		if (_rotationX >= 360) _rotationX -= 360;
+		rotation.x += deltaY / 3;
+		if (rotation.x >= 360) rotation.x -= 360;
 
-		_rotationY += deltaX / 3;
-		if (_rotationY >= 360) _rotationY -= 360;
+		rotation.y += deltaX / 3;
+		if (rotation.y >= 360) rotation.y -= 360;
 	}
 	_lastMouseX = x;
 	_lastMouseY = y;
@@ -28,10 +45,10 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 
 void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
-		float sinX = float(sin(toRadians(_rotationX))) / 2;
-		float sinY = float(sin(toRadians(_rotationY))) / 2;
-		float cosX = float(cos(toRadians(_rotationX))) / 2;
-		float cosY = float(cos(toRadians(_rotationY))) / 2;
+		float sinX = float(sin(toRadians(rotation.x))) / 2;
+		float sinY = float(sin(toRadians(rotation.y))) / 2;
+		float cosX = float(cos(toRadians(rotation.x))) / 2;
+		float cosY = float(cos(toRadians(rotation.y))) / 2;
 
 		switch( key ) {
 			case 'w':
@@ -52,6 +69,9 @@ void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 				position.x += cosY;
 				position.z += sinY;
 				break;
+			case 'u':
+				useAnimation = !useAnimation;
+				break;
 		}
 	}else{
 		if (key == GLUT_KEY_PAGE_UP) {
@@ -64,8 +84,8 @@ void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 
 void Camera::draw(){
 	glLoadIdentity();
-	glRotatef(_rotationX, 1, 0, 0);
-	glRotatef(_rotationY, 0, 1, 0);
+	glRotatef(rotation.x, 1, 0, 0);
+	glRotatef(rotation.y, 0, 1, 0);
 
 	glTranslatef(-position.x, -position.y, -position.z);
 }
@@ -76,4 +96,14 @@ void Camera::onMousePressed( int button, int state, int x, int y )
 		_lastMouseX = x;
 		_lastMouseY = y;
 	}
+}
+
+void Camera::loadScript(std::string path) 
+{
+	script = boost::shared_ptr<LuaScript>(new LuaScript);
+	Luna<LuaCamera>::Register(*script);
+	lua_pushlightuserdata(*script, &(*this));
+	lua_setglobal(*script, "CurrentCamera");
+
+	script->executeScript(path);
 }

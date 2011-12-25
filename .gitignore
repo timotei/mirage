@@ -16,5 +16,6 @@ ipch/
 Doxygen/
 skip/
 bin/
+_ignore/
 *.blend1
 *.blend2
