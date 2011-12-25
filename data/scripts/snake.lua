@@ -1,6 +1,6 @@
 io.write("Hello world, from ",_VERSION,"!\n")
 
-snakeModel = LuaModel(model);
+snakeModel = LuaModel(CurrentModel);
 rotation = 0.1;
 function update()
 	local rot = snakeModel:getRotation();

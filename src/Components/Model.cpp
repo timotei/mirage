@@ -105,7 +105,7 @@ void Model::loadScript(std::string path)
 	script = boost::shared_ptr<LuaScript>(new LuaScript);
 	Luna<LuaModel>::Register(*script);
 	lua_pushlightuserdata(*script, &(*this));
-	lua_setglobal(*script, "model");
+	lua_setglobal(*script, "CurrentModel");
 
-	script->executeScript("data/scripts/snake.lua");
+	script->executeScript(path);
 }
