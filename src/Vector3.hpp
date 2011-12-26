@@ -2,7 +2,12 @@
 #define MIRAGE_VECTOR3_HPP__
 
 #include <boost/shared_array.hpp>
-#include <GL/freeglut.h>
+#ifdef __WIN32
+#include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 
 struct Vector3{
 	float x,y,z;

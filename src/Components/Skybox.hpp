@@ -3,7 +3,12 @@
 
 #include <string>
 
+#ifdef __WIN32
 #include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 #include "GameComponent.hpp"
 
 class Skybox : public GameComponent{

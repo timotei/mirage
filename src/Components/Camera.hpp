@@ -1,7 +1,12 @@
 #ifndef MIRAGE_CAMERA_HPP__
 #define MIRAGE_CAMERA_HPP__
 
+#ifdef __WIN32
 #include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 
 #include "GameComponent.hpp"
 #include "../Vector3.hpp"

@@ -1,7 +1,12 @@
 #ifndef MIRAGE_LIGHTSOURCE_HPP__
 #define MIRAGE_LIGHTSOURCE_HPP__
 
-#include <Gl/freeglut.h>
+#ifdef __WIN32
+#include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 
 #include "GameComponent.hpp"
 #include "../Vector3.hpp"

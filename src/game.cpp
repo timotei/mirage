@@ -1,5 +1,10 @@
+#ifdef __WIN32
 #include "GL/glew.h"
 #include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 #include "glm.h"
 
 #include <iostream>
@@ -147,7 +152,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 { 
 	// ESCAPE 
 	if ( key == 27 ){
-		glutLeaveMainLoop();
+        exit(0);
 	}
 	
 	if (key == '1'){

@@ -1,4 +1,9 @@
+#ifdef __WIN32
 #include "GL/freeglut.h"
+#else
+#include <OpenGL/OpenGL.h>
+#include <GLUT/GLUT.h>
+#endif
 
 #include <sstream>
 #include <string>
