@@ -16,15 +16,15 @@
 		1E04E3D814A90C7E00622289 /* LuaMirage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C914A90C7E00622289 /* LuaMirage.cpp */; };
 		1E04E3D914A90C7E00622289 /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3CC14A90C7E00622289 /* LuaScript.cpp */; };
 		1E04E3DA14A90C7E00622289 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3CE14A90C7E00622289 /* Utils.cpp */; };
-		1E04E3E214A91A4400622289 /* glm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DC14A91A4400622289 /* glm.cpp */; };
-		1E04E3E314A91A4400622289 /* tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DF14A91A4400622289 /* tga.cpp */; };
+		1E04E3E214A91A4400622289 /* glm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DC14A91A4400622289 /* glm.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		1E04E3E314A91A4400622289 /* tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DF14A91A4400622289 /* tga.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1E04E3FD14A9238700622289 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E3FB14A9238700622289 /* GLUT.framework */; };
 		1E04E3FE14A9238700622289 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E3FC14A9238700622289 /* OpenGL.framework */; };
-		1E04E40A14A925DA00622289 /* tolua_event.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40414A925DA00622289 /* tolua_event.c */; };
-		1E04E40B14A925DA00622289 /* tolua_is.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40614A925DA00622289 /* tolua_is.c */; };
-		1E04E40C14A925DA00622289 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40714A925DA00622289 /* tolua_map.c */; };
-		1E04E40D14A925DA00622289 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40814A925DA00622289 /* tolua_push.c */; };
-		1E04E40E14A925DA00622289 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40914A925DA00622289 /* tolua_to.c */; };
+		1E04E40A14A925DA00622289 /* tolua_event.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40414A925DA00622289 /* tolua_event.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		1E04E40B14A925DA00622289 /* tolua_is.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40614A925DA00622289 /* tolua_is.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		1E04E40C14A925DA00622289 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40714A925DA00622289 /* tolua_map.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		1E04E40D14A925DA00622289 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40814A925DA00622289 /* tolua_push.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		1E04E40E14A925DA00622289 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40914A925DA00622289 /* tolua_to.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1E04E41614A926A400622289 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E41014A9260500622289 /* liblua.a */; };
 /* End PBXBuildFile section */
 
