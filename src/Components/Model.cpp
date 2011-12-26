@@ -34,7 +34,7 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 	return true;
 }
 
-void Model::loadTexture(char *fileName)
+void Model::loadTexture(const char *fileName)
 {
 	loadTGA(fileName, _texture);
 	_textureLoaded = true;

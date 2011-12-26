@@ -12,7 +12,7 @@ public:
 	void draw();
 
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_SMOOTH, bool unitize = true, bool force = false);
-	void loadTexture(char* fileName);
+	void loadTexture(const char* fileName);
 	void loadScript(std::string path);
 
 	Model();

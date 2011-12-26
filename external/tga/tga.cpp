@@ -188,7 +188,7 @@ Loads up a targa file.  Supported types are 8,24 and 32 uncompressed images.
 id is the texture ID to bind too.
 =============
 */
-int loadTGA (char *name, int id)
+int loadTGA (const char *name, int id)
 {
     unsigned char type[4];
     unsigned char info[7];
