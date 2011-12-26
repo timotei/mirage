@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E04E3D214A90C7E00622289 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3BC14A90C7E00622289 /* Camera.cpp */; };
+		1E04E3D314A90C7E00622289 /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */; };
+		1E04E3D414A90C7E00622289 /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C114A90C7E00622289 /* LightSource.cpp */; };
+		1E04E3D514A90C7E00622289 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C314A90C7E00622289 /* Model.cpp */; };
+		1E04E3D614A90C7E00622289 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C514A90C7E00622289 /* Skybox.cpp */; };
+		1E04E3D714A90C7E00622289 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C714A90C7E00622289 /* game.cpp */; };
+		1E04E3D814A90C7E00622289 /* LuaMirage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C914A90C7E00622289 /* LuaMirage.cpp */; };
+		1E04E3D914A90C7E00622289 /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3CC14A90C7E00622289 /* LuaScript.cpp */; };
+		1E04E3DA14A90C7E00622289 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3CE14A90C7E00622289 /* Utils.cpp */; };
+		1E04E3E214A91A4400622289 /* glm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DC14A91A4400622289 /* glm.cpp */; };
+		1E04E3E314A91A4400622289 /* tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3DF14A91A4400622289 /* tga.cpp */; };
+		1E04E3FD14A9238700622289 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E3FB14A9238700622289 /* GLUT.framework */; };
+		1E04E3FE14A9238700622289 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E3FC14A9238700622289 /* OpenGL.framework */; };
+		1E04E40A14A925DA00622289 /* tolua_event.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40414A925DA00622289 /* tolua_event.c */; };
+		1E04E40B14A925DA00622289 /* tolua_is.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40614A925DA00622289 /* tolua_is.c */; };
+		1E04E40C14A925DA00622289 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40714A925DA00622289 /* tolua_map.c */; };
+		1E04E40D14A925DA00622289 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40814A925DA00622289 /* tolua_push.c */; };
+		1E04E40E14A925DA00622289 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E40914A925DA00622289 /* tolua_to.c */; };
+		1E04E41614A926A400622289 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E04E41014A9260500622289 /* liblua.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1E04E3A714A90C4900622289 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1E04E3A914A90C4900622289 /* mirage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mirage; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E04E3BC14A90C7E00622289 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		1E04E3BD14A90C7E00622289 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
+		1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPSCounter.cpp; sourceTree = "<group>"; };
+		1E04E3BF14A90C7E00622289 /* FPSCounter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FPSCounter.hpp; sourceTree = "<group>"; };
+		1E04E3C014A90C7E00622289 /* GameComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameComponent.hpp; sourceTree = "<group>"; };
+		1E04E3C114A90C7E00622289 /* LightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightSource.cpp; sourceTree = "<group>"; };
+		1E04E3C214A90C7E00622289 /* LightSource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LightSource.hpp; sourceTree = "<group>"; };
+		1E04E3C314A90C7E00622289 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		1E04E3C414A90C7E00622289 /* Model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+		1E04E3C514A90C7E00622289 /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
+		1E04E3C614A90C7E00622289 /* Skybox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Skybox.hpp; sourceTree = "<group>"; };
+		1E04E3C714A90C7E00622289 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		1E04E3C914A90C7E00622289 /* LuaMirage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaMirage.cpp; sourceTree = "<group>"; };
+		1E04E3CA14A90C7E00622289 /* LuaMirage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaMirage.hpp; sourceTree = "<group>"; };
+		1E04E3CB14A90C7E00622289 /* luamirage.pkg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luamirage.pkg; sourceTree = "<group>"; };
+		1E04E3CC14A90C7E00622289 /* LuaScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaScript.cpp; sourceTree = "<group>"; };
+		1E04E3CD14A90C7E00622289 /* LuaScript.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaScript.hpp; sourceTree = "<group>"; };
+		1E04E3CE14A90C7E00622289 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		1E04E3CF14A90C7E00622289 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		1E04E3D014A90C7E00622289 /* Vector3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector3.hpp; sourceTree = "<group>"; };
+		1E04E3D114A90C7E00622289 /* Vector4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector4.hpp; sourceTree = "<group>"; };
+		1E04E3DC14A91A4400622289 /* glm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glm.cpp; path = external/glm.cpp; sourceTree = "<group>"; };
+		1E04E3DD14A91A4400622289 /* glm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glm.h; path = external/glm.h; sourceTree = "<group>"; };
+		1E04E3DF14A91A4400622289 /* tga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tga.cpp; sourceTree = "<group>"; };
+		1E04E3E014A91A4400622289 /* tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tga.h; sourceTree = "<group>"; };
+		1E04E3E114A91A4400622289 /* tolua++.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tolua++.h"; path = "external/tolua++.h"; sourceTree = "<group>"; };
+		1E04E3FB14A9238700622289 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		1E04E3FC14A9238700622289 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		1E04E3FF14A924E400622289 /* liblua.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.dylib; path = ../../../../opt/local/lib/liblua.dylib; sourceTree = "<group>"; };
+		1E04E40114A9254400622289 /* liblua.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.5.1.dylib; path = ../../../../opt/local/lib/liblua.5.1.dylib; sourceTree = "<group>"; };
+		1E04E40414A925DA00622289 /* tolua_event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_event.c; sourceTree = "<group>"; };
+		1E04E40514A925DA00622289 /* tolua_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_event.h; sourceTree = "<group>"; };
+		1E04E40614A925DA00622289 /* tolua_is.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_is.c; sourceTree = "<group>"; };
+		1E04E40714A925DA00622289 /* tolua_map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_map.c; sourceTree = "<group>"; };
+		1E04E40814A925DA00622289 /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
+		1E04E40914A925DA00622289 /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
+		1E04E41014A9260500622289 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../opt/local/lib/liblua.a; sourceTree = "<group>"; };
+		1E04E41314A9262200622289 /* liblua.5.1.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.5.1.4.dylib; path = ../../../../opt/local/lib/liblua.5.1.4.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E04E3A614A90C4900622289 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E04E3FD14A9238700622289 /* GLUT.framework in Frameworks */,
+				1E04E3FE14A9238700622289 /* OpenGL.framework in Frameworks */,
+				1E04E41614A926A400622289 /* liblua.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E04E39E14A90C4900622289 = {
+			isa = PBXGroup;
+			children = (
+				1E04E41314A9262200622289 /* liblua.5.1.4.dylib */,
+				1E04E41014A9260500622289 /* liblua.a */,
+				1E04E40314A925DA00622289 /* tolua_lib */,
+				1E04E40114A9254400622289 /* liblua.5.1.dylib */,
+				1E04E3FF14A924E400622289 /* liblua.dylib */,
+				1E04E3FB14A9238700622289 /* GLUT.framework */,
+				1E04E3FC14A9238700622289 /* OpenGL.framework */,
+				1E04E3E814A91A8400622289 /* external */,
+				1E04E3BA14A90C7E00622289 /* src */,
+				1E04E3AA14A90C4900622289 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1E04E3AA14A90C4900622289 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3A914A90C4900622289 /* mirage */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1E04E3BA14A90C7E00622289 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3BB14A90C7E00622289 /* Components */,
+				1E04E3C714A90C7E00622289 /* game.cpp */,
+				1E04E3C814A90C7E00622289 /* Lua */,
+				1E04E3CE14A90C7E00622289 /* Utils.cpp */,
+				1E04E3CF14A90C7E00622289 /* Utils.hpp */,
+				1E04E3D014A90C7E00622289 /* Vector3.hpp */,
+				1E04E3D114A90C7E00622289 /* Vector4.hpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1E04E3BB14A90C7E00622289 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3BC14A90C7E00622289 /* Camera.cpp */,
+				1E04E3BD14A90C7E00622289 /* Camera.hpp */,
+				1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */,
+				1E04E3BF14A90C7E00622289 /* FPSCounter.hpp */,
+				1E04E3C014A90C7E00622289 /* GameComponent.hpp */,
+				1E04E3C114A90C7E00622289 /* LightSource.cpp */,
+				1E04E3C214A90C7E00622289 /* LightSource.hpp */,
+				1E04E3C314A90C7E00622289 /* Model.cpp */,
+				1E04E3C414A90C7E00622289 /* Model.hpp */,
+				1E04E3C514A90C7E00622289 /* Skybox.cpp */,
+				1E04E3C614A90C7E00622289 /* Skybox.hpp */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1E04E3C814A90C7E00622289 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3C914A90C7E00622289 /* LuaMirage.cpp */,
+				1E04E3CA14A90C7E00622289 /* LuaMirage.hpp */,
+				1E04E3CB14A90C7E00622289 /* luamirage.pkg */,
+				1E04E3CC14A90C7E00622289 /* LuaScript.cpp */,
+				1E04E3CD14A90C7E00622289 /* LuaScript.hpp */,
+			);
+			path = Lua;
+			sourceTree = "<group>";
+		};
+		1E04E3DE14A91A4400622289 /* tga */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3DF14A91A4400622289 /* tga.cpp */,
+				1E04E3E014A91A4400622289 /* tga.h */,
+			);
+			name = tga;
+			path = external/tga;
+			sourceTree = "<group>";
+		};
+		1E04E3E814A91A8400622289 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E3DC14A91A4400622289 /* glm.cpp */,
+				1E04E3DD14A91A4400622289 /* glm.h */,
+				1E04E3E114A91A4400622289 /* tolua++.h */,
+				1E04E3DE14A91A4400622289 /* tga */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		1E04E40314A925DA00622289 /* tolua_lib */ = {
+			isa = PBXGroup;
+			children = (
+				1E04E40414A925DA00622289 /* tolua_event.c */,
+				1E04E40514A925DA00622289 /* tolua_event.h */,
+				1E04E40614A925DA00622289 /* tolua_is.c */,
+				1E04E40714A925DA00622289 /* tolua_map.c */,
+				1E04E40814A925DA00622289 /* tolua_push.c */,
+				1E04E40914A925DA00622289 /* tolua_to.c */,
+			);
+			name = tolua_lib;
+			path = external/tolua_lib;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E04E3A814A90C4900622289 /* mirage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E04E3B314A90C4900622289 /* Build configuration list for PBXNativeTarget "mirage" */;
+			buildPhases = (
+				1E04E3A514A90C4900622289 /* Sources */,
+				1E04E3A614A90C4900622289 /* Frameworks */,
+				1E04E3A714A90C4900622289 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mirage;
+			productName = mirage;
+			productReference = 1E04E3A914A90C4900622289 /* mirage */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E04E3A014A90C4900622289 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 1E04E3A314A90C4900622289 /* Build configuration list for PBXProject "mirage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1E04E39E14A90C4900622289;
+			productRefGroup = 1E04E3AA14A90C4900622289 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E04E3A814A90C4900622289 /* mirage */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E04E3A514A90C4900622289 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E04E3D214A90C7E00622289 /* Camera.cpp in Sources */,
+				1E04E3D314A90C7E00622289 /* FPSCounter.cpp in Sources */,
+				1E04E3D414A90C7E00622289 /* LightSource.cpp in Sources */,
+				1E04E3D514A90C7E00622289 /* Model.cpp in Sources */,
+				1E04E3D614A90C7E00622289 /* Skybox.cpp in Sources */,
+				1E04E3D714A90C7E00622289 /* game.cpp in Sources */,
+				1E04E3D814A90C7E00622289 /* LuaMirage.cpp in Sources */,
+				1E04E3D914A90C7E00622289 /* LuaScript.cpp in Sources */,
+				1E04E3DA14A90C7E00622289 /* Utils.cpp in Sources */,
+				1E04E3E214A91A4400622289 /* glm.cpp in Sources */,
+				1E04E3E314A91A4400622289 /* tga.cpp in Sources */,
+				1E04E40A14A925DA00622289 /* tolua_event.c in Sources */,
+				1E04E40B14A925DA00622289 /* tolua_is.c in Sources */,
+				1E04E40C14A925DA00622289 /* tolua_map.c in Sources */,
+				1E04E40D14A925DA00622289 /* tolua_push.c in Sources */,
+				1E04E40E14A925DA00622289 /* tolua_to.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1E04E3B114A90C4900622289 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1E04E3B214A90C4900622289 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1E04E3B414A90C4900622289 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				HEADER_SEARCH_PATHS = (
+					external/,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E04E3B514A90C4900622289 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				HEADER_SEARCH_PATHS = (
+					external/,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E04E3A314A90C4900622289 /* Build configuration list for PBXProject "mirage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E04E3B114A90C4900622289 /* Debug */,
+				1E04E3B214A90C4900622289 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E04E3B314A90C4900622289 /* Build configuration list for PBXNativeTarget "mirage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E04E3B414A90C4900622289 /* Debug */,
+				1E04E3B514A90C4900622289 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1E04E3A014A90C4900622289 /* Project object */;
+}
