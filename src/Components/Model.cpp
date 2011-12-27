@@ -11,6 +11,8 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 						 bool unitize /* = true */, bool force /* = false */)
 {
 	cleanupCurrentModel();
+	std::cout << "Loading model from file: " << fileName << " ... ";
+
 	if (_model == NULL || force){
 		std::ifstream fin(fileName);
 		if (!fin) {
@@ -30,14 +32,19 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 		glmVertexNormals(_model, 90.0);
 	}
 
+	std::cout << "done\n";
+
 	_drawMode = mode;
 	return true;
 }
 
 void Model::loadTexture(const char *fileName)
 {
+	std::cout << "Loading texture from file: " << fileName << " ... ";
 	loadTGA(fileName, _texture);
 	_textureLoaded = true;
+
+	std::cout << "done\n";
 }
 
 void Model::cleanupCurrentModel()

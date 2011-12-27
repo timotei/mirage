@@ -90,6 +90,7 @@ void initOpenGL() {
 }
 
 void initGame(){
+	std::cout << "Init started.\n";
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
 	_sun->position = Vector4(0, -10, 0, 0);
@@ -110,6 +111,8 @@ void initGame(){
 	_components.push_back(_snake);
     
     _lastClock = clock();
+
+	std::cout << "Init Done.\n";
 }
 
 void updateScene()

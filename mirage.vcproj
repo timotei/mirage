@@ -41,10 +41,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="external/"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="$(InputDir)includes.hpp"
 				WarningLevel="3"
@@ -62,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="lua5.1.lib glew32.lib glm.lib tga.lib tolua++d.lib"
+				AdditionalDependencies="lua5.1.lib glew32.lib"
 				GenerateDebugInformation="true"
 				SubSystem="0"
 				TargetMachine="1"
@@ -116,8 +117,9 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="external/"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -133,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="lua5.1.lib glew32.lib glm.lib tga.lib tolua++.lib"
+				AdditionalDependencies="lua5.1.lib glew32.lib tga.lib tolua++.lib"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -184,19 +186,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\Components\FPSCounter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\Components\FPSCounter.hpp"
-			>
-		</File>
-		<File
 			RelativePath=".\src\game.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\Components\GameComponent.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\external\glm.cpp"
 			>
 		</File>
 		<File
@@ -241,6 +239,34 @@
 		</File>
 		<File
 			RelativePath=".\data\scripts\snake.lua"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tga\tga.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_event.c"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_event.h"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_is.c"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_map.c"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_push.c"
+			>
+		</File>
+		<File
+			RelativePath=".\external\tolua_lib\tolua_to.c"
 			>
 		</File>
 		<File
