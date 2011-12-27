@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <math.h>
+#include <time.h>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
@@ -46,6 +47,11 @@ LightSource *_sun;
 
 ModelPtr _snake;
 GLfloat _snakeRotationIncrement = 0.05f;
+
+clock_t _lastClock = clock();
+time_t _lastTime = time(NULL);
+double _unprocessedTicks;
+const double MS_PER_TICKS = 1000.0 / 60.0;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -103,6 +109,8 @@ void initGame(){
 	_snake->loadScript("data/scripts/snake.lua");
 
 	_components.push_back(_snake);
+    
+    _lastClock = clock();
 }
 
 void updateScene()
@@ -123,23 +131,40 @@ void updateScene()
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 }
 
-void renderScene(void)
-{
-	// update
-	updateScene();
-
-	// draw
+void renderScene()
+{    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPolygonMode(GL_FRONT_AND_BACK, _visualization[_visualizeMode]);
-
+    
 	_sun->draw();
 	_camera.draw();
-
+    
 	foreach(GameComponentPtr component, _components){
 		component->draw();
 	}
-
+    
 	glutSwapBuffers();
+}
+
+void updateGame(void)
+{
+    clock_t now = clock();
+    _unprocessedTicks += (double)(now - _lastClock) / MS_PER_TICKS;
+    std::cout <<  MS_PER_TICKS << " - " <<  _unprocessedTicks << "\n";
+    _lastClock = now;
+    
+    bool render = false;
+    while(_unprocessedTicks >= 1) {
+        updateScene();
+            
+        _unprocessedTicks -= 1;
+        render = true;
+    }
+
+    if (render) {
+        // draw
+        renderScene();
+    }    
 }
 
 void changeSize(int w, int h)
@@ -191,7 +216,7 @@ int main( int argc, char* argv[])
 	//creates the window 
 	glutCreateWindow("Mirage"); 
 	//Specifies the function to call when the window needs to be redisplayed 
-	glutDisplayFunc(renderScene); 
+	glutDisplayFunc(updateGame); 
 	//Sets the idle callback function 
 	glutIdleFunc(idleFunc); 
 	//Sets the reshape callback function 
