@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1E04E3D214A90C7E00622289 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3BC14A90C7E00622289 /* Camera.cpp */; };
-		1E04E3D314A90C7E00622289 /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */; };
 		1E04E3D414A90C7E00622289 /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C114A90C7E00622289 /* LightSource.cpp */; };
 		1E04E3D514A90C7E00622289 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C314A90C7E00622289 /* Model.cpp */; };
 		1E04E3D614A90C7E00622289 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E04E3C514A90C7E00622289 /* Skybox.cpp */; };
@@ -44,8 +43,6 @@
 		1E04E3A914A90C4900622289 /* mirage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mirage; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E04E3BC14A90C7E00622289 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		1E04E3BD14A90C7E00622289 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
-		1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPSCounter.cpp; sourceTree = "<group>"; };
-		1E04E3BF14A90C7E00622289 /* FPSCounter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FPSCounter.hpp; sourceTree = "<group>"; };
 		1E04E3C014A90C7E00622289 /* GameComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameComponent.hpp; sourceTree = "<group>"; };
 		1E04E3C114A90C7E00622289 /* LightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightSource.cpp; sourceTree = "<group>"; };
 		1E04E3C214A90C7E00622289 /* LightSource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LightSource.hpp; sourceTree = "<group>"; };
@@ -139,8 +136,6 @@
 			children = (
 				1E04E3BC14A90C7E00622289 /* Camera.cpp */,
 				1E04E3BD14A90C7E00622289 /* Camera.hpp */,
-				1E04E3BE14A90C7E00622289 /* FPSCounter.cpp */,
-				1E04E3BF14A90C7E00622289 /* FPSCounter.hpp */,
 				1E04E3C014A90C7E00622289 /* GameComponent.hpp */,
 				1E04E3C114A90C7E00622289 /* LightSource.cpp */,
 				1E04E3C214A90C7E00622289 /* LightSource.hpp */,
@@ -250,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E04E3D214A90C7E00622289 /* Camera.cpp in Sources */,
-				1E04E3D314A90C7E00622289 /* FPSCounter.cpp in Sources */,
 				1E04E3D414A90C7E00622289 /* LightSource.cpp in Sources */,
 				1E04E3D514A90C7E00622289 /* Model.cpp in Sources */,
 				1E04E3D614A90C7E00622289 /* Skybox.cpp in Sources */,

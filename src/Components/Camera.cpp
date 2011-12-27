@@ -32,7 +32,7 @@ void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
 		float sinX = float(sin(toRadians(rotation.x))) / 2;
 		float sinY = float(sin(toRadians(rotation.y))) / 2;
-		float cosX = float(cos(toRadians(rotation.x))) / 2;
+//		float cosX = float(cos(toRadians(rotation.x))) / 2;
 		float cosY = float(cos(toRadians(rotation.y))) / 2;
 
 		switch( key ) {

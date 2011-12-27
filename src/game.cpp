@@ -8,6 +8,7 @@
 #include "glm.h"
 
 #include <iostream>
+#include <sstream>
 #include <math.h>
 #include <time.h>
 #include <vector>
@@ -17,7 +18,6 @@
 
 #include "Vector3.hpp"
 #include "Components/GameComponent.hpp"
-#include "Components/FPSCounter.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Model.hpp"
 #include "Components/LightSource.hpp"
@@ -51,7 +51,8 @@ GLfloat _snakeRotationIncrement = 0.05f;
 clock_t _lastClock = clock();
 time_t _lastTime = time(NULL);
 double _unprocessedTicks;
-const double MS_PER_TICKS = 1000.0 / 60.0;
+long _fps, _ticks;
+const double MS_PER_TICKS = CLOCKS_PER_SEC / 60.0 * 0.5;
 
 void initProjectionMatrix(int width, int height)
 {
@@ -89,8 +90,6 @@ void initOpenGL() {
 }
 
 void initGame(){
-	_components.push_back(GameComponentPtr(new FPSCounter));
-
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
 	_sun->position = Vector4(0, -10, 0, 0);
@@ -127,7 +126,7 @@ void updateScene()
 		component->update();
 	}
 
-	_sun->rotation.z += 0.1f;
+	_sun->rotation.z += 0.5f;
 	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
 }
 
@@ -146,25 +145,45 @@ void renderScene()
 	glutSwapBuffers();
 }
 
+void printRunningInfo()
+{
+    time_t now = time(NULL);
+    if ((now - _lastTime) >= 1){
+        std::stringstream ss;
+        ss << "Mirage - " << _fps << "fps";
+        glutSetWindowTitle(ss.str().c_str());
+        
+        std::cout << "FPS: " << _fps << "; Ticks:" << _ticks << "\n";
+        
+        _lastTime = now;
+        _fps = 0;
+        _ticks = 0 ;
+    }
+}
+
 void updateGame(void)
 {
     clock_t now = clock();
     _unprocessedTicks += (double)(now - _lastClock) / MS_PER_TICKS;
-    std::cout <<  MS_PER_TICKS << " - " <<  _unprocessedTicks << "\n";
     _lastClock = now;
     
     bool render = false;
     while(_unprocessedTicks >= 1) {
+        ++ _ticks;
+        
         updateScene();
-            
         _unprocessedTicks -= 1;
         render = true;
     }
 
     if (render) {
+        ++ _fps;
         // draw
         renderScene();
-    }    
+    }
+    
+    printRunningInfo();
+    glutPostRedisplay();
 }
 
 void changeSize(int w, int h)
