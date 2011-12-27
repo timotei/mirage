@@ -1,9 +1,7 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 12/27/11 21:11:58.
+** Generated automatically by tolua++-1.0.92 on 12/27/11 23:29:18.
 */
-#pragma warning(push)
-#pragma warning(disable: 4800)
 
 #ifndef __cplusplus
 #include "stdlib.h"
@@ -1646,4 +1644,3 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
 };
 #endif
 
-#pragma warning(pop)

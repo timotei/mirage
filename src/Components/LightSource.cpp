@@ -8,6 +8,7 @@ _lightNum(lightNum)
 
 LightSource::~LightSource()
 {
+	std::cout << "disable\n";
 }
 
 void LightSource::draw()

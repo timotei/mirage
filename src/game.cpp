@@ -31,7 +31,6 @@ using boost::shared_ptr;
 
 typedef shared_ptr<Model> ModelPtr;
 typedef shared_ptr<GameComponent> GameComponentPtr;
-typedef std::list<GameComponentPtr> GameComponentsVector;
 
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
@@ -41,7 +40,7 @@ GLenum _visualization[2] = { GL_FILL, GL_LINE };
 int _visualizeMode = 0;
 
 Camera _camera;
-GameComponentsVector _components(0);
+std::list<GameComponentPtr> _components(0);
 
 LightSource *_sun;
 
@@ -84,6 +83,8 @@ void initOpenGL() {
 	//enablers
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
+
+	glEnable(GL_CULL_FACE);
 
 	// inits
 	_camera.loadScript("data/scripts/camera_anim.lua");
