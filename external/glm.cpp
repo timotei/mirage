@@ -10,7 +10,10 @@
       coordinate generation (spheremap and planar projections) + more.
   
 */
-
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#pragma warning(disable : 4305)
+#pragma warning(disable : 4996)
 
 #include <math.h>
 #include <stdio.h>
@@ -261,7 +264,7 @@ glmReadMTL(GLMmodel* model, char* name)
     filename = (char*)malloc(sizeof(char) * (strlen(dir) + strlen(name) + 1));
     strcpy(filename, dir);
     strcat(filename, name);
-    free(dir);
+    //free(dir);
     
     file = fopen(filename, "r");
     if (!file) {
@@ -1906,3 +1909,5 @@ for (i = 1; i <= model->numvertices; i++) {
     }
 }
 #endif
+
+#pragma warning(pop)
