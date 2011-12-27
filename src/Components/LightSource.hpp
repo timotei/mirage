@@ -1,7 +1,7 @@
 #ifndef MIRAGE_LIGHTSOURCE_HPP__
 #define MIRAGE_LIGHTSOURCE_HPP__
 
-#ifdef __WIN32
+#if defined _WIN32 || defined _WIN64
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>

@@ -2,7 +2,7 @@
 #define MIRAGE_VECTOR3_HPP__
 
 #include <boost/shared_array.hpp>
-#ifdef __WIN32
+#if defined _WIN32 || defined _WIN64
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>

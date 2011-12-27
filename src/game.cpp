@@ -1,4 +1,4 @@
-#ifdef __WIN32
+#if defined _WIN32 || defined _WIN64
 #include "GL/glew.h"
 #include "GL/freeglut.h"
 #else

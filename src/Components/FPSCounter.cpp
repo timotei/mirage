@@ -1,4 +1,4 @@
-#ifdef __WIN32
+#ifdef _MSC_VER
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>

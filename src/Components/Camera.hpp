@@ -1,7 +1,7 @@
 #ifndef MIRAGE_CAMERA_HPP__
 #define MIRAGE_CAMERA_HPP__
 
-#ifdef __WIN32
+#if defined _WIN32 || defined _WIN64
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>

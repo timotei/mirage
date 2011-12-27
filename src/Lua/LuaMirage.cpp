@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 12/26/11 01:12:56.
+** Generated automatically by tolua++-1.0.92 on 12/27/11 14:58:28.
 */
 
 #ifndef __cplusplus
