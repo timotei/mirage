@@ -11,7 +11,7 @@ public:
 	void update() {}
 	void draw();
 
-	bool loadFromFile(const char* fileName, GLuint mode = GLM_SMOOTH, bool unitize = true, bool force = false);
+	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
 	void loadTexture(const char* fileName);
 	void loadScript(std::string path);
 
