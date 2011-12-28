@@ -35,17 +35,13 @@ typedef shared_ptr<GameComponent> GameComponentPtr;
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 600;
 
-//TODO: SOLID vs POLYGON? - what about SMOOTH
-GLenum _visualization[2] = { GL_FILL, GL_LINE };
+const GLenum _visualizationModes[3] = { GL_FILL, GL_LINE, GL_POINT };
 int _visualizeMode = 0;
 
 Camera _camera;
 std::list<GameComponentPtr> _components(0);
 
 LightSource *_sun;
-
-ModelPtr _snake;
-GLfloat _snakeRotationIncrement = 0.05f;
 
 clock_t _lastClock = clock();
 time_t _lastTime = time(NULL);
@@ -92,6 +88,7 @@ void initOpenGL() {
 
 void initGame(){
 	std::cout << "Init started.\n";
+
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
 	_sun->position = Vector4(0, -10, 0, 0);
@@ -102,14 +99,14 @@ void initGame(){
 	skybox->loadTextures("data/gfx/skybox/desert_evening");
 	_components.push_back(skybox);
 
-	_snake = ModelPtr(new Model);
-	_snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_SMOOTH | GLM_TEXTURE);
-	_snake->loadTexture("data/gfx/textures/snake1.tga");
-	_snake->translation = Vector3(-3, 0, 0);
+	ModelPtr snake = ModelPtr(new Model);
+	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
+	snake->loadTexture("data/gfx/textures/snake1.tga");
+	snake->translation = Vector3(-3, 0, 0);
 
-	_snake->loadScript("data/scripts/snake.lua");
+	snake->loadScript("data/scripts/snake.lua");
 
-	_components.push_back(_snake);
+	_components.push_back(snake);
     
     _lastClock = clock();
 
@@ -137,7 +134,7 @@ void updateScene()
 void renderScene()
 {    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glPolygonMode(GL_FRONT_AND_BACK, _visualization[_visualizeMode]);
+	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_visualizeMode]);
     
 	_sun->draw();
 	_camera.draw();
@@ -204,7 +201,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 	}
 	
 	if (key == '1'){
-		_visualizeMode = (_visualizeMode + 1) % 2;
+		_visualizeMode = (_visualizeMode + 1) % 3;
 	}
 
 	_camera.onKeyPressed(key, x, y);
