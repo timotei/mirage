@@ -21,7 +21,7 @@ void LightSource::draw()
 
 	glLightfv(_lightNum, GL_POSITION, position.toArray().get());
 	glDisable(GL_LIGHTING);
-		glTranslatef(modelPosition.x, modelPosition.y, modelPosition.z);
+		glTranslatef(position.x, position.y, position.z);
 		glutSolidSphere(1, 10, 10);
 	glEnable(GL_LIGHTING);
 

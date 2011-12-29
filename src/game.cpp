@@ -1,19 +1,15 @@
 #if defined _WIN32 || defined _WIN64
 #include "GL/glew.h"
-#include "GL/freeglut.h"
-#else
-#include <OpenGL/OpenGL.h>
-#include <GLUT/GLUT.h>
 #endif
-#include "glm.h"
+
+#include "Game.hpp"
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <math.h>
 #include <time.h>
 #include <vector>
-#include <list>
-#include <boost/shared_ptr.hpp>
 #include <boost/foreach.hpp>
 
 #include "Vector3.hpp"
@@ -30,223 +26,119 @@
 using boost::shared_ptr;
 
 typedef shared_ptr<Model> ModelPtr;
-typedef shared_ptr<GameComponent> GameComponentPtr;
-
-int SCREEN_WIDTH = 1000;
-int SCREEN_HEIGHT = 600;
 
 const GLenum _visualizationModes[3] = { GL_FILL, GL_LINE, GL_POINT };
-int _visualizeMode = 0;
+int _currentVisualizationMode = 0;
 
-Camera _camera;
-std::list<GameComponentPtr> _components(0);
-
-LightSource *_sun;
-
-clock_t _lastClock = clock();
-time_t _lastTime = time(NULL);
-double _unprocessedTicks;
-long _fps, _ticks;
-const double MS_PER_TICKS = CLOCKS_PER_SEC / 60.0 * 0.5;
-
-void initProjectionMatrix(int width, int height)
+Game::Game() :
+_skybox( NULL ),
+_camera( NULL ),
+_components( 0 ),
+_sun( NULL )
 {
-	SCREEN_WIDTH = width;
-	SCREEN_HEIGHT = height;
-
-	if(height == 0)
-		height = 1;
-
-	float ratio = float(1.0 * width / height);
-
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glViewport(0, 0, width, height);
-	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
 }
 
-void initOpenGL() {
+Game::~Game()
+{
+	delete _skybox;
+	delete _camera;
+	delete _sun;
+}
+
+void Game::initOpenGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
 	glShadeModel(GL_SMOOTH); 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
-	initProjectionMatrix(SCREEN_WIDTH, SCREEN_HEIGHT);
+	initProjectionMatrix(screenWidth, screenHeight);
 
-	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	//enablers
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
 
 	glEnable(GL_CULL_FACE);
-
-	// inits
-	_camera.loadScript("data/scripts/camera_anim.lua");
 }
 
-void initGame(){
+void Game::initGame(){
 	std::cout << "Init started.\n";
+
+	_camera = new Camera;
+	_camera->useAnimation = false;
+	_camera->loadScript("data/scripts/camera_anim.lua");
 
 	_sun = new LightSource(GL_LIGHT0);
 	_sun->diffuse = Vector4(1, 1, 1, 1);
-	_sun->position = Vector4(0, -10, 0, 0);
-	_sun->modelPosition = Vector3(0, 10, 0);
 	_sun->ambient = Vector4(1, 1, 1, 1);
+	_sun->position = Vector4(0, 0, 4, 1);
+	_sun->translation = Vector3(6, 0, 0);
 
-	shared_ptr<Skybox> skybox(new Skybox(50, 20, 50));
-	skybox->loadTextures("data/gfx/skybox/desert_evening");
-	_components.push_back(skybox);
+	_skybox = new Skybox(50, 30, 50);
+	_skybox->loadTextures("data/gfx/skybox/desert_evening");
 
 	ModelPtr snake = ModelPtr(new Model);
 	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
 	snake->loadTexture("data/gfx/textures/snake1.tga");
-	snake->translation = Vector3(-3, 0, 0);
 
 	snake->loadScript("data/scripts/snake.lua");
 
-	_components.push_back(snake);
-    
-    _lastClock = clock();
+	//_components.push_back(snake);
 
 	std::cout << "Init Done.\n";
+
+	_lastClock = clock();
+	_lastTime = time(NULL);
 }
 
-void updateScene()
+void Game::updateScene()
 {
-	_camera.update();
-	if (_camera.useAnimation)
-		_camera.script->callVoidFunction("update");
+	_camera->update();
 	_sun->update();
 
-	foreach(GameComponentPtr component, _components){
-		if (component->script != NULL){
-			component->script->callVoidFunction("update");
-		}
+	foreach(GameComponentPtr component, _components) {
 		component->update();
 	}
 
-	_sun->rotation.z += 0.5f;
-	if (_sun->rotation.z >= 360) _sun->rotation.z -= 360;
+	_sun->rotation.y += 0.5f;
+	if (_sun->rotation.y >= 360) _sun->rotation.y -= 360;
 }
 
-void renderScene()
+void Game::renderScene()
 {    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_visualizeMode]);
-    
+	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
+	glLoadIdentity();
+
+	_camera->draw();
+
+	_skybox->draw();
 	_sun->draw();
-	_camera.draw();
-    
+
 	foreach(GameComponentPtr component, _components){
 		component->draw();
 	}
-    
+
+	glutSolidSphere(3, 100, 100);
+
 	glutSwapBuffers();
 }
 
-void printRunningInfo()
+void Game::updateGameTitle()
 {
-    time_t now = time(NULL);
-    if ((now - _lastTime) >= 1){
-        std::stringstream ss;
-        ss << "Mirage - " << _fps << "fps";
-        glutSetWindowTitle(ss.str().c_str());
-        
-        std::cout << "FPS: " << _fps << "; Ticks:" << _ticks << "\n";
-        
-        _lastTime = now;
-        _fps = 0;
-        _ticks = 0 ;
-    }
-}
+	time_t now = time(NULL);
+	if ((now - _lastTime) >= 1){
+		std::stringstream ss;
+		ss << "Mirage - " << _fps << " fps ; " << _ticks << " ticks";
+		glutSetWindowTitle(ss.str().c_str());
 
-void updateGame(void)
-{
-    clock_t now = clock();
-    _unprocessedTicks += (double)(now - _lastClock) / MS_PER_TICKS;
-    _lastClock = now;
-    
-    bool render = false;
-    while(_unprocessedTicks >= 1) {
-        ++ _ticks;
-        
-        updateScene();
-        _unprocessedTicks -= 1;
-        render = true;
-    }
-
-    if (render) {
-        ++ _fps;
-        // draw
-        renderScene();
-    }
-    
-    printRunningInfo();
-    glutPostRedisplay();
-}
-
-void changeSize(int w, int h)
-{
-	initProjectionMatrix(w, h);
-	glMatrixMode(GL_MODELVIEW);
-}
-
-void processNormalKeys(unsigned char key, int x, int y)
-{ 
-	// ESCAPE 
-	if ( key == 27 ){
-        exit(0);
+		_lastTime = now;
+		_fps = 0;
+		_ticks = 0 ;
 	}
-	
-	if (key == '1'){
-		_visualizeMode = (_visualizeMode + 1) % 3;
-	}
-
-	_camera.onKeyPressed(key, x, y);
-}
-void processSpecialKeys(int key, int x, int y)
-{ 	
-	_camera.onKeyPressed(key, x, y, true);
 }
 
-void mouseMotion(int x, int y){
-	_camera.onMouseMoved(x, y);
-}
-
-void mousePressed(int button, int state, int x, int y){
-	_camera.onMousePressed(button, state, x, y);
-}
-
-void idleFunc(){
-	glutPostRedisplay();
-}
-
-int main( int argc, char* argv[])
-{
-	//Initialize the GLUT library 
-	glutInit(&argc, argv); 
-	//Set the display mode 
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA); 
-	//Set the initial position and dimensions of the window 
-	glutInitWindowPosition(100, 100); 
-	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT); 
-	
-	//creates the window 
-	glutCreateWindow("Mirage"); 
-	//Specifies the function to call when the window needs to be redisplayed 
-	glutDisplayFunc(updateGame); 
-	//Sets the idle callback function 
-	glutIdleFunc(idleFunc); 
-	//Sets the reshape callback function 
-	glutReshapeFunc(changeSize); 
-	//Keyboard callback function 
-	glutKeyboardFunc(processNormalKeys); 
-	glutSpecialFunc(processSpecialKeys);
-
-	glutMouseFunc(mousePressed);
-	glutMotionFunc(mouseMotion);
+void Game::runGame()
+{	
 	//Initialize some OpenGL parameters 
 	initOpenGL(); 
 
@@ -254,5 +146,95 @@ int main( int argc, char* argv[])
 
 	//Starts the GLUT infinite loop 
 	glutMainLoop();
-	return 0;
+}
+
+void Game::onNormalKeyPressed( unsigned char key, int x, int y )
+{
+	// ESCAPE 
+	if ( key == 27 ) {
+		onExit();
+	}
+
+	if ( key == '1' ) { 
+		_currentVisualizationMode = (_currentVisualizationMode + 1) % 3;
+	}
+
+	_camera->onKeyPressed(key, x, y);
+}
+
+void Game::onSpecialKeyPressed( int key, int x, int y )
+{
+	_camera->onKeyPressed(key, x, y, true);
+}
+
+void Game::onResolutionChanged( int w, int h )
+{
+	initProjectionMatrix( w, h );
+	glMatrixMode( GL_MODELVIEW );
+}
+
+void Game::onMouseMoved( int x, int y )
+{
+	_camera->onMouseMoved(x, y);
+}
+
+void Game::onMousePressed( int button, int state, int x, int y )
+{
+	_camera->onMousePressed( button, state, x, y );
+}
+
+void Game::updateGame()
+{
+	static const double MS_PER_TICKS = CLOCKS_PER_SEC / 60.0; // 120 fps
+	clock_t now = clock();
+	_unprocessedTicks += (double)(now - _lastClock) / MS_PER_TICKS;
+	_lastClock = now;
+
+	bool render = false;
+	while(_unprocessedTicks >= 1) {
+		++ _ticks;
+
+		updateScene();
+		_unprocessedTicks -= 1;
+		render = true;
+	}
+
+	if (render) {
+		++ _fps;
+		// draw
+		renderScene();
+	}
+
+	updateGameTitle();
+	glutPostRedisplay();
+}
+
+void Game::initProjectionMatrix(int width, int height)
+{
+	screenWidth = width;
+	screenHeight = height;
+
+	if(height == 0)
+		height = 1;
+
+	float ratio = float(1.0 * width / height);
+
+	glViewport(0, 0, screenWidth, screenHeight); 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, width, height);
+	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
+}
+
+void Game::onExit()
+{
+#if defined _WIN32 || defined _WIN64
+	glutLeaveMainLoop();
+#else
+	exit(0);
+#endif;	
+
+#ifdef _MSC_VER
+	_CrtDumpMemoryLeaks();
+#endif
 }
