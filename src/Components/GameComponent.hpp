@@ -8,7 +8,12 @@
 class GameComponent{
 public:
 	virtual void draw() {}
-	virtual void update() {	}
+	virtual void update() 
+	{
+		if ( script != NULL ) {
+			script->callVoidFunction( "update" );
+		}
+	}
 
 	virtual void onKeyPressed(int, int, int, bool)  {};
 

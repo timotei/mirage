@@ -92,3 +92,9 @@ void Camera::loadScript(std::string path)
 
 	script->executeScript(path);
 }
+
+void Camera::update()
+{
+	if ( useAnimation )
+		script->callVoidFunction( "update" );
+}

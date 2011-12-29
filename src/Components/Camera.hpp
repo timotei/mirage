@@ -21,7 +21,7 @@ public:
 	bool useAnimation;
 
 	Camera();
-	void update() {}
+	void update();
 	void draw();
 
 	void onKeyPressed(int key, int mouseX, int mouseY, bool special = false);
