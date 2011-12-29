@@ -17,7 +17,7 @@
 class LightSource :	public GameComponent
 {
 public:
-	LightSource(GLenum lightNum);
+	LightSource();
 	~LightSource();
 
 	void update() {}

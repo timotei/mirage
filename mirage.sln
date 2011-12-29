@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirage", "mirage.vcproj", "{42E83616-EF72-4AB0-ADD4-9D01227C5FAB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8BAAD06A-3072-4158-9521-774C1AADF8D2} = {8BAAD06A-3072-4158-9521-774C1AADF8D2}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirage.external", "mirage.external.vcproj", "{8BAAD06A-3072-4158-9521-774C1AADF8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{42E83616-EF72-4AB0-ADD4-9D01227C5FAB}.Debug|Win32.Build.0 = Debug|Win32
 		{42E83616-EF72-4AB0-ADD4-9D01227C5FAB}.Release|Win32.ActiveCfg = Release|Win32
 		{42E83616-EF72-4AB0-ADD4-9D01227C5FAB}.Release|Win32.Build.0 = Release|Win32
+		{8BAAD06A-3072-4158-9521-774C1AADF8D2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8BAAD06A-3072-4158-9521-774C1AADF8D2}.Debug|Win32.Build.0 = Debug|Win32
+		{8BAAD06A-3072-4158-9521-774C1AADF8D2}.Release|Win32.ActiveCfg = Release|Win32
+		{8BAAD06A-3072-4158-9521-774C1AADF8D2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

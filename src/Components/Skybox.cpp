@@ -1,6 +1,6 @@
 #include "Skybox.hpp"
 
-#include <tga/tga.h>
+#include <tga.h>
 
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 

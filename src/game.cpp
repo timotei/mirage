@@ -66,7 +66,7 @@ void Game::initGame(){
 	_camera->useAnimation = false;
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
-	_sun = new LightSource(GL_LIGHT0);
+	_sun = new LightSource();
 	_sun->diffuse = Vector4(1, 1, 1, 1);
 	_sun->ambient = Vector4(1, 1, 1, 1);
 	_sun->position = Vector4(0, 0, 4, 1);

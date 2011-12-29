@@ -93,7 +93,7 @@ bool ShaderProgram::linkAndValidateProgram()
 	return true;
 }
 
-void ShaderProgram::setActiveProgram()
+void ShaderProgram::use()
 {	
 	glUseProgram( _programId );
 }

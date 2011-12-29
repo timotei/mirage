@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <tga/tga.h>
+#include <tga.h>
 #include <boost/shared_ptr.hpp>
 
 #include "tolua++.h"

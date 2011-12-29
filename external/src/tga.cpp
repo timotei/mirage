@@ -20,6 +20,7 @@
 #include <windows.h>
 #endif
 #ifdef _WIN32
+#include "GL/glew.h"
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>

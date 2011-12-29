@@ -20,7 +20,7 @@ public:
 	bool linkAndValidateProgram();
 
 	GLuint getProgramId () const { return _programId; }
-	void setActiveProgram();
+	void use();
 
 private:
 	std::list<GLuint> _shaders;
