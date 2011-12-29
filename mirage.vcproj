@@ -249,6 +249,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\ShaderProgram.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\ShaderProgram.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\Components\Skybox.cpp"
 			>
 		</File>

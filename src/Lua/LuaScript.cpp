@@ -19,13 +19,12 @@ LuaScript::~LuaScript()
 
 int LuaScript::executeScript(std::string path)
 {
+	std::cout << "Loading lua script " << path << " ...";
 	int res = luaL_loadfile(_state, path.c_str());
 	if (res != 0){
 		std::cerr << "Error loading script: " << path << "\n";
 		return res;
 	}
-
-	std::cerr << "Loaded file " << path << "\n";
 
 	res = lua_pcall(_state, 0, LUA_MULTRET, 0);
 
@@ -33,6 +32,8 @@ int LuaScript::executeScript(std::string path)
 		std::cerr << "Lua Error: " << lua_tostring(_state, -1) << "\n";
 		lua_pop(_state, 1);
 	}
+
+	std::cout << "done.\n";
 	return res;
 }
 
