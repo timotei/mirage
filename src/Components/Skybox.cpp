@@ -30,6 +30,8 @@ void Skybox::loadTextures(std::string texturePrefix)
 
 void Skybox::draw()
 {
+	glPushAttrib(GL_ENABLE_BIT);
+	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
@@ -94,5 +96,7 @@ void Skybox::draw()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
+
 	glPopMatrix();
+	glPopAttrib();
 }
