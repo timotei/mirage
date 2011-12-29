@@ -19,6 +19,9 @@ public:
 	bool attachNewShader( GLenum shaderType, const char* filename );
 	bool linkAndValidateProgram();
 
+	GLuint getProgramId () const { return _programId; }
+	void setActiveProgram();
+
 private:
 	std::list<GLuint> _shaders;
 	GLuint _programId;

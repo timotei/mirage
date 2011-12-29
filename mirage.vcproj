@@ -52,6 +52,7 @@
 				WarnAsError="true"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4800"
+				ShowIncludes="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -230,14 +231,6 @@
 		</File>
 		<File
 			RelativePath=".\src\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\math3d.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\math3d.h"
 			>
 		</File>
 		<File

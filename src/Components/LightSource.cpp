@@ -3,7 +3,7 @@
 LightSource::LightSource(GLenum lightNum) :
 _lightNum(lightNum)
 {
-	glEnable(lightNum);
+	glEnable( lightNum );
 }
 
 LightSource::~LightSource()
@@ -20,10 +20,11 @@ void LightSource::draw()
 	glRotatef(rotation.z, 0, 0, 1);
 
 	glLightfv(_lightNum, GL_POSITION, position.toArray().get());
+	glPushAttrib( GL_ENABLE_BIT );
 	glDisable(GL_LIGHTING);
 		glTranslatef(position.x, position.y, position.z);
 		glutSolidSphere(1, 10, 10);
-	glEnable(GL_LIGHTING);
+	glPopAttrib();
 
 	glPopMatrix();
 

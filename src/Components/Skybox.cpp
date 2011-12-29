@@ -1,11 +1,5 @@
 #include "Skybox.hpp"
 
-#if defined _WIN32 || defined _WIN64
-#include "GL/freeglut.h"
-#else
-#include <OpenGL/OpenGL.h>
-#include <GLUT/GLUT.h>
-#endif
 #include <tga/tga.h>
 
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;

@@ -5,6 +5,8 @@
 #include "../Lua/LuaScript.hpp"
 #include <boost/shared_ptr.hpp>
 
+#include "../ShaderProgram.hpp"
+
 class GameComponent{
 public:
 	virtual void draw() {}
@@ -15,7 +17,7 @@ public:
 		}
 	}
 
-	virtual void onKeyPressed(int, int, int, bool)  {};
+	virtual void onKeyPressed(int, int, int, bool) {};
 
 	virtual void loadScript(std::string path) {}
 
@@ -23,7 +25,9 @@ public:
 
 	Vector3 translation;
 	Vector3 rotation;
+
 	boost::shared_ptr<LuaScript> script;
+	ShaderProgram shader;
 };
 
 #endif // MIRAGE_GAMECOMPONENT_HPP__

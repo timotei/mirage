@@ -3,6 +3,7 @@
 
 #include <boost/shared_array.hpp>
 #if defined _WIN32 || defined _WIN64
+#include "GL/glew.h"
 #include "GL/freeglut.h"
 #else
 #include <OpenGL/OpenGL.h>
