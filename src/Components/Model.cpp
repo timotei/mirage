@@ -57,8 +57,8 @@ void Model::cleanupCurrentModel()
 
 void Model::draw()
 {
+	glPushMatrix();
 	if (_model != NULL){
-		glPushMatrix();
 		if (_textureLoaded) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, _texture);
@@ -73,13 +73,14 @@ void Model::draw()
 		glmDraw(_model, _drawMode);
 
 		if (_textureLoaded) {
+			glBindTexture(GL_TEXTURE_2D, 0);
 			glDisable(GL_TEXTURE_2D);
 		}
-		glPopMatrix();
 	}
 	else{
 		std::cerr << "Error! The model is NULL\n";
 	}
+	glPopMatrix();
 }
 
 Model::~Model()
