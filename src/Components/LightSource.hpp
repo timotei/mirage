@@ -8,10 +8,10 @@
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
 #endif
+#include "nvVector.h"
+#include "nvMath.h"
 
 #include "GameComponent.hpp"
-#include "../Vector3.hpp"
-#include "../Vector4.hpp"
 #include "../Utils.hpp"
 
 class LightSource :	public GameComponent
@@ -23,11 +23,11 @@ public:
 	void update() {}
 	void draw();
 
-	Vector4 position;
-	Vector4 diffuse;
-	Vector4 ambient;
-	Vector4 specular;
-	Vector4 emission;
+	nv::vec4f position;
+	nv::vec4f diffuse;
+	nv::vec4f ambient;
+	nv::vec4f specular;
+	nv::vec4f emission;
 	GLfloat shininess;
 private:
 	GLenum _lightNum;

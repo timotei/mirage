@@ -1,26 +1,24 @@
 $#include "LuaMirage.hpp"
-$#include "../Vector3.hpp"
-$#include "../Vector4.hpp"
 $#include "../Components/Model.hpp"
 $#include "../Components/GameComponent.hpp"
 $#include "../Components/Camera.hpp"
+$#include "nvVector.h"
+$#include "nvMath.h"
+$using namespace nv;
 
-struct Vector3{
+struct vec3f{
 	float x,y,z;
 
-	Vector3();
-	Vector3(float X, float Y, float Z);
-	Vector3(const Vector3& other);
+	vec3f();
+	vec3f(float X, float Y, float Z);
 };
 
 
-struct Vector4{
+struct vec4f{
 	float x, y, z, w;
 
-	Vector4();
-	Vector4(float X, float Y, float Z, float W);
-	explicit Vector4(const Vector3& other);
-	Vector4(const Vector4& other);
+	vec4f();
+	vec4f(float X, float Y, float Z, float W);
 };
 
 
@@ -34,14 +32,14 @@ class GameComponent{
 
 	virtual ~GameComponent() {}
 
-	Vector3 translation;
-	Vector3 rotation;
+	vec3f translation;
+	vec3f rotation;
 };
 
 class Camera : public GameComponent{
-	Vector3 position;
-	Vector3 target;
-	Vector3 up;
+	vec3f position;
+	vec3f target;
+	vec3f up;
 
 	bool useAnimation;
 

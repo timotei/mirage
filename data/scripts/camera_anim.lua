@@ -12,7 +12,7 @@ waypointsCnt = #waypoints;
 speed = 1000; speedAngle = 2000;
 
 -- initial camera position
-camera.position = Vector3:new(0, 0, 30);
+camera.position = vec3f:new(0, 0, 30);
 
 incX = 0; incY = 0; incZ = 0; incAngleX = 0; incAngleY = 0; incAngleZ = 0;
 targetX = 0; targetY = 0; targetZ = 0; targetAngleX = 0; targetAngleY = 0; targetAngleZ = 0;

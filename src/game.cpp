@@ -11,8 +11,9 @@
 #include <time.h>
 #include <vector>
 #include <boost/foreach.hpp>
+#include "nvVector.h"
+#include "nvMath.h"
 
-#include "Vector3.hpp"
 #include "Components/GameComponent.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Model.hpp"
@@ -67,10 +68,10 @@ void Game::initGame(){
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
 	_sun = new LightSource();
-	_sun->diffuse = Vector4(1, 1, 1, 1);
-	_sun->ambient = Vector4(1, 1, 1, 1);
-	_sun->position = Vector4(0, 0, 4, 1);
-	_sun->translation = Vector3(6, 0, 0);
+	_sun->diffuse = nv::vec4f(1, 1, 1, 1);
+	_sun->ambient = nv::vec4f(1, 1, 1, 1);
+	_sun->position = nv::vec4f(0, 0, 4, 1);
+	_sun->translation = nv::vec3f(6, 0, 0);
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 12/29/11 20:18:54.
+** Generated automatically by tolua++-1.0.92 on 12/30/11 13:29:14.
 */
 
 #ifndef __cplusplus
@@ -14,14 +14,22 @@
 TOLUA_API int  tolua_luamirage_open (lua_State* tolua_S);
 
 #include "LuaMirage.hpp"
-#include "../Vector3.hpp"
-#include "../Vector4.hpp"
 #include "../Components/Model.hpp"
 #include "../Components/GameComponent.hpp"
 #include "../Components/Camera.hpp"
+#include "nvVector.h"
+#include "nvMath.h"
+using namespace nv;
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
+
+static int tolua_collect_vec4f (lua_State* tolua_S)
+{
+ vec4f* self = (vec4f*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
 
 static int tolua_collect_Camera (lua_State* tolua_S)
 {
@@ -37,9 +45,9 @@ static int tolua_collect_Model (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_Vector4 (lua_State* tolua_S)
+static int tolua_collect_vec3f (lua_State* tolua_S)
 {
- Vector4* self = (Vector4*) tolua_tousertype(tolua_S,1,0);
+ vec3f* self = (vec3f*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -50,32 +58,25 @@ static int tolua_collect_GameComponent (lua_State* tolua_S)
 	Mtolua_delete(self);
 	return 0;
 }
-
-static int tolua_collect_Vector3 (lua_State* tolua_S)
-{
- Vector3* self = (Vector3*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
 #endif
 
 
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
+ tolua_usertype(tolua_S,"vec4f");
  tolua_usertype(tolua_S,"Camera");
  tolua_usertype(tolua_S,"Model");
- tolua_usertype(tolua_S,"GLuint");
- tolua_usertype(tolua_S,"Vector4");
+ tolua_usertype(tolua_S,"vec3f");
  tolua_usertype(tolua_S,"GameComponent");
- tolua_usertype(tolua_S,"Vector3");
+ tolua_usertype(tolua_S,"GLuint");
 }
 
-/* get function: x of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector3_x
-static int tolua_get_Vector3_x(lua_State* tolua_S)
+/* get function: x of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_get_vec3f_x
+static int tolua_get_vec3f_x(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
 #endif
@@ -84,11 +85,11 @@ static int tolua_get_Vector3_x(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: x of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector3_x
-static int tolua_set_Vector3_x(lua_State* tolua_S)
+/* set function: x of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_set_vec3f_x
+static int tolua_set_vec3f_x(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
@@ -101,11 +102,11 @@ static int tolua_set_Vector3_x(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: y of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector3_y
-static int tolua_get_Vector3_y(lua_State* tolua_S)
+/* get function: y of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_get_vec3f_y
+static int tolua_get_vec3f_y(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
 #endif
@@ -114,11 +115,11 @@ static int tolua_get_Vector3_y(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: y of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector3_y
-static int tolua_set_Vector3_y(lua_State* tolua_S)
+/* set function: y of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_set_vec3f_y
+static int tolua_set_vec3f_y(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
@@ -131,11 +132,11 @@ static int tolua_set_Vector3_y(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: z of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector3_z
-static int tolua_get_Vector3_z(lua_State* tolua_S)
+/* get function: z of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_get_vec3f_z
+static int tolua_get_vec3f_z(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'z'",NULL);
 #endif
@@ -144,11 +145,11 @@ static int tolua_get_Vector3_z(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: z of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector3_z
-static int tolua_set_Vector3_z(lua_State* tolua_S)
+/* set function: z of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_set_vec3f_z
+static int tolua_set_vec3f_z(lua_State* tolua_S)
 {
-  Vector3* self = (Vector3*)  tolua_tousertype(tolua_S,1,0);
+  vec3f* self = (vec3f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'z'",NULL);
@@ -161,14 +162,14 @@ static int tolua_set_Vector3_z(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new00
-static int tolua_luamirage_Vector3_new00(lua_State* tolua_S)
+/* method: new of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec3f_new00
+static int tolua_luamirage_vec3f_new00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec3f",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
@@ -176,8 +177,8 @@ static int tolua_luamirage_Vector3_new00(lua_State* tolua_S)
 #endif
  {
   {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
+   vec3f* tolua_ret = (vec3f*)  Mtolua_new((vec3f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec3f");
   }
  }
  return 1;
@@ -189,14 +190,14 @@ static int tolua_luamirage_Vector3_new00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new_local of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new00_local
-static int tolua_luamirage_Vector3_new00_local(lua_State* tolua_S)
+/* method: new_local of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec3f_new00_local
+static int tolua_luamirage_vec3f_new00_local(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec3f",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
@@ -204,8 +205,8 @@ static int tolua_luamirage_Vector3_new00_local(lua_State* tolua_S)
 #endif
  {
   {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
+   vec3f* tolua_ret = (vec3f*)  Mtolua_new((vec3f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec3f");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
@@ -218,13 +219,13 @@ static int tolua_luamirage_Vector3_new00_local(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new01
-static int tolua_luamirage_Vector3_new01(lua_State* tolua_S)
+/* method: new of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec3f_new01
+static int tolua_luamirage_vec3f_new01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec3f",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
@@ -237,23 +238,23 @@ static int tolua_luamirage_Vector3_new01(lua_State* tolua_S)
   float Y = ((float)  tolua_tonumber(tolua_S,3,0));
   float Z = ((float)  tolua_tonumber(tolua_S,4,0));
   {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)(X,Y,Z));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
+   vec3f* tolua_ret = (vec3f*)  Mtolua_new((vec3f)(X,Y,Z));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec3f");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_luamirage_Vector3_new00(tolua_S);
+ return tolua_luamirage_vec3f_new00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new_local of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new01_local
-static int tolua_luamirage_Vector3_new01_local(lua_State* tolua_S)
+/* method: new_local of class  vec3f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec3f_new01_local
+static int tolua_luamirage_vec3f_new01_local(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec3f",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
@@ -266,73 +267,22 @@ static int tolua_luamirage_Vector3_new01_local(lua_State* tolua_S)
   float Y = ((float)  tolua_tonumber(tolua_S,3,0));
   float Z = ((float)  tolua_tonumber(tolua_S,4,0));
   {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)(X,Y,Z));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
+   vec3f* tolua_ret = (vec3f*)  Mtolua_new((vec3f)(X,Y,Z));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec3f");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
  return 1;
 tolua_lerror:
- return tolua_luamirage_Vector3_new00_local(tolua_S);
+ return tolua_luamirage_vec3f_new00_local(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new02
-static int tolua_luamirage_Vector3_new02(lua_State* tolua_S)
+/* get function: x of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_get_vec4f_x
+static int tolua_get_vec4f_x(lua_State* tolua_S)
 {
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector3",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector3* other = ((const Vector3*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector3_new01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  Vector3 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector3_new02_local
-static int tolua_luamirage_Vector3_new02_local(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector3",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector3",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector3* other = ((const Vector3*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector3* tolua_ret = (Vector3*)  Mtolua_new((Vector3)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector3");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector3_new01_local(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: x of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector4_x
-static int tolua_get_Vector4_x(lua_State* tolua_S)
-{
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
 #endif
@@ -341,11 +291,11 @@ static int tolua_get_Vector4_x(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: x of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector4_x
-static int tolua_set_Vector4_x(lua_State* tolua_S)
+/* set function: x of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_set_vec4f_x
+static int tolua_set_vec4f_x(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
@@ -358,11 +308,11 @@ static int tolua_set_Vector4_x(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: y of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector4_y
-static int tolua_get_Vector4_y(lua_State* tolua_S)
+/* get function: y of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_get_vec4f_y
+static int tolua_get_vec4f_y(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
 #endif
@@ -371,11 +321,11 @@ static int tolua_get_Vector4_y(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: y of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector4_y
-static int tolua_set_Vector4_y(lua_State* tolua_S)
+/* set function: y of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_set_vec4f_y
+static int tolua_set_vec4f_y(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
@@ -388,11 +338,11 @@ static int tolua_set_Vector4_y(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: z of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector4_z
-static int tolua_get_Vector4_z(lua_State* tolua_S)
+/* get function: z of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_get_vec4f_z
+static int tolua_get_vec4f_z(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'z'",NULL);
 #endif
@@ -401,11 +351,11 @@ static int tolua_get_Vector4_z(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: z of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector4_z
-static int tolua_set_Vector4_z(lua_State* tolua_S)
+/* set function: z of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_set_vec4f_z
+static int tolua_set_vec4f_z(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'z'",NULL);
@@ -418,11 +368,11 @@ static int tolua_set_Vector4_z(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: w of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_get_Vector4_w
-static int tolua_get_Vector4_w(lua_State* tolua_S)
+/* get function: w of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_get_vec4f_w
+static int tolua_get_vec4f_w(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'w'",NULL);
 #endif
@@ -431,11 +381,11 @@ static int tolua_get_Vector4_w(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: w of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_set_Vector4_w
-static int tolua_set_Vector4_w(lua_State* tolua_S)
+/* set function: w of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_set_vec4f_w
+static int tolua_set_vec4f_w(lua_State* tolua_S)
 {
-  Vector4* self = (Vector4*)  tolua_tousertype(tolua_S,1,0);
+  vec4f* self = (vec4f*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'w'",NULL);
@@ -448,14 +398,14 @@ static int tolua_set_Vector4_w(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new00
-static int tolua_luamirage_Vector4_new00(lua_State* tolua_S)
+/* method: new of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec4f_new00
+static int tolua_luamirage_vec4f_new00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec4f",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
@@ -463,8 +413,8 @@ static int tolua_luamirage_Vector4_new00(lua_State* tolua_S)
 #endif
  {
   {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
+   vec4f* tolua_ret = (vec4f*)  Mtolua_new((vec4f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec4f");
   }
  }
  return 1;
@@ -476,14 +426,14 @@ static int tolua_luamirage_Vector4_new00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new_local of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new00_local
-static int tolua_luamirage_Vector4_new00_local(lua_State* tolua_S)
+/* method: new_local of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec4f_new00_local
+static int tolua_luamirage_vec4f_new00_local(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec4f",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
@@ -491,8 +441,8 @@ static int tolua_luamirage_Vector4_new00_local(lua_State* tolua_S)
 #endif
  {
   {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
+   vec4f* tolua_ret = (vec4f*)  Mtolua_new((vec4f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec4f");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
@@ -505,13 +455,13 @@ static int tolua_luamirage_Vector4_new00_local(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new01
-static int tolua_luamirage_Vector4_new01(lua_State* tolua_S)
+/* method: new of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec4f_new01
+static int tolua_luamirage_vec4f_new01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec4f",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
@@ -526,23 +476,23 @@ static int tolua_luamirage_Vector4_new01(lua_State* tolua_S)
   float Z = ((float)  tolua_tonumber(tolua_S,4,0));
   float W = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(X,Y,Z,W));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
+   vec4f* tolua_ret = (vec4f*)  Mtolua_new((vec4f)(X,Y,Z,W));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec4f");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_luamirage_Vector4_new00(tolua_S);
+ return tolua_luamirage_vec4f_new00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new_local of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new01_local
-static int tolua_luamirage_Vector4_new01_local(lua_State* tolua_S)
+/* method: new_local of class  vec4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_vec4f_new01_local
+static int tolua_luamirage_vec4f_new01_local(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"vec4f",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
@@ -557,116 +507,14 @@ static int tolua_luamirage_Vector4_new01_local(lua_State* tolua_S)
   float Z = ((float)  tolua_tonumber(tolua_S,4,0));
   float W = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(X,Y,Z,W));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
+   vec4f* tolua_ret = (vec4f*)  Mtolua_new((vec4f)(X,Y,Z,W));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"vec4f");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
  return 1;
 tolua_lerror:
- return tolua_luamirage_Vector4_new00_local(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new02
-static int tolua_luamirage_Vector4_new02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector3",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector3* other = ((const Vector3*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector4_new01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new02_local
-static int tolua_luamirage_Vector4_new02_local(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector3",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector3* other = ((const Vector3*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector4_new01_local(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new03
-static int tolua_luamirage_Vector4_new03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector4",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector4* other = ((const Vector4*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector4_new02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  Vector4 */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Vector4_new03_local
-static int tolua_luamirage_Vector4_new03_local(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"Vector4",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const Vector4",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const Vector4* other = ((const Vector4*)  tolua_tousertype(tolua_S,2,0));
-  {
-   Vector4* tolua_ret = (Vector4*)  Mtolua_new((Vector4)(*other));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Vector4");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_luamirage_Vector4_new02_local(tolua_S);
+ return tolua_luamirage_vec4f_new00_local(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -841,7 +689,7 @@ static int tolua_get_GameComponent_translation(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'translation'",NULL);
 #endif
-   tolua_pushusertype(tolua_S,(void*)&self->translation,"Vector3");
+   tolua_pushusertype(tolua_S,(void*)&self->translation,"vec3f");
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -854,10 +702,10 @@ static int tolua_set_GameComponent_translation(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'translation'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)))
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->translation = *((Vector3*)  tolua_tousertype(tolua_S,2,0))
+  self->translation = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -871,7 +719,7 @@ static int tolua_get_GameComponent_rotation(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'rotation'",NULL);
 #endif
-   tolua_pushusertype(tolua_S,(void*)&self->rotation,"Vector3");
+   tolua_pushusertype(tolua_S,(void*)&self->rotation,"vec3f");
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -884,10 +732,10 @@ static int tolua_set_GameComponent_rotation(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'rotation'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)))
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->rotation = *((Vector3*)  tolua_tousertype(tolua_S,2,0))
+  self->rotation = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -901,7 +749,7 @@ static int tolua_get_Camera_position(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'position'",NULL);
 #endif
-   tolua_pushusertype(tolua_S,(void*)&self->position,"Vector3");
+   tolua_pushusertype(tolua_S,(void*)&self->position,"vec3f");
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -914,10 +762,10 @@ static int tolua_set_Camera_position(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'position'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)))
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->position = *((Vector3*)  tolua_tousertype(tolua_S,2,0))
+  self->position = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -931,7 +779,7 @@ static int tolua_get_Camera_target(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'target'",NULL);
 #endif
-   tolua_pushusertype(tolua_S,(void*)&self->target,"Vector3");
+   tolua_pushusertype(tolua_S,(void*)&self->target,"vec3f");
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -944,10 +792,10 @@ static int tolua_set_Camera_target(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'target'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)))
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->target = *((Vector3*)  tolua_tousertype(tolua_S,2,0))
+  self->target = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -961,7 +809,7 @@ static int tolua_get_Camera_up(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'up'",NULL);
 #endif
-   tolua_pushusertype(tolua_S,(void*)&self->up,"Vector3");
+   tolua_pushusertype(tolua_S,(void*)&self->up,"vec3f");
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -974,10 +822,10 @@ static int tolua_set_Camera_up(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'up'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Vector3",0,&tolua_err)))
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->up = *((Vector3*)  tolua_tousertype(tolua_S,2,0))
+  self->up = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -1542,46 +1390,37 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
  tolua_module(tolua_S,NULL,0);
  tolua_beginmodule(tolua_S,NULL);
   #ifdef __cplusplus
-  tolua_cclass(tolua_S,"Vector3","Vector3","",tolua_collect_Vector3);
+  tolua_cclass(tolua_S,"vec3f","vec3f","",tolua_collect_vec3f);
   #else
-  tolua_cclass(tolua_S,"Vector3","Vector3","",NULL);
+  tolua_cclass(tolua_S,"vec3f","vec3f","",NULL);
   #endif
-  tolua_beginmodule(tolua_S,"Vector3");
-   tolua_variable(tolua_S,"x",tolua_get_Vector3_x,tolua_set_Vector3_x);
-   tolua_variable(tolua_S,"y",tolua_get_Vector3_y,tolua_set_Vector3_y);
-   tolua_variable(tolua_S,"z",tolua_get_Vector3_z,tolua_set_Vector3_z);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector3_new00);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector3_new00_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector3_new00_local);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector3_new01);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector3_new01_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector3_new01_local);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector3_new02);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector3_new02_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector3_new02_local);
+  tolua_beginmodule(tolua_S,"vec3f");
+   tolua_variable(tolua_S,"x",tolua_get_vec3f_x,tolua_set_vec3f_x);
+   tolua_variable(tolua_S,"y",tolua_get_vec3f_y,tolua_set_vec3f_y);
+   tolua_variable(tolua_S,"z",tolua_get_vec3f_z,tolua_set_vec3f_z);
+   tolua_function(tolua_S,"new",tolua_luamirage_vec3f_new00);
+   tolua_function(tolua_S,"new_local",tolua_luamirage_vec3f_new00_local);
+   tolua_function(tolua_S,".call",tolua_luamirage_vec3f_new00_local);
+   tolua_function(tolua_S,"new",tolua_luamirage_vec3f_new01);
+   tolua_function(tolua_S,"new_local",tolua_luamirage_vec3f_new01_local);
+   tolua_function(tolua_S,".call",tolua_luamirage_vec3f_new01_local);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
-  tolua_cclass(tolua_S,"Vector4","Vector4","",tolua_collect_Vector4);
+  tolua_cclass(tolua_S,"vec4f","vec4f","",tolua_collect_vec4f);
   #else
-  tolua_cclass(tolua_S,"Vector4","Vector4","",NULL);
+  tolua_cclass(tolua_S,"vec4f","vec4f","",NULL);
   #endif
-  tolua_beginmodule(tolua_S,"Vector4");
-   tolua_variable(tolua_S,"x",tolua_get_Vector4_x,tolua_set_Vector4_x);
-   tolua_variable(tolua_S,"y",tolua_get_Vector4_y,tolua_set_Vector4_y);
-   tolua_variable(tolua_S,"z",tolua_get_Vector4_z,tolua_set_Vector4_z);
-   tolua_variable(tolua_S,"w",tolua_get_Vector4_w,tolua_set_Vector4_w);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector4_new00);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector4_new00_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector4_new00_local);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector4_new01);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector4_new01_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector4_new01_local);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector4_new02);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector4_new02_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector4_new02_local);
-   tolua_function(tolua_S,"new",tolua_luamirage_Vector4_new03);
-   tolua_function(tolua_S,"new_local",tolua_luamirage_Vector4_new03_local);
-   tolua_function(tolua_S,".call",tolua_luamirage_Vector4_new03_local);
+  tolua_beginmodule(tolua_S,"vec4f");
+   tolua_variable(tolua_S,"x",tolua_get_vec4f_x,tolua_set_vec4f_x);
+   tolua_variable(tolua_S,"y",tolua_get_vec4f_y,tolua_set_vec4f_y);
+   tolua_variable(tolua_S,"z",tolua_get_vec4f_z,tolua_set_vec4f_z);
+   tolua_variable(tolua_S,"w",tolua_get_vec4f_w,tolua_set_vec4f_w);
+   tolua_function(tolua_S,"new",tolua_luamirage_vec4f_new00);
+   tolua_function(tolua_S,"new_local",tolua_luamirage_vec4f_new00_local);
+   tolua_function(tolua_S,".call",tolua_luamirage_vec4f_new00_local);
+   tolua_function(tolua_S,"new",tolua_luamirage_vec4f_new01);
+   tolua_function(tolua_S,"new_local",tolua_luamirage_vec4f_new01_local);
+   tolua_function(tolua_S,".call",tolua_luamirage_vec4f_new01_local);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"GameComponent","GameComponent","",tolua_collect_GameComponent);

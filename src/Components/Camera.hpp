@@ -8,16 +8,17 @@
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
 #endif
+#include "nvVector.h"
+#include "nvMath.h"
 
 #include "GameComponent.hpp"
-#include "../Vector3.hpp"
 
 class Camera : public GameComponent{
 public:
 	static const int MOVEMENT_UNIT = 1;
-	Vector3 position;
-	Vector3 target;
-	Vector3 up;
+	nv::vec3f position;
+	nv::vec3f target;
+	nv::vec3f up;
 
 	bool useAnimation;
 
