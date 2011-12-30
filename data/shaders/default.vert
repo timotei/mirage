@@ -1,6 +1,13 @@
+//VERTEX SHADER
 #version 140
 
-uniform vec3 lightPos;
+struct LightSource
+{
+	vec3 color;
+	vec3 position;
+};
+
+uniform LightSource lights[8];
 
 void main(void)
 {
@@ -9,7 +16,7 @@ void main(void)
 
     vec3 N = normalize(gl_NormalMatrix * gl_Normal);
     vec4 V = gl_ModelViewMatrix * gl_Vertex;
-    vec3 L = normalize(lightPos - V.xyz);
+    vec3 L = normalize(lights[0].position - V.xyz);
 
     // output the diffuse color
     float NdotL = dot(N, L);

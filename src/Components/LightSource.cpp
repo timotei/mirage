@@ -1,7 +1,13 @@
 #include "LightSource.hpp"
 
-LightSource::LightSource()
+#include <sstream>
+
+static int LIGHTS_COUNTER = 0;
+
+LightSource::LightSource() : 
+_index( LIGHTS_COUNTER )
 {
+	LIGHTS_COUNTER ++ ;
 }
 
 LightSource::~LightSource()
@@ -16,17 +22,17 @@ void LightSource::draw()
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
 
-	//glLightfv(_lightNum, GL_POSITION, position.toArray().get());
 	glTranslatef(position.x, position.y, position.z);
 	glutSolidSphere(1, 10, 10);
 
 	glPopMatrix();
+}
 
-	/*glLightfv(_lightNum, GL_DIFFUSE, diffuse.toArray().get());
-	glLightfv(_lightNum, GL_AMBIENT, ambient.toArray().get());
-	glLightfv(_lightNum, GL_EMISSION, emission.toArray().get());
-	glLightfv(_lightNum, GL_SPECULAR, specular.toArray().get());
+void LightSource::sendToShaderProgram( ShaderProgram& program )
+{
+	std::ostringstream name;
 
-	GLfloat shine[1] = { shininess };
-	glLightfv(_lightNum, GL_SHININESS, shine);*/
+	name << "lights[" << _index << "].position";
+
+	program.setUniform( name.str().c_str() , position );
 }

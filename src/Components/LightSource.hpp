@@ -22,15 +22,16 @@ public:
 
 	void update() {}
 	void draw();
+	void sendToShaderProgram( ShaderProgram& program );
 
-	nv::vec4f position;
+	nv::vec3f position;
 	nv::vec4f diffuse;
 	nv::vec4f ambient;
 	nv::vec4f specular;
 	nv::vec4f emission;
 	GLfloat shininess;
 private:
-	GLenum _lightNum;
+	int _index;
 
 	DISALLOW_COPY_AND_ASSIGN(LightSource);
 };

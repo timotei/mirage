@@ -70,19 +70,26 @@ void Game::initGame(){
 	_sun = new LightSource();
 	_sun->diffuse = nv::vec4f(1, 1, 1, 1);
 	_sun->ambient = nv::vec4f(1, 1, 1, 1);
-	_sun->position = nv::vec4f(0, 0, 4, 1);
+	_sun->position = nv::vec3f(0, 0, 4);
 	_sun->translation = nv::vec3f(6, 0, 0);
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
 
-	ModelPtr snake = ModelPtr(new Model);
+	ModelPtr snake( new Model );
 	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
 	snake->loadTexture("data/gfx/textures/snake1.tga");
 
 	snake->loadScript("data/scripts/snake.lua");
 
 	//_components.push_back(snake);
+
+	ModelPtr sphere( new Model );
+	sphere->loadSphere( 3, 100, 100 );
+	sphere->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
+	sphere->shader.linkAndValidateProgram();
+
+	_components.push_back( sphere );
 
 	std::cout << "Init Done.\n";
 
@@ -115,10 +122,12 @@ void Game::renderScene()
 	_sun->draw();
 
 	foreach(GameComponentPtr component, _components){
+		if ( component->shader.isValid() ) {
+			_sun->sendToShaderProgram( component->shader );
+		}
+
 		component->draw();
 	}
-
-	glutSolidSphere(3, 100, 100);
 
 	glutSwapBuffers();
 }
