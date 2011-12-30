@@ -140,14 +140,47 @@ public:
         element(2,2) = s;
     }
 
-    void set_scale( const vec3<T> & s ) {
+    matrix4 set_scale( const vec3<T> & s ) {
         for (int i = 0; i < 3; i++) element(i,i) = s[i];
+
+		return *this;
     }
 
-
-    void set_translate( const vec3<T> & t ) {
+    matrix4 set_translate( const vec3<T> & t ) {
         for (int i = 0; i < 3; i++) element(i,3) = t[i];
+
+		return *this;
     }
+
+	matrix4 set_rotate_degrees( const vec3<T>& degreesRotation ) {
+		static const float DEG_TO_RAD = 0.017453292519943296f;
+		return set_rotate_radians( vec3<T>( 
+			degreesRotation.x * DEG_TO_RAD,
+			degreesRotation.y * DEG_TO_RAD,
+			degreesRotation.z * DEG_TO_RAD
+			) );
+	}
+
+	matrix4 set_rotate_radians( const vec3<T>& radiansRotation ) {
+		make_identity();
+
+		quaternionf q;
+		matrix4 m;
+
+		q.set_value( vec3f( 1, 0, 0 ), radiansRotation.x );
+		q.get_value( m );
+		(*this) *= m;
+
+		q.set_value( vec3f( 0, 1, 0 ), radiansRotation.y );
+		q.get_value( m );
+		(*this) *= m;
+
+		q.set_value( vec3f( 0, 0, 1 ), radiansRotation.z );
+		q.get_value( m );
+		(*this) *= m;
+
+		return *this;
+	}
 
     void set_row(int r, const vec4<T> & t) {
         for (int i = 0; i < 4; i++) element(r,i) = t[i];

@@ -275,7 +275,7 @@ public:
         // ensures that the anti-parallel case leads to a positive dot
         if( alpha == T(-1.0))
         {
-            vec3 v;
+            vec3<T> v;
 
             if(p1[0] != p1[1] || p1[0] != p1[2])
                 v = vec3<T>(p1[1], p1[2], p1[0]);

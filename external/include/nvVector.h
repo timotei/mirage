@@ -657,7 +657,7 @@ public:
         return r;
     }
    
-    //data intentionally left public to allow vec2.x
+    //data intentionally left public to allow vec4.x
     union {
         struct {
             T x, y, z, w;          // standard names for components
