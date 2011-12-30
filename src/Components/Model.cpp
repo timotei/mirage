@@ -57,8 +57,9 @@ void Model::cleanupCurrentModel()
 
 void Model::draw()
 {
+	if ( shader.isValid() )
+		shader.use();
 	glPushMatrix();
-	if (_model != NULL){
 		if (_textureLoaded) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, _texture);
@@ -70,17 +71,28 @@ void Model::draw()
 		glRotatef(rotation.y, 0, 1, 0);
 		glRotatef(rotation.z, 0, 0, 1);
 
-		glmDraw(_model, _drawMode);
+		switch( _type ) {
+		case NONE:
+			std::cerr << "WARN! Drawing a none model... \n";
+			break;
+		case FILE:
+			if (_model != NULL){
+				glmDraw(_model, _drawMode);
+			}
+			break;
+		case SPHERE:
+			glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
+			break;
+		}
 
 		if (_textureLoaded) {
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glDisable(GL_TEXTURE_2D);
 		}
-	}
-	else{
-		std::cerr << "Error! The model is NULL\n";
-	}
 	glPopMatrix();
+
+	if ( shader.isValid() )
+		shader.unUse();
 }
 
 Model::~Model()
@@ -89,8 +101,9 @@ Model::~Model()
 }
 
 Model::Model() :
-_model(NULL),
-_drawMode(GLM_SMOOTH)
+_model( NULL ),
+_drawMode( GLM_NONE ),
+_type( NONE )
 {
 	glGenTextures(1, &_texture);
 }
@@ -103,4 +116,12 @@ void Model::loadScript(std::string path)
 	lua_setglobal(*script, "CurrentModel");
 
 	script->executeScript(path);
+}
+
+void Model::loadSphere( GLdouble radius, GLint slices, GLint stacks )
+{
+	_type = SPHERE;
+	_sphereRadius = radius;
+	_sphereSlices = slices;
+	_sphereStacks = stacks;
 }
