@@ -9,7 +9,9 @@
 #define foreach BOOST_FOREACH
 
 ShaderProgram::ShaderProgram() :
-_shaders( 0 )
+_shaders( 0 ),
+_valid( false ),
+_prevProgramId( -1 )
 {
 	_programId = glCreateProgram();
 }
@@ -90,11 +92,61 @@ bool ShaderProgram::linkAndValidateProgram()
 		return false;
 	}
 
+	_valid = true;
+
 	return true;
 }
 
 void ShaderProgram::use()
 {	
+	if ( !_valid ) {
+		std::cerr << "use: Program " << _programId << " not valid!";
+		return;
+	}
+
+	glGetIntegerv( GL_CURRENT_PROGRAM, &_prevProgramId );
+
 	glUseProgram( _programId );
 }
 
+void ShaderProgram::unUse()
+{
+	if ( _prevProgramId == -1 )
+		return;
+
+	glUseProgram( _prevProgramId );
+	_prevProgramId = 0;
+}
+
+GLint ShaderProgram::getUniformLocation( const char* name ) 
+{
+	if ( !_valid ) {
+		std::cerr << "getUniformLocation: Program " << _programId << " not valid!";
+		return -1;
+	}
+
+	GLint locationId = glGetUniformLocation( _programId, name );
+	if ( locationId == -1 ) {
+		std::cerr << "Error! Couldn't get uniform location for: " << name << "\n";
+	}
+
+	return locationId;
+}
+
+void ShaderProgram::setUniform( const char* name, const nv::vec4f& value )
+{
+	GLint locationId = getUniformLocation( name );
+	if ( locationId == -1 ) 
+		return;
+	
+	glUniform4fv( _programId, 1, value );
+}
+
+void ShaderProgram::setUniform( const char* name, const nv::vec3f& value )
+{
+	GLint locationId = getUniformLocation( name );
+	if ( locationId == -1 ) 
+		return;
+
+	glUniform3fv( _programId, 1, value );
+}
