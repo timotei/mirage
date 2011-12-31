@@ -23,6 +23,7 @@ int LuaScript::executeScript(std::string path)
 	int res = luaL_loadfile(_state, path.c_str());
 	if (res != 0){
 		std::cerr << "Error loading script: " << path << "\n";
+		std::cerr << "The error(s): " << lua_tostring(_state, -1) << "\n";
 		return res;
 	}
 
