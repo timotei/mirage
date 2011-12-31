@@ -15,7 +15,7 @@ public:
 		FILE = 2
 	};
 
-	void update() {}
+	void update() { GameComponent::update(); }
 	void draw();
 
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);

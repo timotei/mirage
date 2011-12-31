@@ -19,7 +19,7 @@ public:
 	LightSource();
 	~LightSource();
 
-	void update() {}
+	void update() { GameComponent::update(); }
 	void draw();
 	void sendToShaderProgram( ShaderProgram& program );
 
