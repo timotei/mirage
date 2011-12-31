@@ -8,7 +8,6 @@
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
 #endif
-#include "nvVector.h"
 #include "nvMath.h"
 
 #include "GameComponent.hpp"
@@ -31,6 +30,8 @@ public:
 	void onMousePressed( int button, int state, int x, int y );
 
 	void loadScript(std::string path);
+
+	nv::matrix4f getViewMatrix();
 
 private:
 	int _lastMouseX;

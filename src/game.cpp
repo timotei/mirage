@@ -11,8 +11,6 @@
 #include <time.h>
 #include <vector>
 #include <boost/foreach.hpp>
-#include "nvVector.h"
-#include "nvMath.h"
 
 #include "Components/GameComponent.hpp"
 #include "Components/Camera.hpp"
@@ -70,8 +68,7 @@ void Game::initGame(){
 	_sun = new LightSource();
 	_sun->diffuse = nv::vec4f(1, 1, 1, 1);
 	_sun->ambient = nv::vec4f(1, 1, 1, 1);
-	_sun->position = nv::vec3f(0, 0, 4);
-	_sun->translation = nv::vec3f(6, 0, 0);
+	_sun->translation = nv::vec3f(0, 0, 4);
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
@@ -111,22 +108,30 @@ void Game::updateScene()
 }
 
 void Game::renderScene()
-{    
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
 	glLoadIdentity();
 
 	_camera->draw();
+	nv::matrix4f viewMatrix = _camera->getViewMatrix();
 
 	_skybox->draw();
 	_sun->draw();
 
-	foreach(GameComponentPtr component, _components){
+	foreach( GameComponentPtr component, _components ){
 		if ( component->shader.isValid() ) {
+			component->shader.use();
+			component->shader.setUniform( "u_PMatrix" , _projectionMatrix );
+			component->shader.setUniform( "u_VMatrix", viewMatrix );
+			component->shader.setUniform( "u_MMatrix", component->getModelMatrix() );
+
 			_sun->sendToShaderProgram( component->shader );
 		}
 
-		component->draw();
+		component->draw( );
+
+		component->shader.unUse();
 	}
 
 	glutSwapBuffers();
@@ -233,6 +238,8 @@ void Game::initProjectionMatrix(int width, int height)
 	glLoadIdentity();
 	glViewport(0, 0, width, height);
 	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
+
+	glGetFloatv( GL_PROJECTION_MATRIX, _projectionMatrix._array );
 }
 
 void Game::onExit()

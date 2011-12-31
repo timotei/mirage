@@ -98,3 +98,10 @@ void Camera::update()
 	if ( useAnimation && script != NULL )
 		script->callVoidFunction( "update" );
 }
+
+nv::matrix4f Camera::getViewMatrix()
+{
+	return	
+		nv::matrix4f().set_rotate_degrees( rotation ) *
+		nv::matrix4f().set_translate( - position );
+}

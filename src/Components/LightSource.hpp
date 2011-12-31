@@ -8,7 +8,6 @@
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
 #endif
-#include "nvVector.h"
 #include "nvMath.h"
 
 #include "GameComponent.hpp"
@@ -24,7 +23,6 @@ public:
 	void draw();
 	void sendToShaderProgram( ShaderProgram& program );
 
-	nv::vec3f position;
 	nv::vec4f diffuse;
 	nv::vec4f ambient;
 	nv::vec4f specular;

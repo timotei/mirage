@@ -3,8 +3,6 @@
 
 #include "../Lua/LuaScript.hpp"
 #include <boost/shared_ptr.hpp>
-#include "nvMatrix.h"
-#include "nvQuaternion.h"
 #include "nvMath.h"
 
 #include "../ShaderProgram.hpp"
@@ -25,19 +23,10 @@ public:
 
 	virtual ~GameComponent() {}
 
-	virtual nv::matrix4f getTransformationMatrix() {
-		nv::matrix4f rotationMatrix;
-		nv::quaternionf rotationQ;
-		rotationQ.set_value( nv::vec3f( 1, 0, 0 ), rotation.x );
-		rotationQ.set_value( nv::vec3f( 0, 1, 0 ), rotation.y );
-		rotationQ.set_value( nv::vec3f( 0, 0, 1 ), rotation.z );
-
-		rotationQ.get_value(rotationMatrix);
-
-		nv::matrix4f translationMatrix;
-		translationMatrix.set_translate( translation );
-
-		return rotationMatrix * translationMatrix;
+	virtual nv::matrix4f getModelMatrix() {
+		return 
+			nv::matrix4f().set_rotate_degrees( rotation ) * 
+			nv::matrix4f().set_translate( translation );
 	}
 
 	nv::vec3f translation;

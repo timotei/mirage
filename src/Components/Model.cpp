@@ -57,8 +57,6 @@ void Model::cleanupCurrentModel()
 
 void Model::draw()
 {
-	if ( shader.isValid() )
-		shader.use();
 	glPushMatrix();
 		if (_textureLoaded) {
 			glEnable(GL_TEXTURE_2D);

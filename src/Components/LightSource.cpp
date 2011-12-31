@@ -22,7 +22,7 @@ void LightSource::draw()
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
 
-	glTranslatef(position.x, position.y, position.z);
+	glTranslatef(translation.x, translation.y, translation.z);
 	glutSolidSphere(1, 10, 10);
 
 	glPopMatrix();
@@ -31,8 +31,9 @@ void LightSource::draw()
 void LightSource::sendToShaderProgram( ShaderProgram& program )
 {
 	std::ostringstream name;
-
 	name << "lights[" << _index << "].position";
 
-	program.setUniform( name.str().c_str() , position );
+	nv::vec4f res = getModelMatrix() * nv::vec4f( translation, 1.0f );
+
+	program.setUniform( name.str().c_str(), res._xyz );
 }

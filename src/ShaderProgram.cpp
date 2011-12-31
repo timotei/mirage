@@ -139,7 +139,7 @@ void ShaderProgram::setUniform( const char* name, const nv::vec4f& value )
 	if ( locationId == -1 ) 
 		return;
 	
-	glUniform4fv( _programId, 1, value );
+	glUniform4fv( locationId, 1, value.get_value() );
 }
 
 void ShaderProgram::setUniform( const char* name, const nv::vec3f& value )
@@ -148,5 +148,14 @@ void ShaderProgram::setUniform( const char* name, const nv::vec3f& value )
 	if ( locationId == -1 ) 
 		return;
 
-	glUniform3fv( _programId, 1, value );
+	glUniform3fv( locationId, 1, value.get_value() );
+}
+
+void ShaderProgram::setUniform( const char* name, const nv::matrix4f& value )
+{
+	GLint locationId = getUniformLocation( name );
+	if ( locationId == -1 ) 
+		return;
+
+	glUniformMatrix4fv( locationId, 1, GL_FALSE, value.get_value() );
 }

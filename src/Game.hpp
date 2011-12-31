@@ -4,6 +4,7 @@
 #include <list>
 #include <time.h>
 #include <boost/shared_ptr.hpp>
+#include "nvMath.h"
 
 #include "Utils.hpp"
 
@@ -37,6 +38,7 @@ private:
 
 	Skybox* _skybox;
 	Camera* _camera;
+	nv::matrix4f _projectionMatrix;
 	
 	LightSource* _sun;
 

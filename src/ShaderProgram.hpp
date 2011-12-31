@@ -28,6 +28,7 @@ public:
 	void unUse();
 	void setUniform( const char* name, const nv::vec4f& value );
 	void setUniform( const char* name, const nv::vec3f& value );
+	void setUniform( const char* name, const nv::matrix4f& value );
 
 private:
 	GLint getUniformLocation( const char* name );
