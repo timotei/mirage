@@ -4,6 +4,7 @@
 #include "../Lua/LuaScript.hpp"
 #include <boost/shared_ptr.hpp>
 #include "nvMath.h"
+#include "tolua++.h"
 
 #include "../ShaderProgram.hpp"
 
@@ -19,7 +20,15 @@ public:
 
 	virtual void onKeyPressed(int, int, int, bool) {};
 
-	virtual void loadScript(std::string path) {}
+	virtual void loadScript(std::string path) {
+		script = boost::shared_ptr<LuaScript>(new LuaScript);
+
+		tolua_pushusertype(*script, (void*)this, "GameComponent");
+		lua_setglobal(*script, "CurrentComponent");
+
+		script->executeScript(path);
+	}
+
 
 	virtual ~GameComponent() {}
 
