@@ -665,6 +665,9 @@ public:
         struct {
             T s, t, r, q;          // standard names for components
         };
+		struct {
+			vec3<T> _xyz; T _w;
+		};
         T _array[4];     // array access
     };
 };
