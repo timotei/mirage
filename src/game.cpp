@@ -69,6 +69,7 @@ void Game::initGame(){
 	_sun->diffuse = nv::vec4f(1, 1, 1, 1);
 	_sun->ambient = nv::vec4f(1, 1, 1, 1);
 	_sun->translation = nv::vec3f(0, 0, 4);
+	_sun->loadScript( "data/scripts/sun.lua" );
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
@@ -102,9 +103,6 @@ void Game::updateScene()
 	foreach(GameComponentPtr component, _components) {
 		component->update();
 	}
-
-	_sun->rotation.y += 0.5f;
-	if (_sun->rotation.y >= 360) _sun->rotation.y -= 360;
 }
 
 void Game::renderScene()
