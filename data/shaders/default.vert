@@ -19,8 +19,7 @@ void main(void)
 
     vec3 N = normalize(gl_NormalMatrix * gl_Normal);
     vec4 V = u_VMatrix * u_MMatrix * gl_Vertex;
-	vec3 light = (u_VMatrix * vec4(lights[0].position, 1)).xyz;
-    vec3 L = normalize(light - V.xyz);
+    vec3 L = normalize(lights[0].position - V.xyz);
 
     // output the diffuse color
     float NdotL = dot(N, L);

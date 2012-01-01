@@ -13,6 +13,8 @@
 #include "GameComponent.hpp"
 #include "../Utils.hpp"
 
+class Camera;
+
 class LightSource :	public GameComponent
 {
 public:
@@ -21,9 +23,10 @@ public:
 
 	void update() { GameComponent::update(); }
 	void draw();
-	void sendToShaderProgram( ShaderProgram& program );
+	void sendToShaderProgram( ShaderProgram& program, Camera& cam );
 
 	nv::vec4f color;
+
 private:
 	int _index;
 

@@ -132,7 +132,7 @@ void Game::renderScene()
 			component->shader.setUniform( "u_VMatrix", viewMatrix );
 			component->shader.setUniform( "u_MMatrix", component->getModelMatrix() );
 
-			_sun->sendToShaderProgram( component->shader );
+			_sun->sendToShaderProgram( component->shader, *_camera );
 		}
 
 		component->draw( );

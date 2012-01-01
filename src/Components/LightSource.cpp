@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#include "Camera.hpp"
+
 static int LIGHTS_COUNTER = 0;
 
 LightSource::LightSource() : 
@@ -29,12 +31,12 @@ void LightSource::draw()
 	glPopMatrix();
 }
 
-void LightSource::sendToShaderProgram( ShaderProgram& program )
+void LightSource::sendToShaderProgram( ShaderProgram& program, Camera& cam )
 {
 	std::ostringstream name;
 	name << "lights[" << _index << "].position";
 
-	nv::vec4f res = getModelMatrix() * nv::vec4f( translation, 1.0f );
+	nv::vec4f res = cam.getViewMatrix() *  getModelMatrix() * nv::vec4f( translation, 1.0f );
 
 	program.setUniform( name.str().c_str(), res._xyz );
 
