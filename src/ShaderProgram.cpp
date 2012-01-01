@@ -93,6 +93,7 @@ bool ShaderProgram::linkAndValidateProgram()
 	}
 
 	_valid = true;
+	std::cout << "Program " << _programId << " validated.\n";
 
 	return true;
 }
@@ -158,4 +159,12 @@ void ShaderProgram::setUniform( const char* name, const nv::matrix4f& value )
 		return;
 
 	glUniformMatrix4fv( locationId, 1, GL_FALSE, value.get_value() );
+}
+
+void ShaderProgram::detachAllShaders()
+{
+	foreach( GLint shader, _shaders ) {
+		glDetachShader( _programId, shader );
+		glDeleteShader( shader );
+	}
 }

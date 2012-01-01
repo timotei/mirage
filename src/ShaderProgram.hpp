@@ -17,7 +17,8 @@ class ShaderProgram{
 public:
 	ShaderProgram();
 	~ShaderProgram();
-	
+
+	void detachAllShaders();
 	bool attachNewShader( GLenum shaderType, const char* filename );
 	bool linkAndValidateProgram();
 

@@ -58,6 +58,7 @@ void Game::initOpenGL() {
 	glEnable(GL_CULL_FACE);
 }
 
+ModelPtr sph;
 void Game::initGame(){
 	std::cout << "Init started.\n";
 
@@ -86,6 +87,7 @@ void Game::initGame(){
 	sphere->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
 	sphere->shader.attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
 	sphere->shader.linkAndValidateProgram();
+	sph = sphere;
 
 	_components.push_back( sphere );
 
@@ -168,6 +170,8 @@ void Game::runGame()
 	glutMainLoop();
 }
 
+bool perpixel;
+
 void Game::onNormalKeyPressed( unsigned char key, int x, int y )
 {
 	// ESCAPE 
@@ -177,6 +181,16 @@ void Game::onNormalKeyPressed( unsigned char key, int x, int y )
 
 	if ( key == '1' ) { 
 		_currentVisualizationMode = (_currentVisualizationMode + 1) % 3;
+	}else if ( key == '2' ) {
+		perpixel = !perpixel;
+
+		sph->shader.detachAllShaders();
+
+		sph->shader.attachNewShader( GL_VERTEX_SHADER, 
+			perpixel ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
+		sph->shader.attachNewShader( GL_FRAGMENT_SHADER, 
+			perpixel ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
+		sph->shader.linkAndValidateProgram();
 	}
 
 	_camera->onKeyPressed(key, x, y);

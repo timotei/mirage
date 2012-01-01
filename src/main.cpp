@@ -81,7 +81,7 @@ int main( int argc, char* argv[])
 	//Set the display mode 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA); 
 	//Set the initial position and dimensions of the window 
-	glutInitWindowPosition(100, 100); 
+	glutInitWindowPosition(400, 100); 
 	glutInitWindowSize(mainGame.screenWidth, mainGame.screenHeight);
 	
 	//creates the window 
