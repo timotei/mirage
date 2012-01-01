@@ -46,7 +46,7 @@ void Skybox::draw()
 		glTexCoord2f(0.0f, 1.0f);glVertex3f(-_width, -_height, -_thickness);
 		glTexCoord2f(0.0f, 0.0f);glVertex3f(-_width, -_height, _thickness);
 		glTexCoord2f(1.0f, 0.0f);glVertex3f(_width, -_height, _thickness);
-		glEnd();
+	glEnd();
 
 	//negative z plane
 	glBindTexture(GL_TEXTURE_2D, _textures[BACK]);

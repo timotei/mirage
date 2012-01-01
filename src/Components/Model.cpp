@@ -58,42 +58,51 @@ void Model::cleanupCurrentModel()
 void Model::draw()
 {
 	glPushMatrix();
-		if (_textureLoaded) {
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, _texture);
+	GLfloat prevColor[4]; 
+	glGetFloatv( GL_CURRENT_COLOR, prevColor );
+
+	if (_textureLoaded) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, _texture);
+	}
+
+	glTranslatef(translation.x, translation.y, translation.z);
+
+	glRotatef(rotation.x, 1, 0, 0);
+	glRotatef(rotation.y, 0, 1, 0);
+	glRotatef(rotation.z, 0, 0, 1);
+
+	switch( _type ) {
+	case NONE:
+		std::cerr << "WARN! Drawing a none model... \n";
+		break;
+	case FILE:
+		if (_model != NULL){
+			glmDraw(_model, _drawMode);
 		}
+		break;
+	case SPHERE:
+		glColor4fv( _sphereColor._array );
+		glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
+		break;
+	case PLANE:
+		glBegin( GL_QUADS );
+			glNormal3f(0,1,0);
+			glVertex3f( _planeWidth, 0, -_planeLength );
+			glVertex3f(-_planeWidth, 0, -_planeLength );
+			glVertex3f(-_planeWidth, 0,  _planeLength );
+			glVertex3f( _planeWidth, 0,  _planeLength );
+		glEnd();
+		break;
+	}
 
-		glTranslatef(translation.x, translation.y, translation.z);
+	if (_textureLoaded) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_TEXTURE_2D);
+	}
 
-		glRotatef(rotation.x, 1, 0, 0);
-		glRotatef(rotation.y, 0, 1, 0);
-		glRotatef(rotation.z, 0, 0, 1);
-
-		switch( _type ) {
-		case NONE:
-			std::cerr << "WARN! Drawing a none model... \n";
-			break;
-		case FILE:
-			if (_model != NULL){
-				glmDraw(_model, _drawMode);
-			}
-			break;
-		case SPHERE:
-			GLfloat prevColor[4]; 
-			glGetFloatv( GL_CURRENT_COLOR, prevColor );
-
-			glColor4fv( _sphereColor._array );
-			glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
-
-			// restore color
-			glColor4fv( prevColor );
-			break;
-		}
-
-		if (_textureLoaded) {
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glDisable(GL_TEXTURE_2D);
-		}
+	// restore color
+	glColor4fv( prevColor );
 	glPopMatrix();
 
 	if ( shader.isValid() )
@@ -130,4 +139,12 @@ void Model::loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f c
 	_sphereSlices = slices;
 	_sphereStacks = stacks;
 	_sphereColor = color;
+}
+
+void Model::loadPlane( float width, float length, nv::vec4f color )
+{
+	_type = PLANE;
+	_planeLength = length;
+	_planeWidth = width;
+	_planeColor = color;
 }

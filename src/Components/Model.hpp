@@ -12,7 +12,8 @@ public:
 	enum ModelType {
 		NONE = 0,
 		SPHERE = 1,
-		FILE = 2
+		FILE = 2,
+		PLANE = 4
 	};
 
 	void update() { GameComponent::update(); }
@@ -22,6 +23,7 @@ public:
 	void loadTexture(const char* fileName);
 	void loadScript(std::string path);
 	void loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f color );
+	void loadPlane( float width, float length, nv::vec4f color );
 
 	Model();
 	~Model();
@@ -38,6 +40,10 @@ private:
 	GLint _sphereSlices;
 	GLint _sphereStacks;
 	nv::vec4f _sphereColor;
+	
+	nv::vec4f _planeColor;
+	float _planeLength;
+	float _planeWidth;
 
 	void cleanupCurrentModel();
 	DISALLOW_COPY_AND_ASSIGN(Model);

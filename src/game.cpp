@@ -82,11 +82,20 @@ void Game::initGame(){
 	//_components.push_back(snake);
 
 	ModelPtr sphere( new Model );
-	sphere->loadSphere( 3, 100, 100, nv::vec4f( 1, 0, 0, 1 ) );
+	sphere->loadSphere( 3, 10, 10, nv::vec4f( 1, 0, 0, 1 ) );
 	sphere->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
+	sphere->shader.attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
 	sphere->shader.linkAndValidateProgram();
 
 	_components.push_back( sphere );
+
+	ModelPtr plane( new Model );
+	plane->translation = nv::vec3f( 0, -3, 0 );
+	plane->loadPlane( 10, 10, nv::vec4f( 0, 0, 0, 1 ) );
+	plane->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
+	plane->shader.attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
+	plane->shader.linkAndValidateProgram();
+	_components.push_back( plane );
 
 	std::cout << "Init Done.\n";
 
