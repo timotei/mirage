@@ -79,7 +79,14 @@ void Model::draw()
 			}
 			break;
 		case SPHERE:
+			GLfloat prevColor[4]; 
+			glGetFloatv( GL_CURRENT_COLOR, prevColor );
+
+			glColor4fv( _sphereColor._array );
 			glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
+
+			// restore color
+			glColor4fv( prevColor );
 			break;
 		}
 
@@ -116,10 +123,11 @@ void Model::loadScript(std::string path)
 	script->executeScript(path);
 }
 
-void Model::loadSphere( GLdouble radius, GLint slices, GLint stacks )
+void Model::loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f color )
 {
 	_type = SPHERE;
 	_sphereRadius = radius;
 	_sphereSlices = slices;
 	_sphereStacks = stacks;
+	_sphereColor = color;
 }

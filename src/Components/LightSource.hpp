@@ -23,11 +23,7 @@ public:
 	void draw();
 	void sendToShaderProgram( ShaderProgram& program );
 
-	nv::vec4f diffuse;
-	nv::vec4f ambient;
-	nv::vec4f specular;
-	nv::vec4f emission;
-	GLfloat shininess;
+	nv::vec4f color;
 private:
 	int _index;
 

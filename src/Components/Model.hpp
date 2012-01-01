@@ -21,8 +21,8 @@ public:
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
 	void loadTexture(const char* fileName);
 	void loadScript(std::string path);
-	void loadSphere( GLdouble radius, GLint slices, GLint stacks );
-	
+	void loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f color );
+
 	Model();
 	~Model();
 private:
@@ -37,6 +37,7 @@ private:
 	GLdouble _sphereRadius;
 	GLint _sphereSlices;
 	GLint _sphereStacks;
+	nv::vec4f _sphereColor;
 
 	void cleanupCurrentModel();
 	DISALLOW_COPY_AND_ASSIGN(Model);

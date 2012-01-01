@@ -3,7 +3,7 @@
 
 struct LightSource
 {
-	vec3 color;
+	vec4 color;
 	vec3 position;
 };
 
@@ -24,5 +24,5 @@ void main(void)
 
     // output the diffuse color
     float NdotL = dot(N, L);
-    gl_FrontColor = gl_Color * vec4(max(0.0, NdotL));
+    gl_FrontColor = gl_Color * vec4(max(0.0, NdotL)) * lights[0].color;
 }

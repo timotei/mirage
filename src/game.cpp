@@ -66,9 +66,8 @@ void Game::initGame(){
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
 	_sun = new LightSource();
-	_sun->diffuse = nv::vec4f(1, 1, 1, 1);
-	_sun->ambient = nv::vec4f(1, 1, 1, 1);
-	_sun->translation = nv::vec3f(0, 0, 4);
+	_sun->translation = nv::vec3f( 0, 0, 4 );
+	_sun->color = nv::vec4f( 1, 1, 1, 1 );
 	_sun->loadScript( "data/scripts/sun.lua" );
 
 	_skybox = new Skybox(50, 30, 50);
@@ -83,7 +82,7 @@ void Game::initGame(){
 	//_components.push_back(snake);
 
 	ModelPtr sphere( new Model );
-	sphere->loadSphere( 3, 100, 100 );
+	sphere->loadSphere( 3, 100, 100, nv::vec4f( 1, 0, 0, 1 ) );
 	sphere->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
 	sphere->shader.linkAndValidateProgram();
 
@@ -197,7 +196,7 @@ void Game::onMousePressed( int button, int state, int x, int y )
 
 void Game::updateGame()
 {
-	static const double MS_PER_TICKS = CLOCKS_PER_SEC / 60.0; // 120 fps
+	static const double MS_PER_TICKS = CLOCKS_PER_SEC / 60.0; // 60 fps
 	clock_t now = clock();
 	_unprocessedTicks += (double)(now - _lastClock) / MS_PER_TICKS;
 	_lastClock = now;

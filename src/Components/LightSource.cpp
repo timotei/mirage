@@ -5,7 +5,8 @@
 static int LIGHTS_COUNTER = 0;
 
 LightSource::LightSource() : 
-_index( LIGHTS_COUNTER )
+_index( LIGHTS_COUNTER ),
+color( 1.0f, 1.0f, 1.0f, 1.0f )
 {
 	LIGHTS_COUNTER ++ ;
 }
@@ -36,4 +37,9 @@ void LightSource::sendToShaderProgram( ShaderProgram& program )
 	nv::vec4f res = getModelMatrix() * nv::vec4f( translation, 1.0f );
 
 	program.setUniform( name.str().c_str(), res._xyz );
+
+	name.str( "" );
+
+	name << "lights[" << _index << "].color";
+	program.setUniform( name.str().c_str(), color );
 }
