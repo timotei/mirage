@@ -105,9 +105,6 @@ void Model::draw()
 	// restore color
 	glColor4fv( prevColor );
 	glPopMatrix();
-
-	if ( shader.isValid() )
-		shader.unUse();
 }
 
 Model::~Model()
