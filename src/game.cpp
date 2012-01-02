@@ -29,11 +29,14 @@ typedef shared_ptr<Model> ModelPtr;
 const GLenum _visualizationModes[3] = { GL_FILL, GL_LINE, GL_POINT };
 int _currentVisualizationMode = 0;
 
+bool switchShader = false;
+
 Game::Game() :
 _skybox( NULL ),
 _camera( NULL ),
 _components( 0 ),
-_sun( NULL )
+_sun( NULL ),
+_usePerPixelLighting( true )
 {
 }
 
@@ -63,8 +66,8 @@ void Game::initGame(){
 	std::cout << "Init started.\n";
 
 	_program = boost::shared_ptr<ShaderProgram>( new ShaderProgram );
-	_program->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
-	_program->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
+	_program->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.perpixel.vert" );
+	_program->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.perpixel.frag" );
 	_program->linkAndValidateProgram();
 
 	_camera = new Camera;
@@ -84,13 +87,13 @@ void Game::initGame(){
 	snake->loadTexture("data/gfx/textures/snake1.tga");
 	snake->loadScript("data/scripts/snake.lua");
 	snake->shader = _program;
-	//_components.push_back(snake);
+	_components.push_back(snake);
 
 	ModelPtr sphere( new Model );
 	sphere->loadSphere( 3, 10, 10, nv::vec4f( 1, 0, 0, 1 ) );
-	sphere->shader = _program;	
+	sphere->shader = _program;
 
-	_components.push_back( sphere );
+	//_components.push_back( sphere );
 
 	ModelPtr plane( new Model );
 	plane->translation = nv::vec3f( 0, -3, 0 );
@@ -106,9 +109,6 @@ void Game::initGame(){
 	_unprocessedTicks = 0;
 }
 
-bool switchShader = false;
-bool perpixel;
-
 void Game::updateScene()
 {
 	_camera->update();
@@ -120,14 +120,14 @@ void Game::updateScene()
 
 	if( switchShader ) {
 
-		perpixel = !perpixel;
+		_usePerPixelLighting = !_usePerPixelLighting;
 
 		_program->detachAllShaders();
 
 		_program->attachNewShader( GL_VERTEX_SHADER, 
-			perpixel ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
+			_usePerPixelLighting ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
 		_program->attachNewShader( GL_FRAGMENT_SHADER, 
-			perpixel ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
+			_usePerPixelLighting ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
 		_program->linkAndValidateProgram();
 		switchShader = false;
 	}

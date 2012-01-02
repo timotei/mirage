@@ -49,6 +49,7 @@ private:
 	double _unprocessedTicks;
 	long _fps, _ticks;
 
+	bool _usePerPixelLighting;
 
 	void updateScene();
 	void renderScene();
