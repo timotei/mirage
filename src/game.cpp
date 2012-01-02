@@ -58,9 +58,14 @@ void Game::initOpenGL() {
 	glEnable(GL_CULL_FACE);
 }
 
-ModelPtr sph;
+boost::shared_ptr<ShaderProgram> _program;
 void Game::initGame(){
 	std::cout << "Init started.\n";
+
+	_program = boost::shared_ptr<ShaderProgram>( new ShaderProgram );
+	_program->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
+	_program->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
+	_program->linkAndValidateProgram();
 
 	_camera = new Camera;
 	_camera->useAnimation = false;
@@ -77,26 +82,21 @@ void Game::initGame(){
 	ModelPtr snake( new Model );
 	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
 	snake->loadTexture("data/gfx/textures/snake1.tga");
-
 	snake->loadScript("data/scripts/snake.lua");
-
+	snake->shader = _program;
 	//_components.push_back(snake);
 
 	ModelPtr sphere( new Model );
 	sphere->loadSphere( 3, 10, 10, nv::vec4f( 1, 0, 0, 1 ) );
-	sphere->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
-	sphere->shader.attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
-	sphere->shader.linkAndValidateProgram();
-	sph = sphere;
+	sphere->shader = _program;	
 
 	_components.push_back( sphere );
 
 	ModelPtr plane( new Model );
 	plane->translation = nv::vec3f( 0, -3, 0 );
 	plane->loadPlane( 10, 10, nv::vec4f( 0, 0, 0, 1 ) );
-	plane->shader.attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
-	plane->shader.attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
-	plane->shader.linkAndValidateProgram();
+	plane->shader = _program;
+
 	_components.push_back( plane );
 
 	std::cout << "Init Done.\n";
@@ -106,6 +106,9 @@ void Game::initGame(){
 	_unprocessedTicks = 0;
 }
 
+bool switchShader = false;
+bool perpixel;
+
 void Game::updateScene()
 {
 	_camera->update();
@@ -113,6 +116,20 @@ void Game::updateScene()
 
 	foreach(GameComponentPtr component, _components) {
 		component->update();
+	}
+
+	if( switchShader ) {
+
+		perpixel = !perpixel;
+
+		_program->detachAllShaders();
+
+		_program->attachNewShader( GL_VERTEX_SHADER, 
+			perpixel ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
+		_program->attachNewShader( GL_FRAGMENT_SHADER, 
+			perpixel ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
+		_program->linkAndValidateProgram();
+		switchShader = false;
 	}
 }
 
@@ -129,20 +146,22 @@ void Game::renderScene()
 	_sun->draw();
 
 	foreach( GameComponentPtr component, _components ){
-		if ( component->shader.isValid() ) {
-			component->shader.use();
-			component->shader.setUniform( "u_PMatrix" , _projectionMatrix );
-			component->shader.setUniform( "u_VMatrix", viewMatrix );
-			component->shader.setUniform( "u_MMatrix", component->getModelMatrix() );
+		boost::shared_ptr<ShaderProgram> program = component->shader;
+		if ( program != NULL && program->isValid() ) {
+			program->use();
+			program->setUniform( "u_PMatrix" , _projectionMatrix );
+			program->setUniform( "u_VMatrix", viewMatrix );
+			program->setUniform( "u_MMatrix", component->getModelMatrix() );
 
-			_sun->sendToShaderProgram( component->shader, *_camera );
+			_sun->sendToShaderProgram( *program, *_camera );
 		}
 
 		component->draw( );
 
-		component->shader.unUse();
+		if ( program != NULL )
+			program->unUse();
 	}
-
+	
 	glutSwapBuffers();
 }
 
@@ -171,8 +190,6 @@ void Game::runGame()
 	glutMainLoop();
 }
 
-bool perpixel;
-
 void Game::onNormalKeyPressed( unsigned char key, int x, int y )
 {
 	// ESCAPE 
@@ -183,15 +200,7 @@ void Game::onNormalKeyPressed( unsigned char key, int x, int y )
 	if ( key == '1' ) { 
 		_currentVisualizationMode = (_currentVisualizationMode + 1) % 3;
 	}else if ( key == '2' ) {
-		perpixel = !perpixel;
-
-		sph->shader.detachAllShaders();
-
-		sph->shader.attachNewShader( GL_VERTEX_SHADER, 
-			perpixel ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
-		sph->shader.attachNewShader( GL_FRAGMENT_SHADER, 
-			perpixel ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
-		sph->shader.linkAndValidateProgram();
+		switchShader = true;
 	}
 
 	_camera->onKeyPressed(key, x, y);

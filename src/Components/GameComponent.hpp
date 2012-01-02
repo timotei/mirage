@@ -42,7 +42,7 @@ public:
 	nv::vec3f rotation;
 
 	boost::shared_ptr<LuaScript> script;
-	ShaderProgram shader;
+	boost::shared_ptr<ShaderProgram> shader;
 };
 
 #endif // MIRAGE_GAMECOMPONENT_HPP__
