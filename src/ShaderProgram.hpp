@@ -13,6 +13,8 @@
 
 #include <list>
 
+#include "Utils.hpp"
+
 class ShaderProgram{
 public:
 	ShaderProgram();
@@ -32,6 +34,7 @@ public:
 	void setUniform( const char* name, const nv::matrix4f& value );
 
 private:
+	DISALLOW_COPY_AND_ASSIGN(ShaderProgram);
 	GLint getUniformLocation( const char* name );
 	std::list<GLuint> _shaders;
 	GLuint _programId;
