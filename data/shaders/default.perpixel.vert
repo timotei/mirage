@@ -16,5 +16,5 @@ void main(void)
     N = normalize(gl_NormalMatrix * gl_Normal);
     V = u_VMatrix * u_MMatrix * gl_Vertex;
 
-    gl_FrontColor = gl_Color ;
+    gl_FrontColor = gl_Color;
 }

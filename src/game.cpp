@@ -61,14 +61,17 @@ void Game::initOpenGL() {
 	glEnable(GL_CULL_FACE);
 }
 
-boost::shared_ptr<ShaderProgram> _program;
 void Game::initGame(){
 	std::cout << "Init started.\n";
 
-	_program = boost::shared_ptr<ShaderProgram>( new ShaderProgram );
-	_program->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.perpixel.vert" );
-	_program->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.perpixel.frag" );
-	_program->linkAndValidateProgram();
+	_defaultShaderProgram = boost::shared_ptr<ShaderProgram>( new ShaderProgram );
+	_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.perpixel.vert" );
+	_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.perpixel.frag" );
+	_defaultShaderProgram->linkAndValidateProgram();
+
+	// ambient
+	GLfloat globalAmbient[4] = { .1f, .1f, .1f, 1.0f};
+	glLightModelfv( GL_LIGHT_MODEL_AMBIENT, globalAmbient );
 
 	_camera = new Camera;
 	_camera->useAnimation = false;
@@ -86,19 +89,19 @@ void Game::initGame(){
 	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
 	snake->loadTexture("data/gfx/textures/snake1.tga");
 	snake->loadScript("data/scripts/snake.lua");
-	snake->shader = _program;
-	_components.push_back(snake);
+	snake->shader = _defaultShaderProgram;
+	//_components.push_back(snake);
 
 	ModelPtr sphere( new Model );
 	sphere->loadSphere( 3, 10, 10, nv::vec4f( 1, 0, 0, 1 ) );
-	sphere->shader = _program;
+	sphere->shader = _defaultShaderProgram;
 
-	//_components.push_back( sphere );
+	_components.push_back( sphere );
 
 	ModelPtr plane( new Model );
 	plane->translation = nv::vec3f( 0, -3, 0 );
 	plane->loadPlane( 10, 10, nv::vec4f( 0, 0, 0, 1 ) );
-	plane->shader = _program;
+	plane->shader = _defaultShaderProgram;
 
 	_components.push_back( plane );
 
@@ -122,13 +125,13 @@ void Game::updateScene()
 
 		_usePerPixelLighting = !_usePerPixelLighting;
 
-		_program->detachAllShaders();
+		_defaultShaderProgram->detachAllShaders();
 
-		_program->attachNewShader( GL_VERTEX_SHADER, 
+		_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, 
 			_usePerPixelLighting ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
-		_program->attachNewShader( GL_FRAGMENT_SHADER, 
+		_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, 
 			_usePerPixelLighting ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
-		_program->linkAndValidateProgram();
+		_defaultShaderProgram->linkAndValidateProgram();
 		switchShader = false;
 	}
 }

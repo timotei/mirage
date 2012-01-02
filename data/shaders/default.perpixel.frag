@@ -18,5 +18,5 @@ void main()
 	
     // output the diffuse color
     float NdotL = dot(N, L);
-	gl_FragColor = gl_Color * vec4(max(0.0, NdotL)) * lights[0].color;
+	gl_FragColor = gl_Color * vec4(max(0.0, NdotL)) * lights[0].color + gl_LightModel.ambient;
 }

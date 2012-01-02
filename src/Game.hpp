@@ -12,6 +12,7 @@ class Skybox;
 class Camera;
 class GameComponent;
 class LightSource;
+class ShaderProgram;
 
 class Game {
 public:
@@ -50,6 +51,7 @@ private:
 	long _fps, _ticks;
 
 	bool _usePerPixelLighting;
+	boost::shared_ptr<ShaderProgram> _defaultShaderProgram;
 
 	void updateScene();
 	void renderScene();
