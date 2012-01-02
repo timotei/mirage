@@ -169,4 +169,7 @@ void ShaderProgram::detachAllShaders()
 	}
 
 	_shaders.clear();
+
+	glDeleteProgram( _programId );
+	_programId = glCreateProgram();
 }
