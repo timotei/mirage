@@ -21,35 +21,35 @@
 #include "Utils.hpp"
 #include "Game.hpp"
 
-Game mainGame;
+Game* mainGame = NULL;
 
 void changeSize(int w, int h)
 {
-	mainGame.onResolutionChanged( w, h );
+	mainGame->onResolutionChanged( w, h );
 }
 
 void processNormalKeys(unsigned char key, int x, int y)
 {
-	mainGame.onNormalKeyPressed( key, x, y );
+	mainGame->onNormalKeyPressed( key, x, y );
 }
 void processSpecialKeys(int key, int x, int y)
 {
-	mainGame.onSpecialKeyPressed( key, x, y );
+	mainGame->onSpecialKeyPressed( key, x, y );
 }
 
 void mouseMotion(int x, int y)
 {
-	mainGame.onMouseMoved( x, y );
+	mainGame->onMouseMoved( x, y );
 }
 
 void mousePressed(int button, int state, int x, int y)
 {
-	mainGame.onMousePressed( button, state, x, y );
+	mainGame->onMousePressed( button, state, x, y );
 }
 
 void displayFunc()
 {
-	mainGame.updateGame();
+	mainGame->updateGame();
 }
 
 void idleFunc()
@@ -82,7 +82,7 @@ int main( int argc, char* argv[])
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA); 
 	//Set the initial position and dimensions of the window 
 	glutInitWindowPosition(400, 100); 
-	glutInitWindowSize(mainGame.screenWidth, mainGame.screenHeight);
+	glutInitWindowSize( 1000, 600 );
 	
 	//creates the window 
 	glutCreateWindow("Mirage");
@@ -96,8 +96,9 @@ int main( int argc, char* argv[])
 		exit(1);
 	}
 
-	mainGame.runGame();
+	mainGame = new Game;
+	mainGame->runGame();
 
-	mainGame.onExit();
+	mainGame->onExit();
 	return 0;
 }

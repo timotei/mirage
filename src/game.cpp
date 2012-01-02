@@ -103,6 +103,7 @@ void Game::initGame(){
 
 	_lastClock = clock();
 	_lastTime = time(NULL);
+	_unprocessedTicks = 0;
 }
 
 void Game::updateScene()
