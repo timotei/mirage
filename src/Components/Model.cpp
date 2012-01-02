@@ -35,6 +35,7 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 	std::cout << "done\n";
 
 	_drawMode = mode;
+	_type = FILE;
 	return true;
 }
 
