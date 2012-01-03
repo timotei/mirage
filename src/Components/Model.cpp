@@ -73,6 +73,7 @@ void Model::draw( Camera& cam )
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
 
+	glTranslatef( translationPostRotation.x, translationPostRotation.y, translationPostRotation.z );
 
 	switch( _type ) {
 	case NONE:

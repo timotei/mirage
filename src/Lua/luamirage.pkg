@@ -38,7 +38,9 @@ class GameComponent{
 
 	virtual void loadScript(std::string path);
 	virtual ~GameComponent();
+	
 	vec3f translation;
+	vec3f translationPostRotation;
 	vec3f rotation;
 };
 

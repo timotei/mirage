@@ -36,11 +36,13 @@ public:
 
 	virtual nv::matrix4f getModelMatrix() {
 		return 
+			nv::matrix4f().set_rotate_degrees( translationPostRotation ) *
 			nv::matrix4f().set_rotate_degrees( rotation ) * 
 			nv::matrix4f().set_translate( translation );
 	}
 
 	nv::vec3f translation;
+	nv::vec3f translationPostRotation;
 	nv::vec3f rotation;
 
 	boost::shared_ptr<LuaScript> script;

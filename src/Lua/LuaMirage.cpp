@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 01/03/12 19:46:56.
+** Generated automatically by tolua++-1.0.92 on 01/03/12 20:43:57.
 */
 
 #ifndef __cplusplus
@@ -1310,6 +1310,36 @@ static int tolua_set_GameComponent_translation(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* get function: translationPostRotation of class  GameComponent */
+#ifndef TOLUA_DISABLE_tolua_get_GameComponent_translationPostRotation
+static int tolua_get_GameComponent_translationPostRotation(lua_State* tolua_S)
+{
+  GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'translationPostRotation'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->translationPostRotation,"vec3f");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: translationPostRotation of class  GameComponent */
+#ifndef TOLUA_DISABLE_tolua_set_GameComponent_translationPostRotation
+static int tolua_set_GameComponent_translationPostRotation(lua_State* tolua_S)
+{
+  GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'translationPostRotation'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->translationPostRotation = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* get function: rotation of class  GameComponent */
 #ifndef TOLUA_DISABLE_tolua_get_GameComponent_rotation
 static int tolua_get_GameComponent_rotation(lua_State* tolua_S)
@@ -2074,6 +2104,7 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_function(tolua_S,"loadScript",tolua_luamirage_GameComponent_loadScript00);
    tolua_function(tolua_S,"delete",tolua_luamirage_GameComponent_delete00);
    tolua_variable(tolua_S,"translation",tolua_get_GameComponent_translation,tolua_set_GameComponent_translation);
+   tolua_variable(tolua_S,"translationPostRotation",tolua_get_GameComponent_translationPostRotation,tolua_set_GameComponent_translationPostRotation);
    tolua_variable(tolua_S,"rotation",tolua_get_GameComponent_rotation,tolua_set_GameComponent_rotation);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"LuaScript","LuaScript","",NULL);
