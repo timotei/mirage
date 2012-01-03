@@ -37,7 +37,6 @@ void LightSource::sendToShaderProgram( ShaderProgram& program, Camera& cam )
 	name << "lights[" << _index << "].position";
 
 	nv::vec4f res = cam.getViewMatrix() *  getModelMatrix() * nv::vec4f( translation, 1.0f );
-
 	program.setUniform( name.str().c_str(), res._xyz );
 
 	name.str( "" );

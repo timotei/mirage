@@ -2,6 +2,7 @@
 #define MIRAGE_UTILS_HPP__
 
 #include "glm.h"
+#include <iostream>
 
 inline float toRadians(float degrees){
 	return float(degrees / 180 * M_PI);
@@ -13,4 +14,18 @@ inline float toRadians(float degrees){
 	TypeName(const TypeName&);               \
 	void operator=(const TypeName&)
 
+inline float clampDegree( float val ) {
+	while( val >= 360 ) val -= 360;
+	while( val <= -360 ) val += 360;
+
+	return val;
+}
+
+inline void printMatrix( float matrix[] ) {
+	for( int i = 0; i < 16; ++ i) {
+		std::cout << matrix[i] << "|";
+	}
+
+	std::cout << "\n";
+}
 #endif // MIRAGE_UTILS_HPP__

@@ -18,11 +18,8 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 		int deltaX = x - _lastMouseX;
 		int deltaY = y - _lastMouseY;
 
-		rotation.x += deltaY / 3;
-		if (rotation.x >= 360) rotation.x -= 360;
-
-		rotation.y += deltaX / 3;
-		if (rotation.y >= 360) rotation.y -= 360;
+		rotation.x = clampDegree( rotation.x + deltaY / 3 );
+		rotation.y = clampDegree( rotation.y + deltaX / 3 );
 	}
 	_lastMouseX = x;
 	_lastMouseY = y;
@@ -30,34 +27,27 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 
 void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
-		float sinX = float(sin(toRadians(rotation.x))) / 2;
-		float sinY = float(sin(toRadians(rotation.y))) / 2;
-//		float cosX = float(cos(toRadians(rotation.x))) / 2;
-		float cosY = float(cos(toRadians(rotation.y))) / 2;
-
+		nv::vec4f delta;
 		switch( key ) {
 			case 'w':
-				position.x += sinY;
-				position.y -= sinX;
-				position.z -= cosY;
-				break;
-			case 'a':
-				position.x -= cosY;
-				position.z -= sinY;
+				delta.z = -1;
 				break;
 			case 's':
-				position.x -= sinY;
-				position.y += sinX;
-				position.z += cosY;
+				delta.z = 1;
+				break;
+			case 'a':
+				delta.x = -1;
 				break;
 			case 'd':
-				position.x += cosY;
-				position.z += sinY;
+				delta.x = 1;
 				break;
 			case 'u':
 				useAnimation = !useAnimation;
 				break;
 		}
+
+		delta = nv::matrix4f().set_rotate_degrees( - rotation ) * delta;
+		position += normalize( delta._xyz );
 	}else{
 		if (key == GLUT_KEY_PAGE_UP) {
 			position.y += 1;
@@ -103,7 +93,7 @@ void Camera::update()
 
 nv::matrix4f Camera::getViewMatrix()
 {
-	return	
+	return
 		nv::matrix4f().set_rotate_degrees( rotation ) *
 		nv::matrix4f().set_translate( - position );
 }

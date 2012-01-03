@@ -13,7 +13,8 @@ public:
 		NONE = 0,
 		SPHERE = 1,
 		FILE = 2,
-		PLANE = 4
+		PLANE = 4,
+		CUBE = 8
 	};
 
 	void update() 
@@ -25,8 +26,9 @@ public:
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
 	void loadTexture(const char* fileName);
 	void loadScript(std::string path);
-	void loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f color );
+	void loadSphere( double radius, int slices, int stacks, nv::vec4f color );
 	void loadPlane( float width, float length, nv::vec4f color );
+	void loadCube( double size, nv::vec4f color );
 
 	Model();
 	~Model();
@@ -38,15 +40,16 @@ private:
 	bool _textureLoaded;
 
 	ModelType _type;
+	nv::vec4f _color;
 
-	GLdouble _sphereRadius;
-	GLint _sphereSlices;
-	GLint _sphereStacks;
-	nv::vec4f _sphereColor;
+	double _sphereRadius;
+	int _sphereSlices;
+	int _sphereStacks;
 	
-	nv::vec4f _planeColor;
 	float _planeLength;
 	float _planeWidth;
+
+	bool _cubeSize;
 
 	void cleanupCurrentModel();
 	DISALLOW_COPY_AND_ASSIGN(Model);

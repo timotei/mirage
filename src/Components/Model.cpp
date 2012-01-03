@@ -85,10 +85,15 @@ void Model::draw( Camera& cam )
 		}
 		break;
 	case SPHERE:
-		glColor4fv( _sphereColor._array );
+		glColor4fv( _color._array );
 		glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
 		break;
+	case CUBE:
+		glColor4fv( _color._array );
+		glutSolidCube( _cubeSize );
+		break;
 	case PLANE:
+		glColor4fv( _color._array );
 		glBegin( GL_QUADS );
 			glNormal3f(0,1,0);
 			glVertex3f( _planeWidth, 0, -_planeLength );
@@ -132,13 +137,13 @@ void Model::loadScript(std::string path)
 	script->executeScript(path);
 }
 
-void Model::loadSphere( GLdouble radius, GLint slices, GLint stacks, nv::vec4f color )
+void Model::loadSphere( double radius, int slices, int stacks, nv::vec4f color )
 {
 	_type = SPHERE;
 	_sphereRadius = radius;
 	_sphereSlices = slices;
 	_sphereStacks = stacks;
-	_sphereColor = color;
+	_color = color;
 }
 
 void Model::loadPlane( float width, float length, nv::vec4f color )
@@ -146,5 +151,12 @@ void Model::loadPlane( float width, float length, nv::vec4f color )
 	_type = PLANE;
 	_planeLength = length;
 	_planeWidth = width;
-	_planeColor = color;
+	_color = color;
+}
+
+void Model::loadCube( double size, nv::vec4f color )
+{
+	_type = CUBE;
+	_cubeSize = size;
+	_color = color;
 }

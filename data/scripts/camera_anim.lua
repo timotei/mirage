@@ -9,7 +9,7 @@ waypoints = {
  	{ -20, 10, 50, 20, 0, 0 }
 };
 waypointsCnt = #waypoints;
-speed = 1000; speedAngle = 2000;
+speed = 100; speedAngle = 200;
 
 -- initial camera position
 camera.position = vec3f:new(0, 0, 30);

@@ -98,7 +98,7 @@ public:
         return _array;
     }
 
-    void set_value( T * mp) {
+    void set_value( const T * mp) {
         int c = 0;
         for(int j=0; j < 4; j++)
             for(int i=0; i < 4; i++)
@@ -153,7 +153,7 @@ public:
     }
 
 	matrix4 set_rotate_degrees( const vec3<T>& degreesRotation ) {
-		static const float DEG_TO_RAD = 0.017453292519943296f;
+		static const float DEG_TO_RAD = 0.01745329f;
 		return set_rotate_radians( vec3<T>( 
 			degreesRotation.x * DEG_TO_RAD,
 			degreesRotation.y * DEG_TO_RAD,
