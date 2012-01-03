@@ -287,3 +287,12 @@ void Game::onExit()
 	_CrtDumpMemoryLeaks();
 #endif
 }
+
+void Game::onMenuEntrySelected( int id )
+{
+	if ( id == 1000 ) { 
+		_camera->useAnimation = !_camera->useAnimation;
+	}else if ( id >= 100 && id <= 999 ) {
+		_currentVisualizationMode = id % 10;
+	}
+}

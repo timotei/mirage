@@ -26,6 +26,7 @@ public:
 	void onSpecialKeyPressed( int key, int x, int y );
 	void onMouseMoved( int x, int y );
 	void onMousePressed( int button, int state, int x, int y );
+	void onMenuEntrySelected( int id );
 	void onExit();
 	void updateGame();
 

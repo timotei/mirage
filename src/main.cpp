@@ -57,6 +57,11 @@ void idleFunc()
 	glutPostRedisplay();
 }
 
+void menuEntrySelected( int id )
+{
+	mainGame->onMenuEntrySelected( id );
+}
+
 void registerCallbacks()
 {
 	//Specifies the function to call when the window needs to be redisplayed 
@@ -71,6 +76,21 @@ void registerCallbacks()
 
 	glutMouseFunc(mousePressed);
 	glutMotionFunc(mouseMotion);
+
+	int mainMenuId = glutCreateMenu( menuEntrySelected );
+	glutAddMenuEntry( "Toogle camera animation", 1000 );
+
+	// drawing mode menu
+	int drawingModeMenuId = glutCreateMenu( menuEntrySelected);
+	glutSetMenu( drawingModeMenuId );
+	glutAddMenuEntry( "Smooth", 100 );
+	glutAddMenuEntry( "Line", 101 );
+	glutAddMenuEntry( "Point", 102 );
+
+	glutSetMenu( mainMenuId );
+	glutAddSubMenu( "Drawing mode", drawingModeMenuId );
+
+	glutAttachMenu( GLUT_RIGHT_BUTTON );
 }
 
 int main( int argc, char* argv[])
@@ -87,8 +107,6 @@ int main( int argc, char* argv[])
 	//creates the window 
 	glutCreateWindow("Mirage");
 
-	registerCallbacks();
-	
 	// init GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK){
@@ -96,7 +114,11 @@ int main( int argc, char* argv[])
 		exit(1);
 	}
 
+	// init game stuff
 	mainGame = new Game;
+
+	registerCallbacks();
+
 	mainGame->runGame();
 
 	mainGame->onExit();
