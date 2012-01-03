@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 12/30/11 13:29:14.
+** Generated automatically by tolua++-1.0.92 on 01/03/12 16:13:12.
 */
 
 #ifndef __cplusplus
@@ -17,16 +17,15 @@ TOLUA_API int  tolua_luamirage_open (lua_State* tolua_S);
 #include "../Components/Model.hpp"
 #include "../Components/GameComponent.hpp"
 #include "../Components/Camera.hpp"
-#include "nvVector.h"
 #include "nvMath.h"
 using namespace nv;
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
 
-static int tolua_collect_vec4f (lua_State* tolua_S)
+static int tolua_collect_matrix4f (lua_State* tolua_S)
 {
- vec4f* self = (vec4f*) tolua_tousertype(tolua_S,1,0);
+ matrix4f* self = (matrix4f*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -58,18 +57,27 @@ static int tolua_collect_GameComponent (lua_State* tolua_S)
 	Mtolua_delete(self);
 	return 0;
 }
+
+static int tolua_collect_vec4f (lua_State* tolua_S)
+{
+ vec4f* self = (vec4f*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
 #endif
 
 
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"vec4f");
+ tolua_usertype(tolua_S,"matrix4f");
  tolua_usertype(tolua_S,"Camera");
+ tolua_usertype(tolua_S,"LuaScript");
  tolua_usertype(tolua_S,"Model");
  tolua_usertype(tolua_S,"vec3f");
- tolua_usertype(tolua_S,"GameComponent");
  tolua_usertype(tolua_S,"GLuint");
+ tolua_usertype(tolua_S,"GameComponent");
+ tolua_usertype(tolua_S,"vec4f");
 }
 
 /* get function: x of class  vec3f */
@@ -518,6 +526,595 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* get function: _11 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__11
+static int tolua_get_matrix4f__11(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_11'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_11);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _11 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__11
+static int tolua_set_matrix4f__11(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_11'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_11 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _12 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__12
+static int tolua_get_matrix4f__12(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_12'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_12);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _12 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__12
+static int tolua_set_matrix4f__12(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_12'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_12 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _13 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__13
+static int tolua_get_matrix4f__13(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_13'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_13);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _13 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__13
+static int tolua_set_matrix4f__13(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_13'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_13 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _14 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__14
+static int tolua_get_matrix4f__14(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_14'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_14);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _14 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__14
+static int tolua_set_matrix4f__14(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_14'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_14 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _21 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__21
+static int tolua_get_matrix4f__21(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_21'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_21);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _21 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__21
+static int tolua_set_matrix4f__21(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_21'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_21 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _22 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__22
+static int tolua_get_matrix4f__22(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_22'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_22);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _22 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__22
+static int tolua_set_matrix4f__22(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_22'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_22 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _23 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__23
+static int tolua_get_matrix4f__23(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_23'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_23);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _23 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__23
+static int tolua_set_matrix4f__23(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_23'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_23 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _24 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__24
+static int tolua_get_matrix4f__24(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_24'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_24);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _24 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__24
+static int tolua_set_matrix4f__24(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_24'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_24 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _31 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__31
+static int tolua_get_matrix4f__31(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_31'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_31);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _31 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__31
+static int tolua_set_matrix4f__31(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_31'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_31 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _32 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__32
+static int tolua_get_matrix4f__32(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_32'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_32);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _32 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__32
+static int tolua_set_matrix4f__32(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_32'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_32 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _33 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__33
+static int tolua_get_matrix4f__33(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_33'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_33);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _33 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__33
+static int tolua_set_matrix4f__33(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_33'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_33 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _34 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__34
+static int tolua_get_matrix4f__34(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_34'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_34);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _34 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__34
+static int tolua_set_matrix4f__34(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_34'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_34 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _41 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__41
+static int tolua_get_matrix4f__41(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_41'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_41);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _41 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__41
+static int tolua_set_matrix4f__41(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_41'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_41 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _42 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__42
+static int tolua_get_matrix4f__42(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_42'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_42);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _42 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__42
+static int tolua_set_matrix4f__42(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_42'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_42 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _43 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__43
+static int tolua_get_matrix4f__43(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_43'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_43);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _43 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__43
+static int tolua_set_matrix4f__43(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_43'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_43 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _44 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_matrix4f__44
+static int tolua_get_matrix4f__44(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_44'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->_44);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _44 of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_matrix4f__44
+static int tolua_set_matrix4f__44(lua_State* tolua_S)
+{
+  matrix4f* self = (matrix4f*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable '_44'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->_44 = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: _array of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_get_luamirage_matrix4f__array
+static int tolua_get_luamirage_matrix4f__array(lua_State* tolua_S)
+{
+ int tolua_index;
+  matrix4f* self;
+ lua_pushstring(tolua_S,".self");
+ lua_rawget(tolua_S,1);
+ self = (matrix4f*)  lua_touserdata(tolua_S,-1);
+#ifndef TOLUA_RELEASE
+ {
+  tolua_Error tolua_err;
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in array indexing.",&tolua_err);
+ }
+#endif
+ tolua_index = (int)tolua_tonumber(tolua_S,2,0);
+#ifndef TOLUA_RELEASE
+ if (tolua_index<0 || tolua_index>=16)
+  tolua_error(tolua_S,"array indexing out of range.",NULL);
+#endif
+ tolua_pushnumber(tolua_S,(lua_Number)self->_array[tolua_index]);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: _array of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_set_luamirage_matrix4f__array
+static int tolua_set_luamirage_matrix4f__array(lua_State* tolua_S)
+{
+ int tolua_index;
+  matrix4f* self;
+ lua_pushstring(tolua_S,".self");
+ lua_rawget(tolua_S,1);
+ self = (matrix4f*)  lua_touserdata(tolua_S,-1);
+#ifndef TOLUA_RELEASE
+ {
+  tolua_Error tolua_err;
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in array indexing.",&tolua_err);
+ }
+#endif
+ tolua_index = (int)tolua_tonumber(tolua_S,2,0);
+#ifndef TOLUA_RELEASE
+ if (tolua_index<0 || tolua_index>=16)
+  tolua_error(tolua_S,"array indexing out of range.",NULL);
+#endif
+  self->_array[tolua_index] = ((float)  tolua_tonumber(tolua_S,3,0));
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_matrix4f_new00
+static int tolua_luamirage_matrix4f_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"matrix4f",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   matrix4f* tolua_ret = (matrix4f*)  Mtolua_new((matrix4f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"matrix4f");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  matrix4f */
+#ifndef TOLUA_DISABLE_tolua_luamirage_matrix4f_new00_local
+static int tolua_luamirage_matrix4f_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"matrix4f",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   matrix4f* tolua_ret = (matrix4f*)  Mtolua_new((matrix4f)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"matrix4f");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: draw of class  GameComponent */
 #ifndef TOLUA_DISABLE_tolua_luamirage_GameComponent_draw00
 static int tolua_luamirage_GameComponent_draw00(lua_State* tolua_S)
@@ -526,18 +1123,20 @@ static int tolua_luamirage_GameComponent_draw00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"GameComponent",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Camera",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
+  Camera tolua_var_1 = *((Camera*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
 #endif
   {
-   self->draw();
+   self->draw(tolua_var_1);
   }
  }
  return 0;
@@ -599,15 +1198,15 @@ static int tolua_luamirage_GameComponent_onKeyPressed00(lua_State* tolua_S)
 #endif
  {
   GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
-  int tolua_var_1 = ((int)  tolua_tonumber(tolua_S,2,0));
-  int tolua_var_2 = ((int)  tolua_tonumber(tolua_S,3,0));
-  int tolua_var_3 = ((int)  tolua_tonumber(tolua_S,4,0));
-  bool tolua_var_4 = ((bool)  tolua_toboolean(tolua_S,5,0));
+  int tolua_var_2 = ((int)  tolua_tonumber(tolua_S,2,0));
+  int tolua_var_3 = ((int)  tolua_tonumber(tolua_S,3,0));
+  int tolua_var_4 = ((int)  tolua_tonumber(tolua_S,4,0));
+  bool tolua_var_5 = ((bool)  tolua_toboolean(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onKeyPressed'", NULL);
 #endif
   {
-   self->onKeyPressed(tolua_var_1,tolua_var_2,tolua_var_3,tolua_var_4);
+   self->onKeyPressed(tolua_var_2,tolua_var_3,tolua_var_4,tolua_var_5);
   }
  }
  return 0;
@@ -729,6 +1328,36 @@ static int tolua_get_GameComponent_rotation(lua_State* tolua_S)
 static int tolua_set_GameComponent_rotation(lua_State* tolua_S)
 {
   GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'rotation'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->rotation = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: rotation of class  Camera */
+#ifndef TOLUA_DISABLE_tolua_get_Camera_rotation
+static int tolua_get_Camera_rotation(lua_State* tolua_S)
+{
+  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'rotation'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->rotation,"vec3f");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: rotation of class  Camera */
+#ifndef TOLUA_DISABLE_tolua_set_Camera_rotation
+static int tolua_set_Camera_rotation(lua_State* tolua_S)
+{
+  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
   if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'rotation'",NULL);
@@ -1128,6 +1757,48 @@ static int tolua_luamirage_Camera_loadScript00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getViewMatrix of class  Camera */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Camera_getViewMatrix00
+static int tolua_luamirage_Camera_getViewMatrix00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Camera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getViewMatrix'", NULL);
+#endif
+  {
+   matrix4f tolua_ret = (matrix4f)  self->getViewMatrix();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((matrix4f)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"matrix4f");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(matrix4f));
+     tolua_pushusertype(tolua_S,tolua_obj,"matrix4f");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getViewMatrix'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: update of class  Model */
 #ifndef TOLUA_DISABLE_tolua_luamirage_Model_update00
 static int tolua_luamirage_Model_update00(lua_State* tolua_S)
@@ -1167,18 +1838,20 @@ static int tolua_luamirage_Model_draw00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Model",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Camera",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   Model* self = (Model*)  tolua_tousertype(tolua_S,1,0);
+  Camera cam = *((Camera*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
 #endif
   {
-   self->draw();
+   self->draw(cam);
   }
  }
  return 0;
@@ -1423,6 +2096,33 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_function(tolua_S,".call",tolua_luamirage_vec4f_new01_local);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
+  tolua_cclass(tolua_S,"matrix4f","matrix4f","",tolua_collect_matrix4f);
+  #else
+  tolua_cclass(tolua_S,"matrix4f","matrix4f","",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"matrix4f");
+   tolua_variable(tolua_S,"_11",tolua_get_matrix4f__11,tolua_set_matrix4f__11);
+   tolua_variable(tolua_S,"_12",tolua_get_matrix4f__12,tolua_set_matrix4f__12);
+   tolua_variable(tolua_S,"_13",tolua_get_matrix4f__13,tolua_set_matrix4f__13);
+   tolua_variable(tolua_S,"_14",tolua_get_matrix4f__14,tolua_set_matrix4f__14);
+   tolua_variable(tolua_S,"_21",tolua_get_matrix4f__21,tolua_set_matrix4f__21);
+   tolua_variable(tolua_S,"_22",tolua_get_matrix4f__22,tolua_set_matrix4f__22);
+   tolua_variable(tolua_S,"_23",tolua_get_matrix4f__23,tolua_set_matrix4f__23);
+   tolua_variable(tolua_S,"_24",tolua_get_matrix4f__24,tolua_set_matrix4f__24);
+   tolua_variable(tolua_S,"_31",tolua_get_matrix4f__31,tolua_set_matrix4f__31);
+   tolua_variable(tolua_S,"_32",tolua_get_matrix4f__32,tolua_set_matrix4f__32);
+   tolua_variable(tolua_S,"_33",tolua_get_matrix4f__33,tolua_set_matrix4f__33);
+   tolua_variable(tolua_S,"_34",tolua_get_matrix4f__34,tolua_set_matrix4f__34);
+   tolua_variable(tolua_S,"_41",tolua_get_matrix4f__41,tolua_set_matrix4f__41);
+   tolua_variable(tolua_S,"_42",tolua_get_matrix4f__42,tolua_set_matrix4f__42);
+   tolua_variable(tolua_S,"_43",tolua_get_matrix4f__43,tolua_set_matrix4f__43);
+   tolua_variable(tolua_S,"_44",tolua_get_matrix4f__44,tolua_set_matrix4f__44);
+   tolua_array(tolua_S,"_array",tolua_get_luamirage_matrix4f__array,tolua_set_luamirage_matrix4f__array);
+   tolua_function(tolua_S,"new",tolua_luamirage_matrix4f_new00);
+   tolua_function(tolua_S,"new_local",tolua_luamirage_matrix4f_new00_local);
+   tolua_function(tolua_S,".call",tolua_luamirage_matrix4f_new00_local);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
   tolua_cclass(tolua_S,"GameComponent","GameComponent","",tolua_collect_GameComponent);
   #else
   tolua_cclass(tolua_S,"GameComponent","GameComponent","",NULL);
@@ -1436,12 +2136,16 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"translation",tolua_get_GameComponent_translation,tolua_set_GameComponent_translation);
    tolua_variable(tolua_S,"rotation",tolua_get_GameComponent_rotation,tolua_set_GameComponent_rotation);
   tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"LuaScript","LuaScript","",NULL);
+  tolua_beginmodule(tolua_S,"LuaScript");
+  tolua_endmodule(tolua_S);
   #ifdef __cplusplus
-  tolua_cclass(tolua_S,"Camera","Camera","GameComponent",tolua_collect_Camera);
+  tolua_cclass(tolua_S,"Camera","Camera","",tolua_collect_Camera);
   #else
-  tolua_cclass(tolua_S,"Camera","Camera","GameComponent",NULL);
+  tolua_cclass(tolua_S,"Camera","Camera","",NULL);
   #endif
   tolua_beginmodule(tolua_S,"Camera");
+   tolua_variable(tolua_S,"rotation",tolua_get_Camera_rotation,tolua_set_Camera_rotation);
    tolua_variable(tolua_S,"position",tolua_get_Camera_position,tolua_set_Camera_position);
    tolua_variable(tolua_S,"target",tolua_get_Camera_target,tolua_set_Camera_target);
    tolua_variable(tolua_S,"up",tolua_get_Camera_up,tolua_set_Camera_up);
@@ -1455,6 +2159,7 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_function(tolua_S,"onMouseMoved",tolua_luamirage_Camera_onMouseMoved00);
    tolua_function(tolua_S,"onMousePressed",tolua_luamirage_Camera_onMousePressed00);
    tolua_function(tolua_S,"loadScript",tolua_luamirage_Camera_loadScript00);
+   tolua_function(tolua_S,"getViewMatrix",tolua_luamirage_Camera_getViewMatrix00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"Model","Model","GameComponent",tolua_collect_Model);

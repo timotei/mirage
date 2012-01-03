@@ -16,8 +16,11 @@ public:
 		PLANE = 4
 	};
 
-	void update() { GameComponent::update(); }
-	void draw();
+	void update() 
+	{ 
+		GameComponent::update(); 
+	}
+	void draw( Camera& cam );
 
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
 	void loadTexture(const char* fileName);

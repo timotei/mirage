@@ -2,7 +2,6 @@ $#include "LuaMirage.hpp"
 $#include "../Components/Model.hpp"
 $#include "../Components/GameComponent.hpp"
 $#include "../Components/Camera.hpp"
-$#include "nvVector.h"
 $#include "nvMath.h"
 $using namespace nv;
 
@@ -22,21 +21,31 @@ struct vec4f{
 };
 
 
+struct matrix4f{
+    float _11, _12, _13, _14;
+    float _21, _22, _23, _24;
+    float _31, _32, _33, _34;
+    float _41, _42, _43, _44;
+    float _array[16];   
+	matrix4f();
+}
+
 class GameComponent{
-	virtual void draw() {}
+	virtual void draw( Camera ) {}
 	virtual void update() {	}
+	
+	virtual void onKeyPressed(int, int, int, bool);
 
-	virtual void onKeyPressed(int, int, int, bool)  {};
-
-	virtual void loadScript(std::string path) {}
-
-	virtual ~GameComponent() {}
-
+	virtual void loadScript(std::string path);
+	virtual ~GameComponent();
 	vec3f translation;
 	vec3f rotation;
 };
 
-class Camera : public GameComponent{
+class LuaScript;
+
+class Camera {
+	vec3f rotation;
 	vec3f position;
 	vec3f target;
 	vec3f up;
@@ -44,7 +53,7 @@ class Camera : public GameComponent{
 	bool useAnimation;
 
 	Camera();
-	void update() {}
+	void update();
 	void draw();
 
 	void onKeyPressed(int key, int mouseX, int mouseY, bool special = false);
@@ -52,11 +61,13 @@ class Camera : public GameComponent{
 	void onMousePressed( int button, int state, int x, int y );
 
 	void loadScript(std::string path);
+
+	matrix4f getViewMatrix();
 };
 
 class Model : public GameComponent{
-	void update() {}
-	void draw();
+	void update();
+	void draw(Camera cam);
 
 	bool loadFromFile(const char* fileName, GLuint mode, bool unitize = true, bool force = false);
 	void loadTexture(char* fileName);

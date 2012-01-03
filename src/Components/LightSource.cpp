@@ -17,7 +17,7 @@ LightSource::~LightSource()
 {
 }
 
-void LightSource::draw()
+void LightSource::draw( Camera& cam)
 {
 	glPushMatrix();
 

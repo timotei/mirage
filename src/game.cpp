@@ -145,8 +145,8 @@ void Game::renderScene()
 	_camera->draw();
 	nv::matrix4f viewMatrix = _camera->getViewMatrix();
 
-	_skybox->draw();
-	_sun->draw();
+	_skybox->draw( *_camera );
+	_sun->draw( *_camera );
 
 	foreach( GameComponentPtr component, _components ){
 		boost::shared_ptr<ShaderProgram> program = component->shader;
@@ -159,7 +159,7 @@ void Game::renderScene()
 			_sun->sendToShaderProgram( *program, *_camera );
 		}
 
-		component->draw( );
+		component->draw( *_camera );
 
 		if ( program != NULL )
 			program->unUse();

@@ -22,7 +22,7 @@ void Skybox::loadTextures(std::string texturePrefix)
 	loadTGA((texturePrefix + "_back.tga").c_str(), _textures[BACK]);	
 }
 
-void Skybox::draw()
+void Skybox::draw( Camera& cam )
 {
 	glPushAttrib(GL_ENABLE_BIT);
 	glDisable(GL_LIGHTING);

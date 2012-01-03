@@ -56,7 +56,7 @@ void Model::cleanupCurrentModel()
 	}
 }
 
-void Model::draw()
+void Model::draw( Camera& cam )
 {
 	glPushMatrix();
 	GLfloat prevColor[4]; 
@@ -72,6 +72,7 @@ void Model::draw()
 	glRotatef(rotation.x, 1, 0, 0);
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
+
 
 	switch( _type ) {
 	case NONE:

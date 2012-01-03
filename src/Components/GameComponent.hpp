@@ -8,9 +8,11 @@
 
 #include "../ShaderProgram.hpp"
 
+class Camera;
+
 class GameComponent{
 public:
-	virtual void draw() {}
+	virtual void draw( Camera& ) = NULL;
 	virtual void update() 
 	{
 		if ( script != NULL ) {
