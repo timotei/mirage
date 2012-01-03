@@ -65,8 +65,8 @@ void Game::initGame(){
 	std::cout << "Init started.\n";
 
 	_defaultShaderProgram = boost::shared_ptr<ShaderProgram>( new ShaderProgram );
-	_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.perpixel.vert" );
-	_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.perpixel.frag" );
+	_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, "data/shaders/default.vert" );
+	_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, "data/shaders/default.frag" );
 	_defaultShaderProgram->linkAndValidateProgram();
 
 	// ambient
@@ -128,9 +128,9 @@ void Game::updateScene()
 		_defaultShaderProgram->detachAllShaders();
 
 		_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, 
-			_usePerPixelLighting ? "data/shaders/default.perpixel.vert" : "data/shaders/default.vert" );
+			_usePerPixelLighting ? "data/shaders/default.vert" : "data/shaders/default.pervertex.vert" );
 		_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, 
-			_usePerPixelLighting ? "data/shaders/default.perpixel.frag" : "data/shaders/default.frag" );
+			_usePerPixelLighting ? "data/shaders/default.frag" : "data/shaders/default.pervertex.frag" );
 		_defaultShaderProgram->linkAndValidateProgram();
 		switchShader = false;
 	}
