@@ -2,6 +2,8 @@
 
 #include <tga.h>
 
+#include "Camera.hpp"
+
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 
 Skybox::Skybox(float width, float height, float thickness) :
@@ -28,6 +30,11 @@ void Skybox::draw( Camera& cam )
 	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
+	glLoadIdentity();
+
+	glRotatef( cam.rotation.x, 1, 0, 0 );
+	glRotatef( cam.rotation.y, 0, 1, 0 );
+	glRotatef( cam.rotation.z, 0, 0, 1 );
 
 	glBindTexture(GL_TEXTURE_2D, _textures[LEFT]);
 	glBegin(GL_QUADS);
