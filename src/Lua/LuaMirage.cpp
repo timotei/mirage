@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 01/03/12 16:13:12.
+** Generated automatically by tolua++-1.0.92 on 01/03/12 19:46:56.
 */
 
 #ifndef __cplusplus
@@ -1400,66 +1400,6 @@ static int tolua_set_Camera_position(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: target of class  Camera */
-#ifndef TOLUA_DISABLE_tolua_get_Camera_target
-static int tolua_get_Camera_target(lua_State* tolua_S)
-{
-  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'target'",NULL);
-#endif
-   tolua_pushusertype(tolua_S,(void*)&self->target,"vec3f");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: target of class  Camera */
-#ifndef TOLUA_DISABLE_tolua_set_Camera_target
-static int tolua_set_Camera_target(lua_State* tolua_S)
-{
-  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'target'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->target = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: up of class  Camera */
-#ifndef TOLUA_DISABLE_tolua_get_Camera_up
-static int tolua_get_Camera_up(lua_State* tolua_S)
-{
-  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'up'",NULL);
-#endif
-   tolua_pushusertype(tolua_S,(void*)&self->up,"vec3f");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: up of class  Camera */
-#ifndef TOLUA_DISABLE_tolua_set_Camera_up
-static int tolua_set_Camera_up(lua_State* tolua_S)
-{
-  Camera* self = (Camera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'up'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"vec3f",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->up = *((vec3f*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* get function: useAnimation of class  Camera */
 #ifndef TOLUA_DISABLE_tolua_get_Camera_useAnimation
 static int tolua_get_Camera_useAnimation(lua_State* tolua_S)
@@ -2147,8 +2087,6 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"Camera");
    tolua_variable(tolua_S,"rotation",tolua_get_Camera_rotation,tolua_set_Camera_rotation);
    tolua_variable(tolua_S,"position",tolua_get_Camera_position,tolua_set_Camera_position);
-   tolua_variable(tolua_S,"target",tolua_get_Camera_target,tolua_set_Camera_target);
-   tolua_variable(tolua_S,"up",tolua_get_Camera_up,tolua_set_Camera_up);
    tolua_variable(tolua_S,"useAnimation",tolua_get_Camera_useAnimation,tolua_set_Camera_useAnimation);
    tolua_function(tolua_S,"new",tolua_luamirage_Camera_new00);
    tolua_function(tolua_S,"new_local",tolua_luamirage_Camera_new00_local);

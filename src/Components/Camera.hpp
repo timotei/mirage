@@ -21,8 +21,6 @@ public:
 
 	nv::vec3f rotation;
 	nv::vec3f position;
-	nv::vec3f target;
-	nv::vec3f up;
 
 	bool useAnimation;
 

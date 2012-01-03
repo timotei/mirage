@@ -7,8 +7,7 @@
 #include "tolua++.h"
 #include "../Lua/LuaScript.hpp"
 
-Camera::Camera()
-: up(0, 1, 0),
+Camera::Camera() : 
 _lastMouseX(-1),
 _lastMouseY(-1)
 {
