@@ -15,7 +15,7 @@ _lastMouseY(-1)
 }
 
 void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
-	if (isButtonPressed){
+	if ( isButtonPressed && _leftMousePressed ){
 		int deltaX = x - _lastMouseX;
 		int deltaY = y - _lastMouseY;
 
@@ -78,9 +78,11 @@ void Camera::draw(){
 
 void Camera::onMousePressed( int button, int state, int x, int y )
 {
+	_leftMousePressed = false;
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
 		_lastMouseX = x;
 		_lastMouseY = y;
+		_leftMousePressed = true;
 	}
 }
 

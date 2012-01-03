@@ -40,6 +40,8 @@ public:
 
 	boost::shared_ptr<LuaScript> script;
 private:
+	bool _leftMousePressed;
+
 	int _lastMouseX;
 	int _lastMouseY;
 };
