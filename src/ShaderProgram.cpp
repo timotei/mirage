@@ -34,6 +34,7 @@ bool ShaderProgram::attachNewShader( GLenum shaderType, const char* filename )
 	std::ifstream reader( filename );
 	if ( !reader ) {
 		std::cerr << "Error! Can't finder shader file: " << filename << "\n";
+		exit( 1 );
 		return false;
 	}
 
@@ -60,6 +61,7 @@ bool ShaderProgram::attachNewShader( GLenum shaderType, const char* filename )
 
 		glDeleteShader(shaderId);
 
+		exit( 1 );
 		return false;
 	}
 
@@ -79,6 +81,8 @@ bool ShaderProgram::linkAndValidateProgram()
 		GLchar infoLog[BUFFER_SIZE];
 		glGetProgramInfoLog( _programId, BUFFER_SIZE, NULL, infoLog );
 		std::cerr << "Error linking the program: " << infoLog << "\n";
+
+		exit( 1 );
 		return false;
 	}
 
@@ -89,6 +93,8 @@ bool ShaderProgram::linkAndValidateProgram()
 		GLchar infoLog[BUFFER_SIZE];
 		glGetProgramInfoLog( _programId, BUFFER_SIZE, NULL, infoLog );
 		std::cerr << "Error validating the program: " << infoLog << "\n";
+
+		exit( 1 );
 		return false;
 	}
 
