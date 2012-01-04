@@ -27,8 +27,11 @@ void Skybox::loadTextures(std::string texturePrefix)
 void Skybox::draw( Camera& cam )
 {
 	glPushAttrib(GL_ENABLE_BIT);
-	glDisable(GL_LIGHTING);
 	glPushMatrix();
+
+	glDisable( GL_LIGHTING );
+	glDisable( GL_DEPTH_TEST );
+	glDisable( GL_BLEND );
 	glEnable(GL_TEXTURE_2D);
 	glLoadIdentity();
 
