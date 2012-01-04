@@ -67,13 +67,13 @@ void Model::draw( Camera& cam )
 		glBindTexture(GL_TEXTURE_2D, _texture);
 	}
 
-	glTranslatef(translation.x, translation.y, translation.z);
+	glTranslatef( translationPostRotation.x, translationPostRotation.y, translationPostRotation.z );
 
 	glRotatef(rotation.x, 1, 0, 0);
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
 
-	glTranslatef( translationPostRotation.x, translationPostRotation.y, translationPostRotation.z );
+	glTranslatef(translation.x, translation.y, translation.z);
 
 	switch( _type ) {
 	case NONE:
