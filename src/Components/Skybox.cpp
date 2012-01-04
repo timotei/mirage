@@ -40,6 +40,8 @@ void Skybox::draw( Camera& cam )
 	glRotatef( cam.rotation.z, 0, 0, 1 );
 
 	glBindTexture(GL_TEXTURE_2D, _textures[LEFT]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(1,0,0);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(-_width+0.1f, _height, -_thickness);
@@ -50,6 +52,8 @@ void Skybox::draw( Camera& cam )
 
 	//negative y plane
 	glBindTexture(GL_TEXTURE_2D, _textures[DOWN]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(0,1,0);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(_width, -_height, -_thickness);
@@ -60,6 +64,8 @@ void Skybox::draw( Camera& cam )
 
 	//negative z plane
 	glBindTexture(GL_TEXTURE_2D, _textures[BACK]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(0,0,-1);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(-_width, _height, _thickness -0.1f);
@@ -70,6 +76,8 @@ void Skybox::draw( Camera& cam )
 
 	//positive x plane
 	glBindTexture(GL_TEXTURE_2D, _textures[RIGHT]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(-1,0,0);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(_width-0.1f, _height, _thickness);
@@ -80,6 +88,8 @@ void Skybox::draw( Camera& cam )
 
 	//positive y plane
 	glBindTexture(GL_TEXTURE_2D, _textures[UP]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(0,-1,0);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(_width, _height, _thickness);
@@ -90,6 +100,8 @@ void Skybox::draw( Camera& cam )
 
 	//positive z plane
 	glBindTexture(GL_TEXTURE_2D, _textures[FRONT]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBegin(GL_QUADS);
 		glNormal3f(0,0,1);
 		glTexCoord2f(1.0f, 1.0f);glVertex3f(_width, _height, -_thickness+0.1f);
