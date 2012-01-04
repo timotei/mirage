@@ -31,14 +31,13 @@ public:
 		script->executeScript(path);
 	}
 
-
 	virtual ~GameComponent() {}
 
 	virtual nv::matrix4f getModelMatrix() {
 		return 
-			nv::matrix4f().set_translate( translation ) *
+			nv::matrix4f().set_translate( translationPostRotation ) *
 			nv::matrix4f().set_rotate_degrees( rotation ) * 
-			nv::matrix4f().set_translate( translationPostRotation );
+			nv::matrix4f().set_translate( translation );
 	}
 
 	nv::vec3f translation;
