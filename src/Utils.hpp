@@ -21,11 +21,25 @@ inline float clampDegree( float val ) {
 	return val;
 }
 
-inline void printMatrix( float matrix[] ) {
+inline void printMatrix4f( float matrix[] ) {
 	for( int i = 0; i < 16; ++ i) {
 		std::cout << matrix[i] << "|";
 	}
 
+	std::cout << "\n";
+}
+
+inline void printVector4f( float vector[] ) {
+	for( int i = 0; i < 4; ++ i) {
+		std::cout << vector[ i ] << "|";
+	}
+	std::cout << "\n";
+}
+
+inline void printVector3f( float vector[] ) {
+	for( int i = 0; i < 3; ++ i) {
+		std::cout << vector[ i ] << "|";
+	}
 	std::cout << "\n";
 }
 #endif // MIRAGE_UTILS_HPP__
