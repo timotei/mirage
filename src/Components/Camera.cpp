@@ -27,27 +27,34 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 
 void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
 	if (!special){
-		nv::vec4f delta;
-		switch( key ) {
-			case 'w':
-				delta.z = -1;
-				break;
-			case 's':
-				delta.z = 1;
-				break;
-			case 'a':
-				delta.x = -1;
-				break;
-			case 'd':
-				delta.x = 1;
-				break;
-			case 'u':
-				useAnimation = !useAnimation;
-				break;
-		}
+		float sinX = float(sin(toRadians(rotation.x))) / 2;
+		float sinY = float(sin(toRadians(rotation.y))) / 2;
+		// float cosX = float(cos(toRadians(rotation.x))) / 2;
+		float cosY = float(cos(toRadians(rotation.y))) / 2;
 
-		delta = nv::matrix4f().set_rotate_degrees( - rotation ) * delta;
-		position += normalize( delta._xyz );
+		switch( key ) {
+		case 'w':
+			position.x += sinY;
+			position.y -= sinX;
+			position.z -= cosY;
+			break;
+		case 'a':
+			position.x -= cosY;
+			position.z -= sinY;
+			break;
+		case 's':
+			position.x -= sinY;
+			position.y += sinX;
+			position.z += cosY;
+			break;
+		case 'd':
+			position.x += cosY;
+			position.z += sinY;
+			break;
+		case 'u':
+			useAnimation = !useAnimation;
+			break;
+		}
 	}else{
 		if (key == GLUT_KEY_PAGE_UP) {
 			position.y += 1;
