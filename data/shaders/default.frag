@@ -9,6 +9,7 @@ struct LightSource
 
 uniform LightSource lights[8];
 uniform sampler2D tex;
+uniform bool u_UseTexture;
 
 varying vec3 N;
 varying vec4 V;
@@ -19,5 +20,8 @@ void main()
 	
     // output the diffuse color
     float NdotL = dot(N, L);
-	gl_FragColor = texture2D( tex, gl_TexCoord[0].st ) * gl_Color * vec4(max(0.0, NdotL)) * lights[0].color + gl_LightModel.ambient;
+	if ( u_UseTexture )
+		gl_FragColor = texture2D( tex, gl_TexCoord[0].st ) * gl_Color * vec4(max(0.0, NdotL)) * lights[0].color + gl_LightModel.ambient;
+	else
+		gl_FragColor = gl_Color * vec4(max(0.0, NdotL)) * lights[0].color + gl_LightModel.ambient;
 }

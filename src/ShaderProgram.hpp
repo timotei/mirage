@@ -32,7 +32,7 @@ public:
 	void setUniform( const char* name, const nv::vec4f& value );
 	void setUniform( const char* name, const nv::vec3f& value );
 	void setUniform( const char* name, const nv::matrix4f& value );
-
+	void setUniform( const char* name, bool value );
 private:
 	DISALLOW_COPY_AND_ASSIGN(ShaderProgram);
 	GLint getUniformLocation( const char* name );

@@ -98,9 +98,55 @@ void Game::initGame(){
 
 	_components.push_back( sphere );
 
+	// right
 	ModelPtr plane( new Model );
-	plane->translation = nv::vec3f( 0, -3, 0 );
-	plane->loadPlane( 10, 10, nv::vec4f( 0, 0, 0, 1 ) );
+	plane->translationPostRotation = nv::vec3f( 10, 0, 0 );
+	plane->rotation = nv::vec3f( 0, 0, 90 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
+	plane->shader = _defaultShaderProgram;
+
+	_components.push_back( plane );
+
+	// left
+	plane = ModelPtr( new Model );
+	plane->translationPostRotation = nv::vec3f( -10, 0, 0 );
+	plane->rotation = nv::vec3f( 0, 0, -90 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
+	plane->shader = _defaultShaderProgram;
+
+	_components.push_back( plane );
+
+	// up
+	plane = ModelPtr( new Model );
+	plane->translationPostRotation = nv::vec3f( 0, 10, 0 );
+	plane->rotation = nv::vec3f( 0, 0, 180 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
+	plane->shader = _defaultShaderProgram;
+
+	_components.push_back( plane );
+
+	// down
+	plane = ModelPtr( new Model );
+	plane->translationPostRotation = nv::vec3f( 0, -10, 0 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
+	plane->shader = _defaultShaderProgram;
+
+	_components.push_back( plane );
+
+	// front
+	plane = ModelPtr( new Model );
+	plane->translationPostRotation = nv::vec3f( 0, 0, -10 );
+	plane->rotation = nv::vec3f( 90, 0, 0 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
+	plane->shader = _defaultShaderProgram;
+
+	_components.push_back( plane );
+
+	// back
+	plane = ModelPtr( new Model );
+	plane->translationPostRotation = nv::vec3f( 0, 0, 10 );
+	plane->rotation = nv::vec3f( -90, 0, 0 );
+	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
 	plane->shader = _defaultShaderProgram;
 
 	_components.push_back( plane );
@@ -142,10 +188,10 @@ void Game::renderScene()
 	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
 	glLoadIdentity();
 
+	_skybox->draw( *_camera );
 	_camera->draw();
 	nv::matrix4f viewMatrix = _camera->getViewMatrix();
 
-	_skybox->draw( *_camera );
 	_sun->draw( *_camera );
 
 	foreach( GameComponentPtr component, _components ){
@@ -183,7 +229,7 @@ void Game::updateGameTitle()
 }
 
 void Game::runGame()
-{	
+{
 	//Initialize some OpenGL parameters 
 	initOpenGL(); 
 

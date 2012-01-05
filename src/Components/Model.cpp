@@ -6,6 +6,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "tolua++.h"
+#include "../ShaderProgram.hpp"
 
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 
 						 bool unitize /* = true */, bool force /* = false */)
@@ -75,6 +76,10 @@ void Model::draw( Camera& cam )
 
 	glTranslatef(translation.x, translation.y, translation.z);
 
+	if ( shader != NULL ) {
+		shader->setUniform( "u_UseTexture", _textureLoaded );
+	}
+
 	switch( _type ) {
 	case NONE:
 		std::cerr << "WARN! Drawing a none model... \n";
@@ -90,7 +95,11 @@ void Model::draw( Camera& cam )
 		break;
 	case CUBE:
 		glColor4fv( _color._array );
-		glutSolidCube( _cubeSize );
+		glutSolidCube( _size );
+		break;
+	case TEAPOT:
+		glColor4fv( _color._array );
+		glutSolidTeapot( _size );
 		break;
 	case PLANE:
 		glColor4fv( _color._array );
@@ -122,7 +131,8 @@ Model::~Model()
 Model::Model() :
 _model( NULL ),
 _drawMode( GLM_NONE ),
-_type( NONE )
+_type( NONE ),
+_textureLoaded( false )
 {
 	glGenTextures(1, &_texture);
 }
@@ -157,6 +167,13 @@ void Model::loadPlane( float width, float length, nv::vec4f color )
 void Model::loadCube( double size, nv::vec4f color )
 {
 	_type = CUBE;
-	_cubeSize = size;
+	_size = size;
+	_color = color;
+}
+
+void Model::loadTeapot( double size, nv::vec4f color )
+{
+	_type = TEAPOT;
+	_size = size;
 	_color = color;
 }

@@ -14,7 +14,8 @@ public:
 		SPHERE = 1,
 		FILE = 2,
 		PLANE = 4,
-		CUBE = 8
+		CUBE = 8,
+		TEAPOT = 16
 	};
 
 	void update() 
@@ -29,6 +30,7 @@ public:
 	void loadSphere( double radius, int slices, int stacks, nv::vec4f color );
 	void loadPlane( float width, float length, nv::vec4f color );
 	void loadCube( double size, nv::vec4f color );
+	void loadTeapot( double size, nv::vec4f color );
 
 	Model();
 	~Model();
@@ -49,7 +51,7 @@ private:
 	float _planeLength;
 	float _planeWidth;
 
-	bool _cubeSize;
+	bool _size;
 
 	void cleanupCurrentModel();
 	DISALLOW_COPY_AND_ASSIGN(Model);
