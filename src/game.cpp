@@ -23,20 +23,16 @@
 #define foreach BOOST_FOREACH
 
 using boost::shared_ptr;
-
 typedef shared_ptr<Model> ModelPtr;
 
 const GLenum _visualizationModes[3] = { GL_FILL, GL_LINE, GL_POINT };
 int _currentVisualizationMode = 0;
 
-bool switchShader = false;
-
 Game::Game() :
 _skybox( NULL ),
 _camera( NULL ),
 _components( 0 ),
-_sun( NULL ),
-_usePerPixelLighting( true )
+_lights( 0 )
 {
 }
 
@@ -44,7 +40,6 @@ Game::~Game()
 {
 	delete _skybox;
 	delete _camera;
-	delete _sun;
 }
 
 void Game::initOpenGL() {
@@ -77,10 +72,16 @@ void Game::initGame(){
 	_camera->useAnimation = false;
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
-	_sun = new LightSource();
-	_sun->translation = nv::vec3f( 0, 0, 4 );
-	_sun->color = nv::vec4f( 1, 1, 1, 1 );
-	_sun->loadScript( "data/scripts/sun.lua" );
+	LightSourcePtr sun( new LightSource );
+	sun->translation = nv::vec3f( 4, 0, 0 );
+	sun->color = nv::vec4f( 1, 1, 1, 1 );
+	sun->loadScript( "data/scripts/sun.lua" );
+	_lights.push_back( sun );
+
+	LightSourcePtr light1( new LightSource );
+	light1->translation = nv::vec3f( 0, 0, 4);
+	light1->color = nv::vec4f( 1, 1, 1, 1 );
+	//_lights.push_back( light1 );
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
@@ -161,24 +162,12 @@ void Game::initGame(){
 void Game::updateScene()
 {
 	_camera->update();
-	_sun->update();
+	foreach( LightSourcePtr light, _lights ) {
+		light->update();
+	}
 
 	foreach(GameComponentPtr component, _components) {
 		component->update();
-	}
-
-	if( switchShader ) {
-
-		_usePerPixelLighting = !_usePerPixelLighting;
-
-		_defaultShaderProgram->detachAllShaders();
-
-		_defaultShaderProgram->attachNewShader( GL_VERTEX_SHADER, 
-			_usePerPixelLighting ? "data/shaders/default.vert" : "data/shaders/default.pervertex.vert" );
-		_defaultShaderProgram->attachNewShader( GL_FRAGMENT_SHADER, 
-			_usePerPixelLighting ? "data/shaders/default.frag" : "data/shaders/default.pervertex.frag" );
-		_defaultShaderProgram->linkAndValidateProgram();
-		switchShader = false;
 	}
 }
 
@@ -192,7 +181,10 @@ void Game::renderScene()
 	_camera->draw();
 	nv::matrix4f viewMatrix = _camera->getViewMatrix();
 
-	_sun->draw( *_camera );
+	foreach( LightSourcePtr light, _lights ){
+		light->draw( *_camera );
+	}
+	int lightsCount = _lights.size();
 
 	foreach( GameComponentPtr component, _components ){
 		boost::shared_ptr<ShaderProgram> program = component->shader;
@@ -201,8 +193,11 @@ void Game::renderScene()
 			program->setUniform( "u_PMatrix" , _projectionMatrix );
 			program->setUniform( "u_VMatrix", viewMatrix );
 			program->setUniform( "u_MMatrix", component->getModelMatrix() );
+			program->setUniform( "u_LightsCount", lightsCount );
 
-			_sun->sendToShaderProgram( *program, *_camera );
+			foreach( LightSourcePtr light, _lights ) {
+				light->sendToShaderProgram( *program, *_camera );
+			}
 		}
 
 		component->draw( *_camera );
@@ -248,8 +243,6 @@ void Game::onNormalKeyPressed( unsigned char key, int x, int y )
 
 	if ( key == '1' ) { 
 		_currentVisualizationMode = (_currentVisualizationMode + 1) % 3;
-	}else if ( key == '2' ) {
-		switchShader = true;
 	}
 
 	_camera->onKeyPressed(key, x, y);

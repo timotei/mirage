@@ -167,13 +167,14 @@ void ShaderProgram::setUniform( const char* name, const nv::matrix4f& value )
 	glUniformMatrix4fv( locationId, 1, GL_FALSE, value.get_value() );
 }
 
-void ShaderProgram::setUniform( const char* name, bool value )
+void ShaderProgram::setUniform( const char* name, int value )
 {
 	GLint locationId = getUniformLocation( name );
 	if ( locationId == -1 ) 
 		return;
 
-	glUniform1i( locationId, value );
+	//FIXME: remove this hack
+	glUniform1f( locationId, (float) value );
 }
 
 void ShaderProgram::detachAllShaders()

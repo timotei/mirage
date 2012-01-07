@@ -37,13 +37,13 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(Game);
 
 	typedef boost::shared_ptr<GameComponent> GameComponentPtr;
+	typedef boost::shared_ptr<LightSource> LightSourcePtr;
 
 	Skybox* _skybox;
 	Camera* _camera;
 	nv::matrix4f _projectionMatrix;
 	
-	LightSource* _sun;
-
+	std::list<LightSourcePtr> _lights;
 	std::list<GameComponentPtr> _components;
 
 	clock_t _lastClock;
@@ -51,7 +51,6 @@ private:
 	double _unprocessedTicks;
 	long _fps, _ticks;
 
-	bool _usePerPixelLighting;
 	boost::shared_ptr<ShaderProgram> _defaultShaderProgram;
 
 	void updateScene();
