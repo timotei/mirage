@@ -1,14 +1,14 @@
 newmtl initialShadingGroup
 illum 4
-Kd 0.00 0.00 0.00
+Kd 1.00 1.00 1.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd -s 0.002 0.002 fern_leaf_2042716.JPG
+map_Kd ../gfx/textures/palm_leaves.JPG
 Ni 1.00
 newmtl lambert2SG
 illum 4
-Kd 0.00 0.00 0.00
+Kd 1.00 1.00 1.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd -s 0.1 0.1 2012-01-04-130523.png
+map_Kd ../gfx/textures/palm_trunk.png
 Ni 1.00
