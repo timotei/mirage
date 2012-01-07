@@ -48,9 +48,11 @@
 #ifndef NV_MANIPULATORS_H
 #define NV_MANIPULATORS_H
 
-
 #include <nvMath.h>
 #include <GL/glut.h>	// @@ Do not include here!
+
+#pragma warning(push)
+#pragma warning(disable : 4244)
 
 namespace nv {
 
@@ -603,5 +605,5 @@ protected:
 };
 
 };
-
+#pragma warning(pop)
 #endif
