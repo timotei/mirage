@@ -19,7 +19,7 @@ void main()
 {
 	vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
 	int i = 0;
-	for( i = 0; i < u_LightsCount.x; i ++ ) {
+	for( i = 0; i < u_LightsCount; i ++ ) {
 		vec3 L = normalize(u_Lights[i].position - V.xyz);
 		
 		// output the diffuse color
