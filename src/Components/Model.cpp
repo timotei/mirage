@@ -30,13 +30,14 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 		}
 
 		glmFacetNormals(_model);
-		glmVertexNormals(_model, 90.0);
+		glmVertexNormals(_model, 90.0, GL_TRUE);
 	}
 
 	std::cout << "done\n";
 
 	_drawMode = mode;
 	_type = FILE;
+
 	return true;
 }
 
@@ -77,7 +78,7 @@ void Model::draw( Camera& cam )
 	glTranslatef(translation.x, translation.y, translation.z);
 
 	if ( shader != NULL ) {
-		shader->setUniform( "u_UseTexture", _textureLoaded );
+		shader->setUniform( "u_UseTexture", (int)_textureLoaded | (_drawMode & GLM_TEXTURE ) );
 	}
 
 	switch( _type ) {

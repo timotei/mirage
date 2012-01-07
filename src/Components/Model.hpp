@@ -6,7 +6,6 @@
 #include "GameComponent.hpp"
 #include "../Utils.hpp"
 
-
 class Model : public GameComponent{
 public:
 	enum ModelType {
