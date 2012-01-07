@@ -1305,7 +1305,7 @@ glmVertexNormals(GLMmodel* model, GLfloat angle, GLboolean keep_existing)
 		int discard = 1;
 
 		while (model->numnormals < numnormals) {
-		    __glmWarning( "glmVertexNormals(): realloc %d+100\n", model->numnormals+100);
+		    DBG_(__glmWarning( "glmVertexNormals(): realloc %d+100\n", model->numnormals+100));
 		    /* allocate 100 more normals */
 		    model->numnormals += 100;
 		    model->normals = (GLfloat*)realloc(model->normals, sizeof(GLfloat)* 3 * (model->numnormals+1));
