@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../external/include"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS; HAVE_DEVIL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -59,6 +59,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="DevIL.lib ILU.lib ILUT.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -152,36 +153,76 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\external\src\glm.cpp"
+		<Filter
+			Name="tolua"
 			>
-		</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_event.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_event.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_is.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_map.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_push.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\tolua_lib\tolua_to.c"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="glm"
+			>
+			<File
+				RelativePath="..\..\external\src\glm\glm.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glm_util.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg_devil.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg_jpg.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg_png.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg_sdl.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmimg_sim.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\external\src\glm\glmint.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\..\external\src\tga.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_event.c"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_event.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_is.c"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_map.c"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_push.c"
-			>
-		</File>
-		<File
-			RelativePath="..\..\external\src\tolua_lib\tolua_to.c"
 			>
 		</File>
 	</Files>
