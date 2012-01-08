@@ -43,7 +43,6 @@ private:
 
 	struct ShadowedModel {
 		ModelPtr model;
-		LightSourcePtr light;
 
 		nv::vec4f plane;
 		nv::matrix4f matrix;
@@ -62,6 +61,8 @@ private:
 	time_t _lastTime;
 	double _unprocessedTicks;
 	long _fps, _ticks;
+
+	bool _enableShadows;
 
 	boost::shared_ptr<ShaderProgram> _defaultShaderProgram;
 

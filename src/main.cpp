@@ -79,6 +79,7 @@ void registerCallbacks()
 
 	int mainMenuId = glutCreateMenu( menuEntrySelected );
 	glutAddMenuEntry( "Toogle camera animation", 1000 );
+	glutAddMenuEntry( "Toogle shadows", 1001 );
 
 	// drawing mode menu
 	int drawingModeMenuId = glutCreateMenu( menuEntrySelected);

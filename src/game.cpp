@@ -33,7 +33,8 @@ Game::Game() :
 _skybox( NULL ),
 _camera( NULL ),
 _components( 0 ),
-_lights( 0 )
+_lights( 0 ),
+_enableShadows( true )
 {
 }
 
@@ -66,8 +67,6 @@ void Game::createBigBoxWithTeapot()
 
 	_components.push_back( sphere );
 
-	LightSourcePtr light0 = * _lights.begin();
-	nv::vec4f lightpos = light0->getModelMatrix() * nv::vec4f( light0->translation );
 	float x = 7, y = 7, z = 7;
 	nv::vec3f translations[] = {
 		nv::vec3f( x, 0, 0 ),
@@ -99,9 +98,7 @@ void Game::createBigBoxWithTeapot()
 
 		plane->getPlanePoints( p1, p2, p3 );
 		shadowedModel->model = plane;
-		shadowedModel->light = light0;
 		shadowedModel->plane = getPlaneEquation( p1, p2, p3 );
-		shadowedModel->matrix = getShadowMatrix( shadowedModel->plane, lightpos );
 
 		_shadowedModels.push_back( shadowedModel );
 	}
@@ -132,7 +129,7 @@ void Game::initGame(){
 	LightSourcePtr light1( new LightSource );
 	light1->translation = nv::vec3f( 0, 0, 4);
 	light1->color = nv::vec4f( 1, 1, 1, 1 );
-	//_lights.push_back( light1 );
+	_lights.push_back( light1 );
 
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
@@ -155,10 +152,6 @@ void Game::updateScene()
 
 	foreach(GameComponentPtr component, _components) {
 		component->update();
-	}
-
-	foreach( ShadowedModelPtr model, _shadowedModels ) {
-		model->matrix = getShadowMatrix( model->plane, model->light->getModelMatrix() * nv::vec4f( model->light->translation ) );
 	}
 }
 
@@ -201,29 +194,40 @@ void Game::renderScene()
 		light->draw( *_camera );
 	}
 	
-	foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
-		glEnable( GL_STENCIL_TEST );
-		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
+	if ( _enableShadows ) {
+		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
+			glEnable( GL_STENCIL_TEST );
+			foreach( LightSourcePtr light, _lights ) {
+				// compute the shadowmatrix
+				shadowedModel->matrix = getShadowMatrix( shadowedModel->plane, light->getPosition() );
 
-		glStencilFunc( GL_ALWAYS, 1, 0 );
-		glClear( GL_STENCIL_BUFFER_BIT );
+				glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
 
-		shadowedModel->model->draw( *_camera );
+				glStencilFunc( GL_ALWAYS, 1, 0 );
+				glClear( GL_STENCIL_BUFFER_BIT );
 
-		glStencilFunc( GL_EQUAL, 1, 1 );
-		glDisable( GL_DEPTH_TEST );
-		
-		glPushMatrix();
-		glMultMatrixf( shadowedModel->matrix._array );
-		(*_components.begin())->draw( *_camera, true);
-		//drawComponents( true );
-		glPopMatrix();
+				shadowedModel->model->draw( *_camera );
 
-		glEnable( GL_DEPTH_TEST );
+				glStencilFunc( GL_EQUAL, 1, 1 );
+				glDisable( GL_DEPTH_TEST );
+				
+				glPushMatrix();
+				glMultMatrixf( shadowedModel->matrix._array );
+				drawComponents( true );
+				glPopMatrix();
 
-		glDisable( GL_STENCIL_TEST );
+				glEnable( GL_DEPTH_TEST );
+			}
+			glDisable( GL_STENCIL_TEST );
+		}
+	}else {
+		// normal drawing
+		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
+			shadowedModel->model->draw( *_camera );
+		}
 	}
-	(*_components.begin())->draw( *_camera, false);
+
+	drawComponents( false );
 	
 	glutSwapBuffers();
 }
@@ -352,5 +356,7 @@ void Game::onMenuEntrySelected( int id )
 		_camera->useAnimation = !_camera->useAnimation;
 	}else if ( id >= 100 && id <= 999 ) {
 		_currentVisualizationMode = id % 10;
+	}else if ( id == 1001 ) {
+		_enableShadows = !_enableShadows;
 	}
 }

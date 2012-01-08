@@ -25,6 +25,8 @@ public:
 	void draw( Camera& cam, bool shadow = false );
 	void sendToShaderProgram( ShaderProgram& program, Camera& cam );
 
+	nv::vec4f getPosition() { return getModelMatrix() * nv::vec4f( 0, 0, 0, 1 ); }
+
 	nv::vec4f color;
 
 private:
