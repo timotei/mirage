@@ -195,22 +195,23 @@ void Game::renderScene()
 	}
 	
 	if ( _enableShadows ) {
+		glEnable( GL_STENCIL_TEST );
 		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
-			glEnable( GL_STENCIL_TEST );
+
+			glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
+
+			glStencilFunc( GL_ALWAYS, 1, 0 );
+			glClear( GL_STENCIL_BUFFER_BIT );
+
+			shadowedModel->model->draw( *_camera );
+
 			foreach( LightSourcePtr light, _lights ) {
 				// compute the shadowmatrix
 				shadowedModel->matrix = getShadowMatrix( shadowedModel->plane, light->getPosition() );
 
-				glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
-
-				glStencilFunc( GL_ALWAYS, 1, 0 );
-				glClear( GL_STENCIL_BUFFER_BIT );
-
-				shadowedModel->model->draw( *_camera );
-
 				glStencilFunc( GL_EQUAL, 1, 1 );
 				glDisable( GL_DEPTH_TEST );
-				
+
 				glPushMatrix();
 				glMultMatrixf( shadowedModel->matrix._array );
 				drawComponents( true );
@@ -218,8 +219,8 @@ void Game::renderScene()
 
 				glEnable( GL_DEPTH_TEST );
 			}
-			glDisable( GL_STENCIL_TEST );
 		}
+		glDisable( GL_STENCIL_TEST );
 	}else {
 		// normal drawing
 		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
