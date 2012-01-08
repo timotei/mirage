@@ -7,6 +7,7 @@ extern "C" {
 	#include "lauxlib.h"
 }
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 class LuaScript{
 private:
@@ -23,5 +24,7 @@ public:
 	int executeScript(std::string path);
 	void callVoidFunction(std::string functionName);
 };
+
+typedef boost::shared_ptr<LuaScript> LuaScriptPtr;
 
 #endif // MIRAGE_LUASCRIPT_HPP__

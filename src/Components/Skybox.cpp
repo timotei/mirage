@@ -6,10 +6,11 @@
 
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 
-Skybox::Skybox(float width, float height, float thickness) :
-	_width(width),
-	_height(height),
-	_thickness(thickness)
+Skybox::Skybox( Game* parent, float width, float height, float thickness ) :
+GameComponent( parent ),
+_width(width),
+_height(height),
+_thickness(thickness)
 {
 	glGenTextures(6, _textures);
 }
@@ -24,7 +25,7 @@ void Skybox::loadTextures(std::string texturePrefix)
 	loadTGA((texturePrefix + "_back.tga").c_str(), _textures[BACK]);	
 }
 
-void Skybox::draw( Camera& cam, bool )
+void Skybox::draw( bool )
 {
 	glPushAttrib(GL_ENABLE_BIT);
 	glPushMatrix();
@@ -35,9 +36,9 @@ void Skybox::draw( Camera& cam, bool )
 	glEnable(GL_TEXTURE_2D);
 	glLoadIdentity();
 
-	glRotatef( cam.rotation.x, 1, 0, 0 );
-	glRotatef( cam.rotation.y, 0, 1, 0 );
-	glRotatef( cam.rotation.z, 0, 0, 1 );
+	glRotatef( parent->getCamera()->rotation.x, 1, 0, 0 );
+	glRotatef( parent->getCamera()->rotation.y, 0, 1, 0 );
+	glRotatef( parent->getCamera()->rotation.z, 0, 0, 1 );
 
 	glBindTexture(GL_TEXTURE_2D, _textures[LEFT]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

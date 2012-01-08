@@ -7,12 +7,20 @@
 #include "tolua++.h"
 
 #include "../ShaderProgram.hpp"
+#include "../Game.hpp"
 
 class Camera;
+class LightSource;
 
 class GameComponent{
 public:
-	virtual void draw( Camera&, bool shadow = false ) = NULL;
+
+	GameComponent( Game* parent ) : parent( parent )
+	{ }
+	virtual ~GameComponent() 
+	{ }
+
+	virtual void draw( bool = false ) = NULL;
 	virtual void update() 
 	{
 		if ( script != NULL ) {
@@ -31,8 +39,6 @@ public:
 		script->executeScript(path);
 	}
 
-	virtual ~GameComponent() {}
-
 	virtual nv::matrix4f getModelMatrix() {
 		return 
 			nv::matrix4f().set_translate( translationPostRotation ) *
@@ -44,6 +50,7 @@ public:
 	nv::vec3f translationPostRotation;
 	nv::vec3f rotation;
 
+	Game* parent;
 	boost::shared_ptr<LuaScript> script;
 	boost::shared_ptr<ShaderProgram> shader;
 };

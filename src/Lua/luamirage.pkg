@@ -1,4 +1,5 @@
 $#include "LuaMirage.hpp"
+$#include "../Game.hpp"
 $#include "../Components/Model.hpp"
 $#include "../Components/GameComponent.hpp"
 $#include "../Components/Camera.hpp"
@@ -31,13 +32,10 @@ struct matrix4f{
 }
 
 class GameComponent{
-	virtual void draw( Camera ) {}
-	virtual void update() {	}
-	
+	virtual void draw();
+	virtual void update();
 	virtual void onKeyPressed(int, int, int, bool);
-
 	virtual void loadScript(std::string path);
-	virtual ~GameComponent();
 	
 	vec3f translation;
 	vec3f translationPostRotation;
@@ -67,12 +65,27 @@ class Camera {
 
 class Model : public GameComponent{
 	void update();
-	void draw(Camera cam);
+	void draw();
 
 	bool loadFromFile(const char* fileName, GLuint mode, bool unitize = true, bool force = false);
 	void loadTexture(char* fileName);
 	void loadScript(std::string path);
 
-	Model();
-	~Model();
+	Model(Game* game);
 };
+
+class Game {
+	void runGame();
+
+	void onNormalKeyPressed( unsigned char key, int x, int y );
+	void onResolutionChanged( int w, int h );
+	void onSpecialKeyPressed( int key, int x, int y );
+	void onMouseMoved( int x, int y );
+	void onMousePressed( int button, int state, int x, int y );
+	void onMenuEntrySelected( int id );
+	void onExit();
+	void updateGame();
+
+	int screenHeight;
+	int screenWidth;
+}

@@ -34,6 +34,8 @@ public:
 	int screenHeight;
 	int screenWidth;
 
+	Camera const * getCamera() { return _camera; }
+
 private:
 	DISALLOW_COPY_AND_ASSIGN(Game);
 

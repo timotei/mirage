@@ -6,7 +6,8 @@
 
 static int LIGHTS_COUNTER = 0;
 
-LightSource::LightSource() : 
+LightSource::LightSource( Game* parent ) :
+GameComponent( parent ),
 _index( LIGHTS_COUNTER ),
 color( 1.0f, 1.0f, 1.0f, 1.0f )
 {
@@ -17,7 +18,7 @@ LightSource::~LightSource()
 {
 }
 
-void LightSource::draw( Camera& cam, bool shadow )
+void LightSource::draw( bool shadow )
 {
 	if ( shadow )
 		return;

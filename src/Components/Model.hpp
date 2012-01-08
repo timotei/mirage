@@ -21,19 +21,20 @@ public:
 	{ 
 		GameComponent::update(); 
 	}
-	void draw( Camera& cam, bool shadow = false );
+	void draw( bool shadow = false );
 
-	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
-	void loadTexture(const char* fileName);
-	void loadScript(std::string path);
+	bool loadFromFile( const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false );
+	void loadTexture( const char* fileName );
+	void loadScript( std::string path );
 	void loadSphere( double radius, int slices, int stacks, nv::vec4f color );
 	void loadPlane( float width, float length, nv::vec4f color );
 	void loadCube( double size, nv::vec4f color );
 	void loadTeapot( double size, nv::vec4f color );
 	void getPlanePoints( nv::vec4f& p1, nv::vec4f& p2, nv::vec4f& p3 );
 
-	Model();
+	Model( Game* parent );
 	~Model();
+
 private:
 	GLMmodel* _model;
 	GLuint _drawMode;

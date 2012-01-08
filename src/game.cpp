@@ -61,8 +61,8 @@ void Game::initOpenGL() {
 // for testing shadows
 void Game::createBigBoxWithTeapot()
 {
-	ModelPtr sphere( new Model );
-	sphere->loadTeapot( 1, nv::vec4f( 1, 0, 0, 1 ) );
+	ModelPtr sphere( new Model( this ) );
+	sphere->loadSphere( 1, 100, 100, nv::vec4f( 1, 0, 0, 1 ) );
 	sphere->shader = _defaultShaderProgram;
 
 	_components.push_back( sphere );
@@ -91,10 +91,11 @@ void Game::createBigBoxWithTeapot()
 	for( int i = 0; i < 6; ++ i ) {
 		nv::vec4f p1, p2, p3;
 		ShadowedModelPtr shadowedModel = ShadowedModelPtr( new ShadowedModel );
-		ModelPtr plane( new Model );
+		ModelPtr plane( new Model( this ) );
 		plane->translationPostRotation = translations[ i ];
 		plane->rotation = rotations [ i ];
 		plane->loadPlane( x, z, nv::vec4f( 1, 1, 0, 1 ) );
+		plane->shader = _defaultShaderProgram;
 
 		plane->getPlanePoints( p1, p2, p3 );
 		shadowedModel->model = plane;
@@ -120,19 +121,19 @@ void Game::initGame(){
 	_camera->useAnimation = false;
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
-	LightSourcePtr sun( new LightSource );
+	LightSourcePtr sun( new LightSource( this ) );
 	sun->translation = nv::vec3f( -4, 0, 0 );
 	sun->color = nv::vec4f( 1, 1, 1, 1 );
 	sun->loadScript( "data/scripts/sun.lua" );
 	_lights.push_back( sun );
 
-	LightSourcePtr light1( new LightSource );
+	LightSourcePtr light1( new LightSource( this ) );
 	light1->translation = nv::vec3f( 0, 0, 4);
 	light1->color = nv::vec4f( 1, 1, 1, 1 );
-	_lights.push_back( light1 );
+	//_lights.push_back( light1 );
 
-	_skybox = new Skybox(50, 30, 50);
-	_skybox->loadTextures("data/gfx/skybox/desert_evening");
+	_skybox = new Skybox( this, 50, 30, 50 );
+	_skybox->loadTextures( "data/gfx/skybox/desert_evening" );
 
 	createBigBoxWithTeapot();
 	std::cout << "Init Done.\n";
@@ -174,7 +175,7 @@ void Game::drawComponents( bool shadow )
 			}
 		}
 
-		component->draw( *_camera, shadow );
+		component->draw( shadow );
 
 		if ( program != NULL )
 			program->unUse();
@@ -187,11 +188,11 @@ void Game::renderScene()
 	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
 	glLoadIdentity();
 
-	_skybox->draw( *_camera );
-	_camera->draw();
+	_skybox->draw( );
+	_camera->draw( );
 
 	foreach( LightSourcePtr light, _lights ){
-		light->draw( *_camera );
+		light->draw( );
 	}
 	
 	if ( _enableShadows ) {
@@ -203,7 +204,7 @@ void Game::renderScene()
 			glStencilFunc( GL_ALWAYS, 1, 0 );
 			glClear( GL_STENCIL_BUFFER_BIT );
 
-			shadowedModel->model->draw( *_camera );
+			shadowedModel->model->draw( );
 
 			foreach( LightSourcePtr light, _lights ) {
 				// compute the shadowmatrix
@@ -224,7 +225,7 @@ void Game::renderScene()
 	}else {
 		// normal drawing
 		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
-			shadowedModel->model->draw( *_camera );
+			shadowedModel->model->draw( );
 		}
 	}
 

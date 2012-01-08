@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 01/03/12 20:43:57.
+** Generated automatically by tolua++-1.0.92 on 01/08/12 23:11:58.
 */
 
 #ifndef __cplusplus
@@ -14,6 +14,7 @@
 TOLUA_API int  tolua_luamirage_open (lua_State* tolua_S);
 
 #include "LuaMirage.hpp"
+#include "../Game.hpp"
 #include "../Components/Model.hpp"
 #include "../Components/GameComponent.hpp"
 #include "../Components/Camera.hpp"
@@ -51,13 +52,6 @@ static int tolua_collect_vec3f (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_GameComponent (lua_State* tolua_S)
-{
- GameComponent* self = (GameComponent*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
 static int tolua_collect_vec4f (lua_State* tolua_S)
 {
  vec4f* self = (vec4f*) tolua_tousertype(tolua_S,1,0);
@@ -70,14 +64,15 @@ static int tolua_collect_vec4f (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
+ tolua_usertype(tolua_S,"vec4f");
+ tolua_usertype(tolua_S,"GLuint");
+ tolua_usertype(tolua_S,"GameComponent");
  tolua_usertype(tolua_S,"matrix4f");
  tolua_usertype(tolua_S,"Camera");
  tolua_usertype(tolua_S,"LuaScript");
  tolua_usertype(tolua_S,"Model");
  tolua_usertype(tolua_S,"vec3f");
- tolua_usertype(tolua_S,"GLuint");
- tolua_usertype(tolua_S,"GameComponent");
- tolua_usertype(tolua_S,"vec4f");
+ tolua_usertype(tolua_S,"Game");
 }
 
 /* get function: x of class  vec3f */
@@ -1123,20 +1118,18 @@ static int tolua_luamirage_GameComponent_draw00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"GameComponent",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Camera",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
-  Camera tolua_var_1 = *((Camera*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
 #endif
   {
-   self->draw(tolua_var_1);
+   self->draw();
   }
  }
  return 0;
@@ -1198,15 +1191,15 @@ static int tolua_luamirage_GameComponent_onKeyPressed00(lua_State* tolua_S)
 #endif
  {
   GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
-  int tolua_var_2 = ((int)  tolua_tonumber(tolua_S,2,0));
-  int tolua_var_3 = ((int)  tolua_tonumber(tolua_S,3,0));
-  int tolua_var_4 = ((int)  tolua_tonumber(tolua_S,4,0));
-  bool tolua_var_5 = ((bool)  tolua_toboolean(tolua_S,5,0));
+  int tolua_var_1 = ((int)  tolua_tonumber(tolua_S,2,0));
+  int tolua_var_2 = ((int)  tolua_tonumber(tolua_S,3,0));
+  int tolua_var_3 = ((int)  tolua_tonumber(tolua_S,4,0));
+  bool tolua_var_4 = ((bool)  tolua_toboolean(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onKeyPressed'", NULL);
 #endif
   {
-   self->onKeyPressed(tolua_var_2,tolua_var_3,tolua_var_4,tolua_var_5);
+   self->onKeyPressed(tolua_var_1,tolua_var_2,tolua_var_3,tolua_var_4);
   }
  }
  return 0;
@@ -1246,35 +1239,6 @@ static int tolua_luamirage_GameComponent_loadScript00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'loadScript'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  GameComponent */
-#ifndef TOLUA_DISABLE_tolua_luamirage_GameComponent_delete00
-static int tolua_luamirage_GameComponent_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"GameComponent",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  GameComponent* self = (GameComponent*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1808,20 +1772,18 @@ static int tolua_luamirage_Model_draw00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Model",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"Camera",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   Model* self = (Model*)  tolua_tousertype(tolua_S,1,0);
-  Camera cam = *((Camera*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
 #endif
   {
-   self->draw(cam);
+   self->draw();
   }
  }
  return 0;
@@ -1947,14 +1909,16 @@ static int tolua_luamirage_Model_new00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"Model",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isusertype(tolua_S,2,"Game",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
+  Game* game = ((Game*)  tolua_tousertype(tolua_S,2,0));
   {
-   Model* tolua_ret = (Model*)  Mtolua_new((Model)());
+   Model* tolua_ret = (Model*)  Mtolua_new((Model)(game));
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"Model");
   }
  }
@@ -1975,14 +1939,16 @@ static int tolua_luamirage_Model_new00_local(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"Model",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isusertype(tolua_S,2,"Game",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
+  Game* game = ((Game*)  tolua_tousertype(tolua_S,2,0));
   {
-   Model* tolua_ret = (Model*)  Mtolua_new((Model)());
+   Model* tolua_ret = (Model*)  Mtolua_new((Model)(game));
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"Model");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
@@ -1996,32 +1962,372 @@ static int tolua_luamirage_Model_new00_local(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: delete of class  Model */
-#ifndef TOLUA_DISABLE_tolua_luamirage_Model_delete00
-static int tolua_luamirage_Model_delete00(lua_State* tolua_S)
+/* method: runGame of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_runGame00
+static int tolua_luamirage_Game_runGame00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"Model",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  Model* self = (Model*)  tolua_tousertype(tolua_S,1,0);
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'runGame'", NULL);
 #endif
-  Mtolua_delete(self);
+  {
+   self->runGame();
+  }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'runGame'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onNormalKeyPressed of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onNormalKeyPressed00
+static int tolua_luamirage_Game_onNormalKeyPressed00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  unsigned char key = ((unsigned char)  tolua_tonumber(tolua_S,2,0));
+  int x = ((int)  tolua_tonumber(tolua_S,3,0));
+  int y = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onNormalKeyPressed'", NULL);
+#endif
+  {
+   self->onNormalKeyPressed(key,x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onNormalKeyPressed'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onResolutionChanged of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onResolutionChanged00
+static int tolua_luamirage_Game_onResolutionChanged00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  int w = ((int)  tolua_tonumber(tolua_S,2,0));
+  int h = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onResolutionChanged'", NULL);
+#endif
+  {
+   self->onResolutionChanged(w,h);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onResolutionChanged'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onSpecialKeyPressed of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onSpecialKeyPressed00
+static int tolua_luamirage_Game_onSpecialKeyPressed00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  int key = ((int)  tolua_tonumber(tolua_S,2,0));
+  int x = ((int)  tolua_tonumber(tolua_S,3,0));
+  int y = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onSpecialKeyPressed'", NULL);
+#endif
+  {
+   self->onSpecialKeyPressed(key,x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onSpecialKeyPressed'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onMouseMoved of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onMouseMoved00
+static int tolua_luamirage_Game_onMouseMoved00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  int x = ((int)  tolua_tonumber(tolua_S,2,0));
+  int y = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onMouseMoved'", NULL);
+#endif
+  {
+   self->onMouseMoved(x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onMouseMoved'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onMousePressed of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onMousePressed00
+static int tolua_luamirage_Game_onMousePressed00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  int button = ((int)  tolua_tonumber(tolua_S,2,0));
+  int state = ((int)  tolua_tonumber(tolua_S,3,0));
+  int x = ((int)  tolua_tonumber(tolua_S,4,0));
+  int y = ((int)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onMousePressed'", NULL);
+#endif
+  {
+   self->onMousePressed(button,state,x,y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onMousePressed'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onMenuEntrySelected of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onMenuEntrySelected00
+static int tolua_luamirage_Game_onMenuEntrySelected00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+  int id = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onMenuEntrySelected'", NULL);
+#endif
+  {
+   self->onMenuEntrySelected(id);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onMenuEntrySelected'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onExit of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_onExit00
+static int tolua_luamirage_Game_onExit00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onExit'", NULL);
+#endif
+  {
+   self->onExit();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onExit'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: updateGame of class  Game */
+#ifndef TOLUA_DISABLE_tolua_luamirage_Game_updateGame00
+static int tolua_luamirage_Game_updateGame00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Game",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'updateGame'", NULL);
+#endif
+  {
+   self->updateGame();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'updateGame'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: screenHeight of class  Game */
+#ifndef TOLUA_DISABLE_tolua_get_Game_screenHeight
+static int tolua_get_Game_screenHeight(lua_State* tolua_S)
+{
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'screenHeight'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->screenHeight);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: screenHeight of class  Game */
+#ifndef TOLUA_DISABLE_tolua_set_Game_screenHeight
+static int tolua_set_Game_screenHeight(lua_State* tolua_S)
+{
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'screenHeight'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->screenHeight = ((int)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: screenWidth of class  Game */
+#ifndef TOLUA_DISABLE_tolua_get_Game_screenWidth
+static int tolua_get_Game_screenWidth(lua_State* tolua_S)
+{
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'screenWidth'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->screenWidth);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: screenWidth of class  Game */
+#ifndef TOLUA_DISABLE_tolua_set_Game_screenWidth
+static int tolua_set_Game_screenWidth(lua_State* tolua_S)
+{
+  Game* self = (Game*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'screenWidth'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->screenWidth = ((int)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -2092,17 +2398,12 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_luamirage_matrix4f_new00_local);
    tolua_function(tolua_S,".call",tolua_luamirage_matrix4f_new00_local);
   tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"GameComponent","GameComponent","",tolua_collect_GameComponent);
-  #else
   tolua_cclass(tolua_S,"GameComponent","GameComponent","",NULL);
-  #endif
   tolua_beginmodule(tolua_S,"GameComponent");
    tolua_function(tolua_S,"draw",tolua_luamirage_GameComponent_draw00);
    tolua_function(tolua_S,"update",tolua_luamirage_GameComponent_update00);
    tolua_function(tolua_S,"onKeyPressed",tolua_luamirage_GameComponent_onKeyPressed00);
    tolua_function(tolua_S,"loadScript",tolua_luamirage_GameComponent_loadScript00);
-   tolua_function(tolua_S,"delete",tolua_luamirage_GameComponent_delete00);
    tolua_variable(tolua_S,"translation",tolua_get_GameComponent_translation,tolua_set_GameComponent_translation);
    tolua_variable(tolua_S,"translationPostRotation",tolua_get_GameComponent_translationPostRotation,tolua_set_GameComponent_translationPostRotation);
    tolua_variable(tolua_S,"rotation",tolua_get_GameComponent_rotation,tolua_set_GameComponent_rotation);
@@ -2144,7 +2445,20 @@ TOLUA_API int tolua_luamirage_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new",tolua_luamirage_Model_new00);
    tolua_function(tolua_S,"new_local",tolua_luamirage_Model_new00_local);
    tolua_function(tolua_S,".call",tolua_luamirage_Model_new00_local);
-   tolua_function(tolua_S,"delete",tolua_luamirage_Model_delete00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"Game","Game","",NULL);
+  tolua_beginmodule(tolua_S,"Game");
+   tolua_function(tolua_S,"runGame",tolua_luamirage_Game_runGame00);
+   tolua_function(tolua_S,"onNormalKeyPressed",tolua_luamirage_Game_onNormalKeyPressed00);
+   tolua_function(tolua_S,"onResolutionChanged",tolua_luamirage_Game_onResolutionChanged00);
+   tolua_function(tolua_S,"onSpecialKeyPressed",tolua_luamirage_Game_onSpecialKeyPressed00);
+   tolua_function(tolua_S,"onMouseMoved",tolua_luamirage_Game_onMouseMoved00);
+   tolua_function(tolua_S,"onMousePressed",tolua_luamirage_Game_onMousePressed00);
+   tolua_function(tolua_S,"onMenuEntrySelected",tolua_luamirage_Game_onMenuEntrySelected00);
+   tolua_function(tolua_S,"onExit",tolua_luamirage_Game_onExit00);
+   tolua_function(tolua_S,"updateGame",tolua_luamirage_Game_updateGame00);
+   tolua_variable(tolua_S,"screenHeight",tolua_get_Game_screenHeight,tolua_set_Game_screenHeight);
+   tolua_variable(tolua_S,"screenWidth",tolua_get_Game_screenWidth,tolua_set_Game_screenWidth);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

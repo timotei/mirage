@@ -58,7 +58,7 @@ void Model::cleanupCurrentModel()
 	}
 }
 
-void Model::draw( Camera& cam, bool shadow /*= false */  )
+void Model::draw( bool shadow /*= false */  )
 {
 	glPushMatrix();
 	GLfloat prevColor[4]; 
@@ -134,7 +134,8 @@ Model::~Model()
 	cleanupCurrentModel();
 }
 
-Model::Model() :
+Model::Model( Game* parent ) :
+GameComponent( parent ),
 _model( NULL ),
 _drawMode( GLM_NONE ),
 _type( NONE ),
