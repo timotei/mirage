@@ -6,6 +6,9 @@
 #include "GameComponent.hpp"
 #include "../Utils.hpp"
 
+class Model;
+typedef boost::shared_ptr<Model> ModelPtr;
+
 class Model : public GameComponent{
 public:
 	enum ModelType {

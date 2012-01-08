@@ -34,11 +34,15 @@ public:
 
 	void loadScript(std::string path);
 
-	nv::matrix4f getViewMatrix();
+	nv::matrix4f getViewMatrix() const;
+
+	const nv::matrix4f& getProjectionMatrix() const;
+	void setProjectionMatrix( nv::matrix4f newMat );
 
 	boost::shared_ptr<LuaScript> script;
 private:
 	bool _leftMousePressed;
+	nv::matrix4f _projectionMatrix;
 
 	int _lastMouseX;
 	int _lastMouseY;

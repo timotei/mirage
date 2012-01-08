@@ -3,10 +3,13 @@
 
 #include "glm.h"
 #include <iostream>
+#include <boost/foreach.hpp>
 
 inline float toRadians(float degrees){
 	return float(degrees / 180 * M_PI);
 }
+
+#define foreach BOOST_FOREACH
 
 // A macro to disallow the copy constructor and operator= functions
 // This should be used in the private: declarations for a class

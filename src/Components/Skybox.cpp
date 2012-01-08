@@ -3,6 +3,7 @@
 #include <tga.h>
 
 #include "Camera.hpp"
+#include "../Game.hpp"
 
 static const int FRONT = 0, BACK = 1, LEFT = 2, RIGHT = 3, UP = 4, DOWN = 5;
 

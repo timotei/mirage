@@ -37,7 +37,7 @@ void LightSource::draw( bool shadow )
 	glPopMatrix();
 }
 
-void LightSource::sendToShaderProgram( ShaderProgram& program, Camera& cam )
+void LightSource::sendToShaderProgram( ShaderProgram& program, const Camera& cam )
 {
 	std::ostringstream name;
 	name << "u_Lights[" << _index << "].position";

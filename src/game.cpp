@@ -10,7 +10,6 @@
 #include <math.h>
 #include <time.h>
 #include <vector>
-#include <boost/foreach.hpp>
 
 #include "Components/GameComponent.hpp"
 #include "Components/Camera.hpp"
@@ -21,8 +20,6 @@
 #include "Lua/LuaScript.hpp"
 
 #include "Math.hpp"
-
-#define foreach BOOST_FOREACH
 
 using boost::shared_ptr;
 
@@ -45,6 +42,10 @@ Game::~Game()
 }
 
 void Game::initOpenGL() {
+	_camera = new Camera;
+	_camera->useAnimation = false;
+	_camera->loadScript("data/scripts/camera_anim.lua");
+
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
 	glShadeModel(GL_SMOOTH); 
 
@@ -117,10 +118,6 @@ void Game::initGame(){
 	GLfloat globalAmbient[4] = { .1f, .1f, .1f, 1.0f};
 	glLightModelfv( GL_LIGHT_MODEL_AMBIENT, globalAmbient );
 
-	_camera = new Camera;
-	_camera->useAnimation = false;
-	_camera->loadScript("data/scripts/camera_anim.lua");
-
 	LightSourcePtr sun( new LightSource( this ) );
 	sun->translation = nv::vec3f( -4, 0, 0 );
 	sun->color = nv::vec4f( 1, 1, 1, 1 );
@@ -156,32 +153,6 @@ void Game::updateScene()
 	}
 }
 
-void Game::drawComponents( bool shadow )
-{
-	int lightsCount = _lights.size();
-	nv::matrix4f viewMatrix = _camera->getViewMatrix();
-
-	foreach( GameComponentPtr component, _components ) {
-		boost::shared_ptr<ShaderProgram> program = component->shader;
-		if ( program != NULL && program->isValid() && !shadow ) {
-			program->use();
-			program->setUniform( "u_PMatrix" , _projectionMatrix );
-			program->setUniform( "u_VMatrix", viewMatrix );
-			program->setUniform( "u_MMatrix", component->getModelMatrix() );
-			program->setUniform( "u_LightsCount", lightsCount );
-
-			foreach( LightSourcePtr light, _lights ) {
-				light->sendToShaderProgram( *program, *_camera );
-			}
-		}
-
-		component->draw( shadow );
-
-		if ( program != NULL )
-			program->unUse();
-	}
-}
-
 void Game::renderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -214,8 +185,11 @@ void Game::renderScene()
 				glDisable( GL_DEPTH_TEST );
 
 				glPushMatrix();
-				glMultMatrixf( shadowedModel->matrix._array );
-				drawComponents( true );
+					glMultMatrixf( shadowedModel->matrix._array );
+
+					foreach( GameComponentPtr component, _components ) {
+						component->draw( true );
+					}
 				glPopMatrix();
 
 				glEnable( GL_DEPTH_TEST );
@@ -229,7 +203,9 @@ void Game::renderScene()
 		}
 	}
 
-	drawComponents( false );
+	foreach( GameComponentPtr component, _components ) {
+		component->draw( false );
+	}
 	
 	glutSwapBuffers();
 }
@@ -336,7 +312,9 @@ void Game::initProjectionMatrix(int width, int height)
 	glViewport(0, 0, width, height);
 	gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
 
-	glGetFloatv( GL_PROJECTION_MATRIX, _projectionMatrix._array );
+	nv::matrix4f matrix;
+	glGetFloatv( GL_PROJECTION_MATRIX, matrix._array );
+	_camera->setProjectionMatrix( matrix );
 }
 
 void Game::onExit()
@@ -361,4 +339,9 @@ void Game::onMenuEntrySelected( int id )
 	}else if ( id == 1001 ) {
 		_enableShadows = !_enableShadows;
 	}
+}
+
+const std::list<boost::shared_ptr<LightSource>>& Game::getLights () const
+{
+	return _lights;
 }

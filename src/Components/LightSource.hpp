@@ -9,11 +9,15 @@
 #include <GLUT/GLUT.h>
 #endif
 #include "nvMath.h"
+#include <boost/shared_ptr.hpp>
 
 #include "GameComponent.hpp"
 #include "../Utils.hpp"
 
 class Camera;
+class LightSource;
+
+typedef boost::shared_ptr<LightSource> LightSourcePtr;
 
 class LightSource :	public GameComponent
 {
@@ -23,7 +27,7 @@ public:
 
 	void update() { GameComponent::update(); }
 	void draw( bool shadow = false );
-	void sendToShaderProgram( ShaderProgram& program, Camera& cam );
+	void sendToShaderProgram( ShaderProgram& program, const Camera& cam );
 
 	nv::vec4f getPosition() { return getModelMatrix() * nv::vec4f( 0, 0, 0, 1 ); }
 

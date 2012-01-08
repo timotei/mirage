@@ -98,9 +98,19 @@ void Camera::update()
 		script->callVoidFunction( "update" );
 }
 
-nv::matrix4f Camera::getViewMatrix()
+nv::matrix4f Camera::getViewMatrix() const
 {
 	return
 		nv::matrix4f().set_rotate_degrees( rotation ) *
 		nv::matrix4f().set_translate( - position );
+}
+
+void Camera::setProjectionMatrix( nv::matrix4f newMat )
+{
+	_projectionMatrix = newMat;
+}
+
+const nv::matrix4f& Camera::getProjectionMatrix() const
+{
+	return _projectionMatrix;
 }

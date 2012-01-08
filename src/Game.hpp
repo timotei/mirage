@@ -7,13 +7,13 @@
 #include "nvMath.h"
 
 #include "Utils.hpp"
+#include "Components/Model.hpp"
+#include "Components/LightSource.hpp"
 
 class Skybox;
 class Camera;
 class GameComponent;
-class LightSource;
 class ShaderProgram;
-class Model;
 
 class Game {
 public:
@@ -31,6 +31,8 @@ public:
 	void onExit();
 	void updateGame();
 
+	const std::list<LightSourcePtr>& getLights() const;
+
 	int screenHeight;
 	int screenWidth;
 
@@ -39,21 +41,17 @@ public:
 private:
 	DISALLOW_COPY_AND_ASSIGN(Game);
 
-	typedef boost::shared_ptr<GameComponent> GameComponentPtr;
-	typedef boost::shared_ptr<LightSource> LightSourcePtr;
-	typedef boost::shared_ptr<Model> ModelPtr;
-
 	struct ShadowedModel {
 		ModelPtr model;
 
 		nv::vec4f plane;
 		nv::matrix4f matrix;
 	};
+	typedef boost::shared_ptr<GameComponent> GameComponentPtr;
 	typedef boost::shared_ptr<ShadowedModel> ShadowedModelPtr;
 
 	Skybox* _skybox;
 	Camera* _camera;
-	nv::matrix4f _projectionMatrix;
 	
 	std::list<LightSourcePtr> _lights;
 	std::list<GameComponentPtr> _components;

@@ -7,6 +7,9 @@
 
 #include "tolua++.h"
 #include "../ShaderProgram.hpp"
+#include "../Game.hpp"
+#include "Camera.hpp"
+#include "LightSource.hpp"
 
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 
 						 bool unitize /* = true */, bool force /* = false */)
@@ -60,6 +63,21 @@ void Model::cleanupCurrentModel()
 
 void Model::draw( bool shadow /*= false */  )
 {
+	if ( shader != NULL && shader->isValid() && !shadow ) {
+		Camera const * camera = parent->getCamera();
+		std::list<LightSourcePtr> lights = parent->getLights();
+
+		shader->use();
+		shader->setUniform( "u_PMatrix", camera->getProjectionMatrix() );
+		shader->setUniform( "u_VMatrix", camera->getViewMatrix() );
+		shader->setUniform( "u_MMatrix", getModelMatrix() );
+		shader->setUniform( "u_LightsCount", lights.size() );
+
+		foreach( LightSourcePtr light, lights ) {
+			light->sendToShaderProgram( *shader, *camera );
+		}
+	}
+
 	glPushMatrix();
 	GLfloat prevColor[4]; 
 	glGetFloatv( GL_CURRENT_COLOR, prevColor );
@@ -127,6 +145,9 @@ void Model::draw( bool shadow /*= false */  )
 	// restore color
 	glColor4fv( prevColor );
 	glPopMatrix();
+
+	if ( shader != NULL )
+		shader->unUse();
 }
 
 Model::~Model()

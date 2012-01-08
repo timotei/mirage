@@ -3,10 +3,8 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <boost/foreach.hpp>
 
 #define BUFFER_SIZE 2048
-#define foreach BOOST_FOREACH
 
 ShaderProgram::ShaderProgram() :
 _shaders( 0 ),

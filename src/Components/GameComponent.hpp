@@ -7,8 +7,8 @@
 #include "tolua++.h"
 
 #include "../ShaderProgram.hpp"
-#include "../Game.hpp"
 
+class Game;
 class Camera;
 class LightSource;
 
