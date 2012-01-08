@@ -22,7 +22,7 @@ public:
 	~LightSource();
 
 	void update() { GameComponent::update(); }
-	void draw( Camera& cam );
+	void draw( Camera& cam, bool shadow = false );
 	void sendToShaderProgram( ShaderProgram& program, Camera& cam );
 
 	nv::vec4f color;

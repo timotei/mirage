@@ -20,10 +20,11 @@
 
 #include "Lua/LuaScript.hpp"
 
+#include "Math.hpp"
+
 #define foreach BOOST_FOREACH
 
 using boost::shared_ptr;
-typedef shared_ptr<Model> ModelPtr;
 
 const GLenum _visualizationModes[3] = { GL_FILL, GL_LINE, GL_POINT };
 int _currentVisualizationMode = 0;
@@ -56,6 +57,56 @@ void Game::initOpenGL() {
 	glEnable(GL_CULL_FACE);
 }
 
+// for testing shadows
+void Game::createBigBoxWithTeapot()
+{
+	ModelPtr sphere( new Model );
+	sphere->loadTeapot( 1, nv::vec4f( 1, 0, 0, 1 ) );
+	sphere->shader = _defaultShaderProgram;
+
+	_components.push_back( sphere );
+
+	LightSourcePtr light0 = * _lights.begin();
+	nv::vec4f lightpos = light0->getModelMatrix() * nv::vec4f( light0->translation );
+	float x = 7, y = 7, z = 7;
+	nv::vec3f translations[] = {
+		nv::vec3f( x, 0, 0 ),
+		nv::vec3f( -x, 0, 0 ),
+		nv::vec3f( 0, y, 0 ),
+		nv::vec3f( 0, -y, 0 ),
+		nv::vec3f( 0, 0, -z ),
+		nv::vec3f( 0, 0, z ),
+	};
+
+	nv::vec3f rotations[] = {
+		nv::vec3f( 0, 0, 90 ),
+		nv::vec3f( 0, 0, -90 ),
+		nv::vec3f( 0, 0, 180 ),
+		nv::vec3f( 0, 0, 0 ),
+		nv::vec3f( 90, 0, 0 ),
+		nv::vec3f( -90, 0, 0 ),
+	};
+
+	_shadowedModels.clear();
+
+	for( int i = 0; i < 6; ++ i ) {
+		nv::vec4f p1, p2, p3;
+		ShadowedModelPtr shadowedModel = ShadowedModelPtr( new ShadowedModel );
+		ModelPtr plane( new Model );
+		plane->translationPostRotation = translations[ i ];
+		plane->rotation = rotations [ i ];
+		plane->loadPlane( x, z, nv::vec4f( 1, 1, 0, 1 ) );
+
+		plane->getPlanePoints( p1, p2, p3 );
+		shadowedModel->model = plane;
+		shadowedModel->light = light0;
+		shadowedModel->plane = getPlaneEquation( p1, p2, p3 );
+		shadowedModel->matrix = getShadowMatrix( shadowedModel->plane, lightpos );
+
+		_shadowedModels.push_back( shadowedModel );
+	}
+}
+
 void Game::initGame(){
 	std::cout << "Init started.\n";
 
@@ -73,7 +124,7 @@ void Game::initGame(){
 	_camera->loadScript("data/scripts/camera_anim.lua");
 
 	LightSourcePtr sun( new LightSource );
-	sun->translation = nv::vec3f( 4, 0, 0 );
+	sun->translation = nv::vec3f( -4, 0, 0 );
 	sun->color = nv::vec4f( 1, 1, 1, 1 );
 	sun->loadScript( "data/scripts/sun.lua" );
 	_lights.push_back( sun );
@@ -86,72 +137,7 @@ void Game::initGame(){
 	_skybox = new Skybox(50, 30, 50);
 	_skybox->loadTextures("data/gfx/skybox/desert_evening");
 
-	ModelPtr snake( new Model );
-	snake->loadFromFile("data/models/low_poly/snake_lo.obj", GLM_NONE | GLM_TEXTURE);
-	snake->loadTexture("data/gfx/textures/snake1.tga");
-	snake->loadScript("data/scripts/snake.lua");
-	snake->shader = _defaultShaderProgram;
-	//_components.push_back(snake);
-
-	ModelPtr sphere( new Model );
-	sphere->loadSphere( 3, 10, 10, nv::vec4f( 1, 0, 0, 1 ) );
-	sphere->shader = _defaultShaderProgram;
-
-	_components.push_back( sphere );
-
-	// right
-	ModelPtr plane( new Model );
-	plane->translationPostRotation = nv::vec3f( 10, 0, 0 );
-	plane->rotation = nv::vec3f( 0, 0, 90 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
-	// left
-	plane = ModelPtr( new Model );
-	plane->translationPostRotation = nv::vec3f( -10, 0, 0 );
-	plane->rotation = nv::vec3f( 0, 0, -90 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
-	// up
-	plane = ModelPtr( new Model );
-	plane->translationPostRotation = nv::vec3f( 0, 10, 0 );
-	plane->rotation = nv::vec3f( 0, 0, 180 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
-	// down
-	plane = ModelPtr( new Model );
-	plane->translationPostRotation = nv::vec3f( 0, -10, 0 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
-	// front
-	plane = ModelPtr( new Model );
-	plane->translationPostRotation = nv::vec3f( 0, 0, -10 );
-	plane->rotation = nv::vec3f( 90, 0, 0 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
-	// back
-	plane = ModelPtr( new Model );
-	plane->translationPostRotation = nv::vec3f( 0, 0, 10 );
-	plane->rotation = nv::vec3f( -90, 0, 0 );
-	plane->loadPlane( 10, 10, nv::vec4f( 1, 1, 0, 1 ) );
-	plane->shader = _defaultShaderProgram;
-
-	_components.push_back( plane );
-
+	createBigBoxWithTeapot();
 	std::cout << "Init Done.\n";
 
 	_lastClock = clock();
@@ -162,6 +148,7 @@ void Game::initGame(){
 void Game::updateScene()
 {
 	_camera->update();
+
 	foreach( LightSourcePtr light, _lights ) {
 		light->update();
 	}
@@ -169,26 +156,20 @@ void Game::updateScene()
 	foreach(GameComponentPtr component, _components) {
 		component->update();
 	}
+
+	foreach( ShadowedModelPtr model, _shadowedModels ) {
+		model->matrix = getShadowMatrix( model->plane, model->light->getModelMatrix() * nv::vec4f( model->light->translation ) );
+	}
 }
 
-void Game::renderScene()
+void Game::drawComponents( bool shadow )
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
-	glLoadIdentity();
-
-	_skybox->draw( *_camera );
-	_camera->draw();
+	int lightsCount = _lights.size();
 	nv::matrix4f viewMatrix = _camera->getViewMatrix();
 
-	foreach( LightSourcePtr light, _lights ){
-		light->draw( *_camera );
-	}
-	int lightsCount = _lights.size();
-
-	foreach( GameComponentPtr component, _components ){
+	foreach( GameComponentPtr component, _components ) {
 		boost::shared_ptr<ShaderProgram> program = component->shader;
-		if ( program != NULL && program->isValid() ) {
+		if ( program != NULL && program->isValid() && !shadow ) {
 			program->use();
 			program->setUniform( "u_PMatrix" , _projectionMatrix );
 			program->setUniform( "u_VMatrix", viewMatrix );
@@ -200,11 +181,49 @@ void Game::renderScene()
 			}
 		}
 
-		component->draw( *_camera );
+		component->draw( *_camera, shadow );
 
 		if ( program != NULL )
 			program->unUse();
 	}
+}
+
+void Game::renderScene()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPolygonMode(GL_FRONT_AND_BACK, _visualizationModes[_currentVisualizationMode]);
+	glLoadIdentity();
+
+	_skybox->draw( *_camera );
+	_camera->draw();
+
+	foreach( LightSourcePtr light, _lights ){
+		light->draw( *_camera );
+	}
+	
+	foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
+		glEnable( GL_STENCIL_TEST );
+		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
+
+		glStencilFunc( GL_ALWAYS, 1, 0 );
+		glClear( GL_STENCIL_BUFFER_BIT );
+
+		shadowedModel->model->draw( *_camera );
+
+		glStencilFunc( GL_EQUAL, 1, 1 );
+		glDisable( GL_DEPTH_TEST );
+		
+		glPushMatrix();
+		glMultMatrixf( shadowedModel->matrix._array );
+		(*_components.begin())->draw( *_camera, true);
+		//drawComponents( true );
+		glPopMatrix();
+
+		glEnable( GL_DEPTH_TEST );
+
+		glDisable( GL_STENCIL_TEST );
+	}
+	(*_components.begin())->draw( *_camera, false);
 	
 	glutSwapBuffers();
 }

@@ -21,7 +21,7 @@ public:
 	{ 
 		GameComponent::update(); 
 	}
-	void draw( Camera& cam );
+	void draw( Camera& cam, bool shadow = false );
 
 	bool loadFromFile(const char* fileName, GLuint mode = GLM_NONE, bool unitize = true, bool force = false);
 	void loadTexture(const char* fileName);
@@ -30,6 +30,7 @@ public:
 	void loadPlane( float width, float length, nv::vec4f color );
 	void loadCube( double size, nv::vec4f color );
 	void loadTeapot( double size, nv::vec4f color );
+	void getPlanePoints( nv::vec4f& p1, nv::vec4f& p2, nv::vec4f& p3 );
 
 	Model();
 	~Model();

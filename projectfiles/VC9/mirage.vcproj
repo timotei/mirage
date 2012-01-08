@@ -256,6 +256,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\src\Math.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\Math.hpp"
+			>
+		</File>
+		<File
 			RelativePath="..\..\src\ShaderProgram.cpp"
 			>
 		</File>

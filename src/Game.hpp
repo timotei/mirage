@@ -13,6 +13,7 @@ class Camera;
 class GameComponent;
 class LightSource;
 class ShaderProgram;
+class Model;
 
 class Game {
 public:
@@ -38,6 +39,16 @@ private:
 
 	typedef boost::shared_ptr<GameComponent> GameComponentPtr;
 	typedef boost::shared_ptr<LightSource> LightSourcePtr;
+	typedef boost::shared_ptr<Model> ModelPtr;
+
+	struct ShadowedModel {
+		ModelPtr model;
+		LightSourcePtr light;
+
+		nv::vec4f plane;
+		nv::matrix4f matrix;
+	};
+	typedef boost::shared_ptr<ShadowedModel> ShadowedModelPtr;
 
 	Skybox* _skybox;
 	Camera* _camera;
@@ -45,6 +56,7 @@ private:
 	
 	std::list<LightSourcePtr> _lights;
 	std::list<GameComponentPtr> _components;
+	std::list<ShadowedModelPtr> _shadowedModels;
 
 	clock_t _lastClock;
 	time_t _lastTime;
@@ -60,6 +72,8 @@ private:
 	void initOpenGL();
 	void initGame();
 	void initProjectionMatrix( int width, int height );
+	void createBigBoxWithTeapot();
+	void drawComponents( bool shadow );
 };
 
 #endif // MIRAGE_GAME_HPP__

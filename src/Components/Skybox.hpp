@@ -15,7 +15,7 @@
 class Skybox : public GameComponent{
 public:
 	Skybox(float width, float height, float thickness);
-	void draw( Camera& cam );
+	void draw( Camera& cam, bool = false );
 	void loadTextures(std::string texturePrefix);
 
 private:

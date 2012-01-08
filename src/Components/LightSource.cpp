@@ -17,8 +17,11 @@ LightSource::~LightSource()
 {
 }
 
-void LightSource::draw( Camera& cam)
+void LightSource::draw( Camera& cam, bool shadow )
 {
+	if ( shadow )
+		return;
+
 	glPushMatrix();
 
 	glTranslatef(translationPostRotation.x, translationPostRotation.y, translationPostRotation.z);

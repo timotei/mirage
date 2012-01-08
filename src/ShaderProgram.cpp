@@ -113,7 +113,7 @@ void ShaderProgram::use()
 
 	glGetIntegerv( GL_CURRENT_PROGRAM, &_prevProgramId );
 
-	glUseProgram( _programId );
+//	glUseProgram( _programId );
 }
 
 void ShaderProgram::unUse()
@@ -121,7 +121,7 @@ void ShaderProgram::unUse()
 	if ( _prevProgramId == -1 )
 		return;
 
-	glUseProgram( _prevProgramId );
+//	glUseProgram( _prevProgramId );
 	_prevProgramId = 0;
 }
 

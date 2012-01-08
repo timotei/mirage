@@ -24,7 +24,7 @@ void Skybox::loadTextures(std::string texturePrefix)
 	loadTGA((texturePrefix + "_back.tga").c_str(), _textures[BACK]);	
 }
 
-void Skybox::draw( Camera& cam )
+void Skybox::draw( Camera& cam, bool )
 {
 	glPushAttrib(GL_ENABLE_BIT);
 	glPushMatrix();

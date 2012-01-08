@@ -12,7 +12,7 @@ class Camera;
 
 class GameComponent{
 public:
-	virtual void draw( Camera& ) = NULL;
+	virtual void draw( Camera&, bool shadow = false ) = NULL;
 	virtual void update() 
 	{
 		if ( script != NULL ) {

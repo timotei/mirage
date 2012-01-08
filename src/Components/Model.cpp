@@ -58,11 +58,16 @@ void Model::cleanupCurrentModel()
 	}
 }
 
-void Model::draw( Camera& cam )
+void Model::draw( Camera& cam, bool shadow /*= false */  )
 {
 	glPushMatrix();
 	GLfloat prevColor[4]; 
 	glGetFloatv( GL_CURRENT_COLOR, prevColor );
+
+	nv::vec4f color = _color;
+	if ( shadow ) {
+		color = nv::vec4f( 0, 0, 0, 1 );
+	}
 
 	if (_textureLoaded) {
 		glEnable(GL_TEXTURE_2D);
@@ -91,19 +96,19 @@ void Model::draw( Camera& cam )
 		}
 		break;
 	case SPHERE:
-		glColor4fv( _color._array );
+		glColor4fv( color._array );
 		glutSolidSphere( _sphereRadius, _sphereSlices, _sphereStacks );
 		break;
 	case CUBE:
-		glColor4fv( _color._array );
+		glColor4fv( color._array );
 		glutSolidCube( _size );
 		break;
 	case TEAPOT:
-		glColor4fv( _color._array );
+		glColor4fv( color._array );
 		glutSolidTeapot( _size );
 		break;
 	case PLANE:
-		glColor4fv( _color._array );
+		glColor4fv( color._array );
 		glBegin( GL_QUADS );
 			glNormal3f(0,1,0);
 			glVertex3f( _planeWidth, 0, -_planeLength );
@@ -177,4 +182,16 @@ void Model::loadTeapot( double size, nv::vec4f color )
 	_type = TEAPOT;
 	_size = size;
 	_color = color;
+}
+
+void Model::getPlanePoints( nv::vec4f& p1, nv::vec4f& p2, nv::vec4f& p3 )
+{
+	nv::vec4f tmp1( _planeWidth, 0, -_planeLength, 1.0f );
+	nv::vec4f tmp2( -_planeWidth, 0, -_planeLength, 1.0f );
+	nv::vec4f tmp3( -_planeWidth, 0,  _planeLength, 1.0f );
+
+	nv::matrix4f model = getModelMatrix();
+	p1 = model * tmp1;
+	p2 = model * tmp2;
+	p3 = model * tmp3;
 }
