@@ -140,9 +140,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="lua5.1.lib glew32.lib tga.lib tolua++.lib"
+				AdditionalDependencies="lua5.1.lib glew32.lib mirage.external.lib"
 				AdditionalLibraryDirectories="&quot;$(ConfigurationName)/&quot;"
-				GenerateDebugInformation="true"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="false"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
