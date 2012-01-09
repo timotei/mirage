@@ -17,13 +17,14 @@ varying vec4 V;
 
 void main()
 {
+	vec3 Nnorm = normalize(N);
 	vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
 	int i = 0;
 	for( i = 0; i < u_LightsCount; i ++ ) {
 		vec3 L = normalize(u_Lights[i].position - V.xyz);
 		
 		// output the diffuse color
-		float NdotL = dot(N, L);
+		float NdotL = dot(Nnorm, L);
 		color += vec4(max(0.0, NdotL)) * u_Lights[i].color;
 	}
 	

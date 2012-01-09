@@ -13,7 +13,7 @@ void main(void)
     // normal MVP transform
     gl_Position = u_PMatrix * u_VMatrix * u_MMatrix * gl_Vertex;
 
-    N = normalize(gl_NormalMatrix * gl_Normal);
+    N = gl_NormalMatrix * gl_Normal;
     V = u_VMatrix * u_MMatrix * gl_Vertex;
 
     gl_FrontColor = gl_Color;
