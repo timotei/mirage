@@ -112,6 +112,8 @@ int main( int argc, char* argv[])
 {
 	//Initialize the GLUT library 
 	glutInit(&argc, argv);
+	glutInitContextVersion(1, 4);
+	glutInitContextProfile(GLUT_CORE_PROFILE | GLUT_COMPATIBILITY_PROFILE);
 
 	//Set the display mode 
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA); 
