@@ -29,7 +29,9 @@ class LightSource;
 class GameComponent{
 public:
 
-	GameComponent( Game* parent ) : parent( parent )
+	GameComponent( Game* parent ) : 
+	  parent( parent ),
+	  scale( 1, 1, 1 )
 	{ }
 	virtual ~GameComponent() 
 	{ }
@@ -57,12 +59,14 @@ public:
 		return 
 			nv::matrix4f().set_translate( translationPostRotation ) *
 			nv::matrix4f().set_rotate_degrees( rotation ) * 
-			nv::matrix4f().set_translate( translation );
+			nv::matrix4f().set_translate( translation ) *
+			nv::matrix4f().set_scale( scale );
 	}
 
 	nv::vec3f translation;
 	nv::vec3f translationPostRotation;
 	nv::vec3f rotation;
+	nv::vec3f scale;
 
 	Game* parent;
 	boost::shared_ptr<LuaScript> script;
