@@ -54,6 +54,7 @@ public:
 
 private:
 	boost::shared_ptr<GLMmodel> _model;
+	GLuint _modelDrawList;
 	GLuint _drawMode;
 	GLuint _texture;
 

@@ -48,6 +48,9 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 
 		glmFacetNormals( _model.get() );
 		glmVertexNormals( _model.get(), 90.0, GL_TRUE );
+
+		// create a display list
+		_modelDrawList = glmList(_model.get(), mode );
 	}
 
 	std::cout << "done\n";
@@ -119,7 +122,7 @@ void Model::draw( bool shadow /*= false */  )
 	case FILE:
 		if (_model != NULL){
 			if ( shadow ) glColor3f( 0, 0, 0 );
-			glmDraw( _model.get(), _drawMode );
+			glCallList( _modelDrawList );
 		}
 		break;
 	case SPHERE:
