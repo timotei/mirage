@@ -17,7 +17,7 @@ cd ..\..
 %cpy% data\shaders build\data\shaders\
 
 cd build
-zip -r data *.*
+zip -r data *.* -x *.zip 
 move data.zip mirage.%PROFILE%.zip
 cd ..
 
