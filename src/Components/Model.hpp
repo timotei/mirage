@@ -53,7 +53,7 @@ public:
 	~Model();
 
 private:
-	GLMmodel* _model;
+	boost::shared_ptr<GLMmodel> _model;
 	GLuint _drawMode;
 	GLuint _texture;
 
@@ -70,9 +70,6 @@ private:
 	float _planeWidth;
 
 	bool _size;
-
-	void cleanupCurrentModel();
-	DISALLOW_COPY_AND_ASSIGN(Model);
 };
 
 #endif // MIRAGE_MODEL_HPP__

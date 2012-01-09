@@ -22,8 +22,10 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+#include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include <boost/make_shared.hpp>
 
 #include "Components/GameComponent.hpp"
 #include "Components/Camera.hpp"
@@ -47,6 +49,7 @@ _components( 0 ),
 _lights( 0 ),
 _enableShadows( true )
 {
+	srand( ( unsigned int ) time( NULL ) );
 }
 
 Game::~Game()
@@ -77,7 +80,7 @@ void Game::initOpenGL() {
 void Game::createBigBoxWithTeapot()
 {
 	ModelPtr sphere( new Model( this ) );
-	sphere->loadSphere( 1, 100, 100, nv::vec4f( 1, 0, 0, 1 ) );
+	sphere->loadSphere( 1, 100, 100, nv::vec4f( 0, 0, 0, 1 ) );
 	sphere->shader = _defaultShaderProgram;
 
 	_components.push_back( sphere );
@@ -120,6 +123,53 @@ void Game::createBigBoxWithTeapot()
 	}
 }
 
+void Game::addObjects( int count, Model objectModel, float scale, float y )
+{
+	const int minX = -200, maxX = -200, minZ = -200, maxZ = 200;
+	for( int i = 0; i < count; ++i ) {
+		ModelPtr model = boost::make_shared<Model>( objectModel );
+		model->shader = _defaultShaderProgram;
+		model->scale = nv::vec3f( scale );
+
+		model->translationPostRotation.x = ( float ) ( rand() % ( 2 * maxX ) + minX );
+		model->translationPostRotation.y = y;
+		model->translationPostRotation.z = ( float ) ( rand() % ( 2 * maxZ ) + minZ );
+
+		model->rotation.y = ( float ) ( rand() % 360 );
+
+		_components.push_back( model );
+	}
+}
+
+void Game::createScene()
+{
+	// the ground
+	ModelPtr ground( new Model( this ) );
+	ground->loadPlane( 200, 200, nv::vec4f( .58f, .3f, 0, 1 ) );
+	ground->translation = nv::vec3f( 0, -5, 0 );
+	ground->shader = _defaultShaderProgram;
+	ShadowedModelPtr sModel( new ShadowedModel );
+	sModel->model = ground;
+
+	nv::vec4f p1, p2, p3;
+	ground->getPlanePoints( p1, p2, p3 );
+	sModel->plane = getPlaneEquation(p1, p2, p3);
+	_shadowedModels.push_back( sModel );
+
+	// add cactuses
+	Model cactus( this );
+	cactus.loadFromFile( "data/models/low_poly/cactus_lo.obj", GLM_SMOOTH | GLM_MATERIAL );
+	addObjects( 2, cactus, 6, 0 );
+
+	Model waterTower( this );
+	waterTower.loadFromFile( "data/models/low_poly/water_tower_lo.obj", GLM_SMOOTH | GLM_MATERIAL );
+	addObjects( 1,  waterTower, 10, 0 );
+
+	Model spine( this );
+	spine.loadFromFile( "data/models/low_poly/spine.obj", GLM_SMOOTH | GLM_MATERIAL );
+	addObjects( 2, spine, 10, 0 );
+}
+
 void Game::initGame(){
 	std::cout << "Init started.\n";
 
@@ -131,7 +181,7 @@ void Game::initGame(){
 	// ambient
 	GLfloat globalAmbient[4] = { .1f, .1f, .1f, 1.0f};
 	glLightModelfv( GL_LIGHT_MODEL_AMBIENT, globalAmbient );
-
+	
 	LightSourcePtr sun( new LightSource( this ) );
 	sun->translation = nv::vec3f( -4, 0, 0 );
 	sun->color = nv::vec4f( 1, 1, 1, 1 );
@@ -146,7 +196,10 @@ void Game::initGame(){
 	_skybox = new Skybox( this, 50, 30, 50 );
 	_skybox->loadTextures( "data/gfx/skybox/desert_evening" );
 
-	createBigBoxWithTeapot();
+	//createBigBoxWithTeapot();
+
+	createScene();
+
 	std::cout << "Init Done.\n";
 
 	_lastClock = clock();
@@ -182,9 +235,9 @@ void Game::renderScene()
 	
 	if ( _enableShadows ) {
 		glEnable( GL_STENCIL_TEST );
-		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
+		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
 
-			glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
+		foreach( ShadowedModelPtr shadowedModel, _shadowedModels ) {
 
 			glStencilFunc( GL_ALWAYS, 1, 0 );
 			glClear( GL_STENCIL_BUFFER_BIT );

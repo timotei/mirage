@@ -18,6 +18,7 @@
 #include <fstream>
 #include <tga.h>
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 #include "tolua++.h"
 #include "../ShaderProgram.hpp"
@@ -28,7 +29,6 @@
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 
 						 bool unitize /* = true */, bool force /* = false */)
 {
-	cleanupCurrentModel();
 	std::cout << "Loading model from file: " << fileName << " ... ";
 
 	if (_model == NULL || force){
@@ -38,16 +38,16 @@ bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */,
 			return false;
 		}
 
-		_model = glmReadOBJ(const_cast<char*>(fileName));
+		_model = boost::shared_ptr<GLMmodel>( glmReadOBJ( const_cast<char*>( fileName ) ) );
 
 		if (_model == NULL) return false;
 
 		if (unitize){
-			glmUnitize(_model);
+			glmUnitize( _model.get() );
 		}
 
-		glmFacetNormals(_model);
-		glmVertexNormals(_model, 90.0, GL_TRUE);
+		glmFacetNormals( _model.get() );
+		glmVertexNormals( _model.get(), 90.0, GL_TRUE );
 	}
 
 	std::cout << "done\n";
@@ -65,14 +65,6 @@ void Model::loadTexture(const char *fileName)
 	_textureLoaded = true;
 
 	std::cout << "done\n";
-}
-
-void Model::cleanupCurrentModel()
-{
-	if (_model != NULL) {
-		glmDelete(_model);
-		_model = NULL;
-	}
 }
 
 void Model::draw( bool shadow /*= false */  )
@@ -114,6 +106,8 @@ void Model::draw( bool shadow /*= false */  )
 
 	glTranslatef(translation.x, translation.y, translation.z);
 
+	glScalef( scale.x, scale.y, scale.z );
+
 	if ( shader != NULL ) {
 		shader->setUniform( "u_UseTexture", (int)_textureLoaded | (_drawMode & GLM_TEXTURE ) );
 	}
@@ -124,7 +118,8 @@ void Model::draw( bool shadow /*= false */  )
 		break;
 	case FILE:
 		if (_model != NULL){
-			glmDraw(_model, _drawMode);
+			if ( shadow ) glColor3f( 0, 0, 0 );
+			glmDraw( _model.get(), _drawMode );
 		}
 		break;
 	case SPHERE:
@@ -166,12 +161,10 @@ void Model::draw( bool shadow /*= false */  )
 
 Model::~Model()
 {
-	cleanupCurrentModel();
 }
 
 Model::Model( Game* parent ) :
 GameComponent( parent ),
-_model( NULL ),
 _drawMode( GLM_NONE ),
 _type( NONE ),
 _textureLoaded( false )

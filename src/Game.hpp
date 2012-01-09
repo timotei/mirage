@@ -89,6 +89,8 @@ private:
 	void initProjectionMatrix( int width, int height );
 	void createBigBoxWithTeapot();
 	void drawComponents( bool shadow );
+	void createScene();
+	void addObjects( int count, Model objectModel, float scale, float y );
 };
 
 #endif // MIRAGE_GAME_HPP__
