@@ -28,6 +28,7 @@ _lastMouseY(-1)
 }
 
 void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
+	if ( useAnimation ) return;
 	if ( isButtonPressed && _leftMousePressed ){
 		int deltaX = x - _lastMouseX;
 		int deltaY = y - _lastMouseY;
@@ -40,6 +41,8 @@ void Camera::onMouseMoved(int x, int y, bool isButtonPressed /* = true */){
 }
 
 void Camera::onKeyPressed(int key, int mouseX, int mouseY, bool special){
+	if ( useAnimation && !special && key != 'u' ) return;
+
 	if (!special){
 		float sinX = float(sin(toRadians(rotation.x))) / 2;
 		float sinY = float(sin(toRadians(rotation.y))) / 2;
