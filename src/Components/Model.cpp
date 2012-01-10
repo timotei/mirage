@@ -23,7 +23,7 @@
 #include "tolua++.h"
 #include "../ShaderProgram.hpp"
 #include "../Game.hpp"
-#include "Camera.hpp"
+#include "../Camera.hpp"
 #include "LightSource.hpp"
 
 bool Model::loadFromFile(const char* fileName, GLuint mode /* = GLM_SMOOTH */, 

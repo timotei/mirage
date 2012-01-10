@@ -208,14 +208,6 @@
 			Name="Components"
 			>
 			<File
-				RelativePath="..\..\src\Components\Camera.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Components\Camera.hpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Components\GameComponent.hpp"
 				>
 			</File>
@@ -244,6 +236,14 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\src\Camera.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\Camera.hpp"
+			>
+		</File>
 		<File
 			RelativePath="..\..\src\Game.cpp"
 			>

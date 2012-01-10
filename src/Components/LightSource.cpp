@@ -16,7 +16,7 @@
 
 #include <sstream>
 
-#include "Camera.hpp"
+#include "../Camera.hpp"
 
 static int LIGHTS_COUNTER = 0;
 

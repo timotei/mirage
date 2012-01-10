@@ -1,6 +1,6 @@
 /*
 ** Lua binding: luamirage
-** Generated automatically by tolua++-1.0.92 on 01/08/12 23:11:58.
+** Generated automatically by tolua++-1.0.92 on 01/10/12 11:28:20.
 */
 
 #ifndef __cplusplus
@@ -15,9 +15,9 @@ TOLUA_API int  tolua_luamirage_open (lua_State* tolua_S);
 
 #include "LuaMirage.hpp"
 #include "../Game.hpp"
+#include "../Camera.hpp"
 #include "../Components/Model.hpp"
 #include "../Components/GameComponent.hpp"
-#include "../Components/Camera.hpp"
 #include "nvMath.h"
 using namespace nv;
 

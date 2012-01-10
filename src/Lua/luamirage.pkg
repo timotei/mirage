@@ -14,9 +14,9 @@
 */
 $#include "LuaMirage.hpp"
 $#include "../Game.hpp"
+$#include "../Camera.hpp"
 $#include "../Components/Model.hpp"
 $#include "../Components/GameComponent.hpp"
-$#include "../Components/Camera.hpp"
 $#include "nvMath.h"
 $using namespace nv;
 

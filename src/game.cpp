@@ -27,8 +27,8 @@
 #include <vector>
 #include <boost/make_shared.hpp>
 
+#include "Camera.hpp"
 #include "Components/GameComponent.hpp"
-#include "Components/Camera.hpp"
 #include "Components/Model.hpp"
 #include "Components/LightSource.hpp"
 #include "Components/Skybox.hpp"
@@ -158,7 +158,7 @@ void Game::createScene()
 
 	// add cactuses
 	Model cactus( this );
-	cactus.loadFromFile( "data/models/low_poly/cactus_lo.obj", GLM_SMOOTH | GLM_MATERIAL );
+	cactus.loadFromFile( "data/models/cactus.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
 	addObjects( 2, cactus, 6, 0 );
 
 	Model waterTower( this );
@@ -167,7 +167,11 @@ void Game::createScene()
 
 	Model spine( this );
 	spine.loadFromFile( "data/models/low_poly/spine.obj", GLM_SMOOTH | GLM_MATERIAL );
-	addObjects( 2, spine, 10, 0 );
+	addObjects( 42, spine, 10, 0 );
+
+	Model bird( this );
+	bird.loadFromFile( "data/models/brown_bird.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+	addObjects( 1, bird, 5, 15 );
 }
 
 void Game::initGame(){

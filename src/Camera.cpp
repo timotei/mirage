@@ -13,13 +13,13 @@
    See the COPYING file for more details.
 */
 #include "Camera.hpp"
-#include "../Utils.hpp"
+#include "Utils.hpp"
 
 #include <iostream>
 #include <math.h>
 
 #include "tolua++.h"
-#include "../Lua/LuaScript.hpp"
+#include "Lua/LuaScript.hpp"
 
 Camera::Camera() : 
 _lastMouseX(-1),
