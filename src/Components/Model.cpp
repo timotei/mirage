@@ -177,6 +177,8 @@ _textureLoaded( false )
 
 void Model::loadScript(std::string path)
 {
+	GameComponent::loadScript( path );
+	if ( script == NULL )
 	script = boost::shared_ptr<LuaScript>(new LuaScript);
 
 	tolua_pushusertype(*script, (void*)this, "Model");
