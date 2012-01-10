@@ -159,19 +159,41 @@ void Game::createScene()
 	// add cactuses
 	Model cactus( this );
 	cactus.loadFromFile( "data/models/cactus.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
-	addObjects( 2, cactus, 6, 0 );
+	addObjects( 4, cactus, 6, 0 );
+
+	Model cactus2( this );
+	cactus2.loadFromFile( "data/models/low_poly/cactus_lo.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE  );
+	addObjects( 6, cactus2, 6, 0 );
 
 	Model waterTower( this );
 	waterTower.loadFromFile( "data/models/low_poly/water_tower_lo.obj", GLM_SMOOTH | GLM_MATERIAL );
-	addObjects( 1,  waterTower, 10, 0 );
+	addObjects( 1,  waterTower, 15, 7 );
 
 	Model spine( this );
 	spine.loadFromFile( "data/models/low_poly/spine.obj", GLM_SMOOTH | GLM_MATERIAL );
-	addObjects( 42, spine, 10, 0 );
+	addObjects( 3, spine, 4, -4 );
 
 	Model bird( this );
 	bird.loadFromFile( "data/models/brown_bird.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
-	addObjects( 1, bird, 5, 15 );
+	bird.loadScript( "data/scripts/bird.lua" );
+	addObjects( 2, bird, 5, 15 );
+
+	Model house( this );
+	house.loadFromFile( "data/models/house.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+	addObjects( 1, house, 15, 3 );
+
+	Model balloon( this );
+	balloon.loadFromFile( "data/models/balloon.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+	balloon.loadScript( "data/scripts/balloon.lua" );
+	addObjects( 1, balloon, 15, 35 );
+
+	Model camel( this );
+	camel.loadFromFile( "data/models/camel.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+	addObjects( 2, camel, 8, 1.7f );
+
+	Model palm_tree( this );
+	palm_tree.loadFromFile( "data/models/palm_tree.obj", GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+	addObjects( 5, palm_tree, 15, 10 );
 }
 
 void Game::initGame(){
@@ -193,16 +215,16 @@ void Game::initGame(){
 	_lights.push_back( sun );
 
 	LightSourcePtr light1( new LightSource( this ) );
-	light1->translation = nv::vec3f( 0, 0, 4);
+	light1->translation = nv::vec3f( 0, 0, 35);
 	light1->color = nv::vec4f( 1, 1, 1, 1 );
-	//_lights.push_back( light1 );
+	_lights.push_back( light1 );
 
 	_skybox = new Skybox( this, 50, 30, 50 );
 	_skybox->loadTextures( "data/gfx/skybox/desert_evening" );
 
-	createBigBoxWithSphere();
+//	createBigBoxWithSphere();
 
-	//createScene();
+	createScene();
 
 	std::cout << "Init Done.\n";
 
