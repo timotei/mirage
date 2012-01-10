@@ -87,7 +87,7 @@ private:
 	void initOpenGL();
 	void initGame();
 	void initProjectionMatrix( int width, int height );
-	void createBigBoxWithTeapot();
+	void createBigBoxWithSphere();
 	void drawComponents( bool shadow );
 	void createScene();
 	void addObjects( int count, Model objectModel, float scale, float y );

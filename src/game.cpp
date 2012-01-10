@@ -77,10 +77,10 @@ void Game::initOpenGL() {
 }
 
 // for testing shadows
-void Game::createBigBoxWithTeapot()
+void Game::createBigBoxWithSphere()
 {
 	ModelPtr sphere( new Model( this ) );
-	sphere->loadSphere( 1, 100, 100, nv::vec4f( 0, 0, 0, 1 ) );
+	sphere->loadSphere( 1, 100, 100, nv::vec4f( 1, 0, 0, 1 ) );
 	sphere->shader = _defaultShaderProgram;
 
 	_components.push_back( sphere );
@@ -200,9 +200,9 @@ void Game::initGame(){
 	_skybox = new Skybox( this, 50, 30, 50 );
 	_skybox->loadTextures( "data/gfx/skybox/desert_evening" );
 
-	//createBigBoxWithTeapot();
+	createBigBoxWithSphere();
 
-	createScene();
+	//createScene();
 
 	std::cout << "Init Done.\n";
 
