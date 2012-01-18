@@ -36,6 +36,20 @@ public:
 	virtual ~GameComponent() 
 	{ }
 
+	GameComponent( const GameComponent& comp ) 
+		: translation( comp.translation ),
+		translationPostRotation( comp.translationPostRotation ),
+		rotation( comp.rotation ),
+		scale( comp.scale ),
+		parent( comp.parent ),
+		shader( comp.shader )
+	{
+		if ( comp.script != NULL ) {
+			loadScript( comp.script->getScriptPath() );
+		}
+	}
+	//FIXME: add the operator=
+
 	virtual void draw( bool = false ) = NULL;
 	virtual void update() 
 	{

@@ -33,6 +33,7 @@ LuaScript::~LuaScript()
 
 int LuaScript::executeScript(std::string path)
 {
+	_path = path;
 	std::cout << "Loading lua script " << path << " ...";
 	int res = luaL_loadfile(_state, path.c_str());
 	if (res != 0){

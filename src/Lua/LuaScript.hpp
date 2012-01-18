@@ -26,6 +26,7 @@ extern "C" {
 class LuaScript{
 private:
 	lua_State *_state;
+	std::string _path;
 
 public:
 	LuaScript();
@@ -37,6 +38,8 @@ public:
 
 	int executeScript(std::string path);
 	void callVoidFunction(std::string functionName);
+
+	const std::string& getScriptPath() { return _path; }
 };
 
 typedef boost::shared_ptr<LuaScript> LuaScriptPtr;
